@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Answers" representedClassName="Answers" syncable="YES">
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="measurement" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Measurements" inverseName="answers" inverseEntity="Measurements" syncable="YES"/>
+        <relationship name="staffReport" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="StaffReports" inverseName="answers" inverseEntity="StaffReports" syncable="YES"/>
+    </entity>
+    <entity name="Measurements" representedClassName="Measurements" syncable="YES">
+        <attribute name="mcc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="measurementId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="type" attributeType="String" syncable="YES"/>
+        <relationship name="answers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Answers" inverseName="measurement" inverseEntity="Answers" syncable="YES"/>
+        <relationship name="node" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nodes" inverseName="measurements" inverseEntity="Nodes" syncable="YES"/>
+    </entity>
+    <entity name="Nodes" representedClassName="Nodes" syncable="YES">
+        <attribute name="autoSubmitReport" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="autoSubmitWHQReport" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="directorNode" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="interval" optional="YES" attributeType="String" defaultValueString="Monthly" syncable="YES"/>
+        <attribute name="isInactive" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isWHQReportingNode" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
+        <attribute name="locationId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="locationName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nodeId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="passPhrase" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reportStartDate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="sendStaffRemiderEmail" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="timezone" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="measurements" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Measurements" inverseName="node" inverseEntity="Measurements" syncable="YES"/>
+        <relationship name="staffReports" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StaffReports" inverseName="node" inverseEntity="StaffReports" syncable="YES"/>
+    </entity>
+    <entity name="StaffReports" representedClassName="StaffReports" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="staffReportId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="submitted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" defaultValueString="Staff" syncable="YES"/>
+        <relationship name="answers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Answers" inverseName="staffReport" inverseEntity="Answers" syncable="YES"/>
+        <relationship name="node" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Nodes" inverseName="staffReports" inverseEntity="Nodes" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Users" inverseName="staffReports" inverseEntity="Users" syncable="YES"/>
+    </entity>
+    <entity name="Users" representedClassName="Users" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="renId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="staffReports" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StaffReports" inverseName="user" inverseEntity="StaffReports" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Answers" positionX="-2439" positionY="-765" width="128" height="88"/>
+        <element name="Measurements" positionX="-2720" positionY="-918" width="128" height="133"/>
+        <element name="Nodes" positionX="-2907" positionY="-937" width="128" height="298"/>
+        <element name="StaffReports" positionX="-2718" positionY="-775" width="128" height="163"/>
+        <element name="Users" positionX="-2907" positionY="-610" width="128" height="88"/>
+    </elements>
+</model>
