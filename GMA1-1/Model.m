@@ -274,7 +274,7 @@ MyCustomBlock openBlock;
      
     [self.alertBarController showMessage:@"Contacting GMA..." withBackgroundColor:activityColor withSpinner: YES];
     
-    
+    //Authenticate user in API Thread
     dispatch_async(self.gma_Api, ^{
         NSMutableDictionary *status= [api AuthenticateUser:Username WithPassword:Password LoginSuccessHandler:loginBlock ].mutableCopy;
         [status setObject:[NSNumber numberWithBool:filenameChanged] forKey:@"filenameChanged"] ;
@@ -290,6 +290,7 @@ MyCustomBlock openBlock;
 }
 -(void) saveModel
 {
+    //Thread Safe save model - which will actually write to disk
     [self.allNodesForUser.managedObjectContext performBlock:^{
         
         
@@ -301,18 +302,25 @@ MyCustomBlock openBlock;
 
 -(void) fetchAllUserNodesWithCompletionHandler: (void (^)())block
 {
+    //Get Users Reports (Staff/Director/Node) for past three months, grouped by Report Type then Node
+
     
-    
+    //if offline node - don't try to fetch data
     if(self.offlineMode) return ;
     
+        
+    //dispatch on the API thread
     dispatch_async(self.gma_Api, ^{
         [self.alertBarController showMessage:@"Downloading..." withBackgroundColor:activityColor withSpinner: YES];
         
-        NSDictionary *user = [api getCurrentUser];
-        NSArray *groupedData = [api getAllUserNodes];
-        NSArray *groupedData2 = [api getAllDirectorNodes];
+        NSDictionary *user = [api getCurrentUser];  //TODO: THis might need to switch to Get All Users - but requires GMA permissions
+        NSArray *groupedData = [api getAllUserNodes]; // Get Staff Reports 
+        NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
+        
+        
         if(user)
         {
+            //Save my User details to UserDefaults
             self.myRenId=[user objectForKey:@"renId"];
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             [prefs setObject:self.myRenId forKey:@"renId"];
@@ -320,9 +328,11 @@ MyCustomBlock openBlock;
             
         }
         
+        
+        //Load data into Model in the managedObjectContext
         [self.allNodesForUser.managedObjectContext performBlock:^{
             [Users userWithRenId:self.myRenId Name:[user objectForKey:@"preferredName"] inManagedObjectContext:self.allNodesForUser.managedObjectContext ];
-       
+            
             for (NSArray *nodeInfo in groupedData){
                // NSLog(@"Processing Node: %@", [(NSDictionary *)[(NSDictionary *)[nodeInfo objectAtIndex:0] valueForKey:@"node"] valueForKey:@"nodeId"] );
                                 
@@ -340,7 +350,7 @@ MyCustomBlock openBlock;
             }
             
             [self saveModel];
-               [self.alertBarController hideAlertBar];
+            [self.alertBarController hideAlertBar];
            
             if(block) block();
         }];
@@ -358,12 +368,17 @@ MyCustomBlock openBlock;
     
 }
 
+
 -(void) fetchStaffReport:(NSNumber *) sr forNode: (NSNumber *) nodeId atDate: (NSNumber *)date completionHandler:(void (^)())block
 {
+    //Retrieve individual staff or Director report (Sorry about the name!!!)
+    
     
     if(self.offlineMode){if(block) block(); return ;}
+    
     [self.alertBarController showMessage:@"Downloading..." withBackgroundColor:activityColor withSpinner: YES];
    
+    //Call api on the API Thread
     dispatch_async(self.gma_Api, ^{
         NSDictionary *measurements;
         NSArray *groupedData ;
@@ -377,11 +392,12 @@ MyCustomBlock openBlock;
         else{
                 measurements=[self.api getMeasurementsForNode:nodeId];
         }
+        //dispatch managedObjectContext to load into model
         [self.allNodesForUser.managedObjectContext performBlock:^{
-            
-            [Nodes addMeasurements:measurements toNode:nodeId inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:[nodeId intValue]<0];
+        [Nodes addMeasurements:measurements toNode:nodeId inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:[nodeId intValue]<0];
         }];
         
+        //back on API thread - get answers for the current staff report
             NSDictionary *answers ;
             if([nodeId intValue]<0)
             {
@@ -395,10 +411,15 @@ MyCustomBlock openBlock;
                 
             }
           
-            
-     [self.allNodesForUser.managedObjectContext performBlock:^{
-               [self saveModel];
+        //Switch to managedObjectConext to load answers into model
+        [self.allNodesForUser.managedObjectContext performBlock:^{
+            //previous ensure changes are saved - to avoid duplicates
+            [self saveModel];
        
+            
+            //Answers is broken down by Question Type
+            
+            //Iterate through the Numeric Answers
             NSArray *mNumeric = [answers objectForKey:@"numericMeasurements"] ;
                 
             if(mNumeric != (id)[NSNull null]){
@@ -472,7 +493,12 @@ MyCustomBlock openBlock;
                     
                 }
             }
-              [self saveModel];
+            
+            //Save model to file
+            [self saveModel];
+            
+            //gma.agapeconnect.me has hacked gma services to add SubNode Reports to the Director Report Retrieve.
+            //see: https://docs.google.com/a/agape.org.uk/document/d/1L1k5CH2bHzbFYHDz7a1YL4ofe3hDCz5-dWsgmz3bZ5M/edit
             
             NSArray *mSubNodes = [answers objectForKey:@"child_nodes"] ;
             if(mSubNodes != (id)[NSNull null]){
@@ -509,8 +535,8 @@ MyCustomBlock openBlock;
             }
           
 
-            
-                  [self saveModel];
+        //Save model to disk
+        [self saveModel];
            
         
         
@@ -521,9 +547,10 @@ MyCustomBlock openBlock;
                 for (NSArray *nodeInfo in groupedData){
                     
                     
-                    //NSLog(@"Getting Staff Nodes for Director of Node: %@", [(NSDictionary *)[(NSDictionary *)[nodeInfo objectAtIndex:0] valueForKey:@"node"] valueForKey:@"nodeId"] );
                     [Nodes nodeFromGmaInfoStaffReport:nodeInfo  inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:NO fromRenId: self.myRenId];
                        [self saveModel];
+                    
+                    //On each Director Report: Retrieve the staff reports for each of the staff members who report at this node
                     for(NSDictionary *report in nodeInfo){
                         
                         //add this user
@@ -561,6 +588,7 @@ MyCustomBlock openBlock;
 
 - (void)setAllNodesForUser:(UIManagedDocument *)allNodesForUser
 {
+    //Set the manageddocument
     if(_allNodesForUser!=allNodesForUser){
         _allNodesForUser = allNodesForUser;
         [self useDocument];
@@ -597,6 +625,7 @@ BOOL stringIsNumeric(NSString *str) {
 
 -(BOOL) isCacheEmpty
 {
+    //Are there transactions queued that have not been uploaded
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if([prefs objectForKey:@"cacheStack"])
     {
@@ -608,6 +637,7 @@ BOOL stringIsNumeric(NSString *str) {
 }
 -(void) emptyCacheStack
 {
+    //Clear any pending transactions
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setObject:nil forKey:@"cacheStack"];
     [prefs synchronize];
@@ -617,6 +647,8 @@ BOOL stringIsNumeric(NSString *str) {
 
 -(void) clearCacheStackWithCompletionHandler:(void (^)(NSString *))block
 {
+    //upload pending transactions
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
    
@@ -668,8 +700,12 @@ BOOL stringIsNumeric(NSString *str) {
 
 - (void) saveModelAnswerForMeasurementId:(NSNumber *)measurementId measurementType: (NSString *) measurementType  inStaffReport:(NSNumber *)  staffReportId  atNodeId: (NSNumber *) nodeId withValue:(NSString *)value  oldValue: (NSString *) oldValue  completionHandler:(void (^)(NSString *))block
 {
+    //Save an Answer
+    
     [self.alertBarController showMessage:@"Saving..." withBackgroundColor:activityColor withSpinner: YES];
     NSString *type=@"Staff";
+    
+    //If the Staff ReportId <0, it is a Director Report. (I know this is horrible. TODO: user ReportType on Reports Table)
     if(staffReportId.intValue <0)
         type=@"Director";
 
@@ -710,7 +746,6 @@ BOOL stringIsNumeric(NSString *str) {
     }
     
     
-    //Now upload change to web
    
    
     
@@ -727,7 +762,7 @@ BOOL stringIsNumeric(NSString *str) {
     dispatch_async(self.gma_Api, ^{
         if([staffReportId intValue]<0)
         {
-        [self.api submitDirectorReport:[NSNumber numberWithInt:-[staffReportId intValue]]];
+            [self.api submitDirectorReport:[NSNumber numberWithInt:-[staffReportId intValue]]];
         }
         else
         {

@@ -53,18 +53,17 @@ saveBlock cacheCompletionBlock;
 -(void) loginUser: (NSString *)username WithPassword: (NSString *)password
 {
     if(!self.dataModel){
-        
-
-        
         [NSFetchedResultsController deleteCacheWithName:nil];
         
-       self.fetchedResultsController=nil;
+        self.fetchedResultsController=nil;
         
         self.dataModel = [[Model alloc] initWithCompletionHander:^(BOOL success){
-           [self setupFetchedResultsController];
-             [self.tableView reloadData];
+            [self setupFetchedResultsController];
+            [self.tableView reloadData];
         } ];
-    
+        
+        //The root view is a container with an overlay view at the bottom, which allows me to display status messages
+        
         alertViewController *rootViewController = (alertViewController *)[self.navigationController parentViewController];
         [rootViewController setDelegate:self];
         
@@ -76,25 +75,21 @@ saveBlock cacheCompletionBlock;
                 
     }
     
-   // [self.activity startAnimating];
+   ;
     [self.loginButton setEnabled:NO];
+    
+    //Authenticate user. Ther are to handlers: one after GCX Authentication and one after GMA authentication
     [self.dataModel authenticateUser:username WithPassword:password LoginSuccessHandler:^(BOOL success){
         dispatch_async(dispatch_get_main_queue(), ^{
-            
+        //GCX authentication returned
         if(success)
             [self dismissViewControllerAnimated:YES completion: nil];
-        else{
-            
-        //    UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Connect Failed" message:KEY_NOCONNECT_Message delegate:self cancelButtonTitle:GMA_OFFLINE otherButtonTitles:GMA_TRY_AGAIN, nil];
-          //  dispatch_async(dispatch_get_main_queue(), ^{  [av show]; });
-            
-            
-        }
+        
         });
         
         
     } CompletionHander:^(NSDictionary *status){
-        
+        //GMA Authentication Returned
         if((BOOL)[status objectForKey:@"filenameChanged"] )
         {
                 [self setupFetchedResultsController];
@@ -106,6 +101,8 @@ saveBlock cacheCompletionBlock;
         {
             //check cacheStack for items
             self.dataModel.offlineMode = NO;
+            
+             //check cacheStack for pending transaction to upload
             if([prefs objectForKey:@"cacheStack"])
             {
                 //If the Cache exists, look for existing Item
@@ -113,7 +110,7 @@ saveBlock cacheCompletionBlock;
                 if(self.dataModel.forceSave)
                 {
                     self.dataModel.forceSave = false;
-                 [self.dataModel clearCacheStackWithCompletionHandler:cacheCompletionBlock];
+                    [self.dataModel clearCacheStackWithCompletionHandler:cacheCompletionBlock];
                     
                 }
                 else if(cacheStack.count > 0)
@@ -129,15 +126,12 @@ saveBlock cacheCompletionBlock;
             
             self.dataModel.loggedIn = true;
             
-            
-           // [self.navigationController popToRootViewControllerAnimated:true];
+            //If the user has enabled AutoLogin -  save their credentials in the secure keychain
             if([(NSNumber *)[prefs objectForKey:@"AutoLogin"]  boolValue] ){
                 
                 [self.dataModel setUsername:username];
                 [self.dataModel setPassword:password];
-                //NSLog(@"Username: %@ ; Password: %@", [self.dataModel getUsername] , [self.dataModel getPassword]);
                 
-            
             }
             else{
                 [self.dataModel setUsername:nil];
@@ -150,21 +144,18 @@ saveBlock cacheCompletionBlock;
             
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                  
-                  // [self.activity stopAnimating];
+                //Change the login button on the main thread
                 [self.loginButton setTitle:@"Login"];
-                
                 [self.loginButton setEnabled:YES];
-                
-                
+                 
             });
             
         }
-        else
+        else   //Login Failed
         {
             if([(NSString *)[status objectForKey:@"Reason"] isEqualToString: @"Invalid Username or Password"] || [(NSString *)[status objectForKey:@"Reason"] isEqualToString: GMA_OFFLINE]){
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    
+                    //Re dispayy login screan with Invalid Username message
                     [self dismissViewControllerAnimated:YES completion: nil];
                     [self showLoginScreenWithError:YES];
                     
@@ -172,22 +163,20 @@ saveBlock cacheCompletionBlock;
                 
             }
              if([(NSString *)[status objectForKey:@"Reason"] isEqualToString: GMA_OFFLINE]){
+                 //show connect fail message
                  UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Connect Failed" message:KEY_NOCONNECT_Message delegate:self cancelButtonTitle:GMA_OFFLINE otherButtonTitles:GMA_TRY_AGAIN, nil];
                    dispatch_async(dispatch_get_main_queue(), ^{  [av show]; });
              }
             else
             {
+                 //show connect fail message
                 UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Connect Failed" message:GMA_NOCONNECT_Message delegate:self cancelButtonTitle:GMA_OFFLINE otherButtonTitles:GMA_TRY_AGAIN, nil];
                 dispatch_async(dispatch_get_main_queue(), ^{  [av show]; });
                
                 
                                
             }
-            
-           
-            
-         //if login view is not modally set... show it
-           
+                       
 
         }
 
@@ -209,10 +198,10 @@ saveBlock cacheCompletionBlock;
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+    //Handles the responsed from the various alert views
     NSString *message = alertView.message;
     NSString *btnTitle = [alertView buttonTitleAtIndex:buttonIndex];
-    if([alertView.title isEqualToString:@"Offline Changes"])
+    if([alertView.title isEqualToString:@"Offline Changes"])  //TODO: change to Defined TAG
     {
         if([btnTitle isEqualToString: @"Save Changes"])
         {
@@ -306,25 +295,17 @@ saveBlock cacheCompletionBlock;
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
        
        
-
+        //Load any Login Credentials from the keychain
         NSString *userName =  [[PDKeychainBindings sharedKeychainBindings] objectForKey:@"UserName"];
-         NSString *password =  [[PDKeychainBindings sharedKeychainBindings] objectForKey:@"Password"];
+        NSString *password =  [[PDKeychainBindings sharedKeychainBindings] objectForKey:@"Password"];
         self.loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login"
                                                             style:UIBarButtonItemStylePlain
                                                            target:self
                                                            action:@selector(backBarButtonItem:)];
+        
         [[self navigationItem] setLeftBarButtonItem:self.loginButton];
         [[self navigationItem] setHidesBackButton:YES];
-        
-       
-       // self.activity= [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        
-        //[self.activity setHidesWhenStopped:YES];
-        //UIBarButtonItem *activityItem = [[UIBarButtonItem alloc] initWithCustomView:self.activity];
-        
-       // [self.navigationItem setRightBarButtonItem: activityItem];
-        
-        if(userName && [(NSNumber *)[prefs objectForKey:@"AutoLogin"]  boolValue]  && password )
+                if(userName && [(NSNumber *)[prefs objectForKey:@"AutoLogin"]  boolValue]  && password )
             [self loginUser:userName WithPassword:password];
         else{
           
@@ -335,7 +316,7 @@ saveBlock cacheCompletionBlock;
         
     }
     
-    
+    //Defin the completion block for when the queued transactions have been uploaded
     cacheCompletionBlock =^(NSString *result) {
         if([result isEqualToString:GMA_NO_CONNECT] || [result isEqualToString:GMA_NO_AUTH] )
         {
@@ -382,6 +363,7 @@ saveBlock cacheCompletionBlock;
 
 - (void)viewWillUnload
 {
+    //Last ditched attempt to ensure data is saved
     [self.dataModel.allNodesForUser.managedObjectContext save:nil];
     
 }
@@ -396,9 +378,6 @@ saveBlock cacheCompletionBlock;
 
 - (void)viewDidUnload
 {
-
-    
-    
     [super viewDidUnload];
         // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -406,6 +385,7 @@ saveBlock cacheCompletionBlock;
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    //Only support portrait orientation
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
@@ -425,7 +405,7 @@ saveBlock cacheCompletionBlock;
     lvc.nodesTVC = self;
     
     
-  // [self.navigationController  pushViewController:lvc  animated:YES ];
+    // [self.navigationController  pushViewController:lvc  animated:YES ];
     //[self.navigationController pushViewController:lvc  animated: YES ];
    [self presentViewController:lvc animated: YES completion:nil ];
 }
@@ -434,7 +414,7 @@ saveBlock cacheCompletionBlock;
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-
+    //TODO: Is this section really needed any more - allow fetchedresultscontroller to define its sections
     switch (section) {
         case 0:
             return  [sectionInfo numberOfObjects];
@@ -453,6 +433,7 @@ saveBlock cacheCompletionBlock;
     
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     NSArray *objects = [sectionInfo objects];
@@ -492,9 +473,9 @@ saveBlock cacheCompletionBlock;
     if(n)
     {
         if(n.intValue>0)
-            return @"Personal Reports";
+            return @"Personal Reports";  //TODO: Use Defined Text.. Translation?
         else
-            return @"Director Reports";
+            return @"Director Reports";  //TODO: Use Defined Text.. Translation?
     }
     
     
@@ -522,21 +503,21 @@ saveBlock cacheCompletionBlock;
     
     if(indexPath.section<2)
     {
-    static NSString *CellIdentifier = @"NodeCell";
+        static NSString *CellIdentifier = @"NodeCell";
     
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] ;
         
-    }
+        }
     
-    Nodes *node = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Nodes *node = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     
         cell.textLabel.text = node.name ;	//[NSString stringWithFormat:@"%@%@", node.nodeId, node.name];
-    cell.detailTextLabel.text = [node.nodeId stringValue];
-    return cell;
+        cell.detailTextLabel.text = [node.nodeId stringValue];
+        return cell;
     
     }
     
@@ -563,13 +544,7 @@ saveBlock cacheCompletionBlock;
 
     
         UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-        
-        // ...
-        
-        
-        
-        
-        
+                
         // Pass the selected object to the new view controller.
         [self.navigationController pushViewController:viewController animated:YES];
     }
