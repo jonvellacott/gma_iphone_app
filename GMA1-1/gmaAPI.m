@@ -42,10 +42,16 @@ int counter =0 ;
 }
 
 - (void) targetServerForGmaServer: (NSString *)gmaServer {
-    
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [cookieStorage cookies];
+    for (NSHTTPCookie *cookie in cookies) {
+        [cookieStorage deleteCookie:cookie];
+        NSLog(@"deleted cookie");
+    }
     NSURL *url = [NSURL URLWithString:gmaServer];
     NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     [httpRequest setHTTPMethod:@"HEAD"];
+    [httpRequest setHTTPShouldHandleCookies:NO];
     NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self];
         
     if(false) urlConnection = urlConnection;  //Get rid of the unused field warning
@@ -54,11 +60,21 @@ int counter =0 ;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
    //Save TargetService to to UserDefaults...
-    self.targetService = [[response.URL query] stringByReplacingOccurrencesOfString:@"service=" withString:@""] ;  // get the service from the querystring
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if([[response.URL query] hasPrefix:@"q=" ])
+    {
+        NSLog(@"Error, session still active!!! Can't get redirect URL");
+        
+    }
+    else
+    {
+        self.targetService = [[response.URL query] stringByReplacingOccurrencesOfString:@"service=" withString:@""] ;  // get the service from the querystring
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        [prefs setObject: self.targetService forKey:@"gmaTargetService"];
+        [prefs synchronize];
+    }
     
-    [prefs setObject: self.targetService forKey:@"gmaTargetService"];
-    [prefs synchronize];
     
     
 }
@@ -66,13 +82,22 @@ int counter =0 ;
 
 - (NSDictionary *)AuthenticateUser: (NSString *)Username WithPassword: (NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock
 {
+    //Delete existing cookie session:
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [cookieStorage cookies];
+    for (NSHTTPCookie *cookie in cookies) {
+        [cookieStorage deleteCookie:cookie];
+        NSLog(@"deleted cookie");
+    }
+    
+    
     NSMutableDictionary *rtn= [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", @"Unknown", @"Reason", nil];
     
     NSString *query=  [MOBILECAS_URL  stringByAppendingFormat: @"?username=%@&password=%@&targetService=%@", Username, Password, self.targetService];
     
     query =[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: query] encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: query]   encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError *error = nil;
     NSDictionary *results=jsonData ? [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error]: nil;
@@ -90,6 +115,7 @@ int counter =0 ;
     
     if(success == YES)
     {
+        
         NSString *proxyTicket = (NSString *)[results  objectForKey:@"ProxyTicket"];
         NSLog(@"Authanticated with TheKey. GUID:%@ Ticket:%@", guid, proxyTicket);
         if(loginBlock) loginBlock(YES);
@@ -123,6 +149,13 @@ int counter =0 ;
                 counter = 0;
                 NSLog(@"TheKey successfully authenticated , but ProxyAuthentication failed after four attempts") ;
                 [rtn setObject:@"Proxy Authentication Error (4 Attempts)" forKey:@"Reason"];
+                
+                //Target Service might be incorrect - so reset it.
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                self.targetService = nil;
+                [prefs setObject: nil forKey:@"gmaTargetService"];
+                [prefs synchronize];
+                
                 return rtn;
             }
            
