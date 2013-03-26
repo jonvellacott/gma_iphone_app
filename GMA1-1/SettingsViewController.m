@@ -94,14 +94,9 @@
 }
 -(void)barButtonBackPressed:(id)sender{
     [self pickerView:self.gmaPicker didSelectRow:0 inComponent:0] ;
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if(![[prefs objectForKey:@"casServicePrefix"] isEqualToString:  self.cas_service_prefix.text])
-    {
+    
         
-        [prefs setObject:self.cas_service_prefix.text forKey:@"casServicePrefix"];
-        [prefs synchronize];
-        
-    }
+    //}
     [self dismissModalViewControllerAnimated:YES];
 }
 - (void)viewDidUnload
@@ -111,7 +106,7 @@
     [self setCustomServer:nil];
     [self setMyNavigationItem:nil];
     
-    [self setCas_service_prefix:nil];
+    //[self setCas_service_prefix:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -166,6 +161,7 @@
     {
         
         [prefs setObject:gmaServer forKey:@"gmaServer"];
+        [prefs setObject: nil forKey:@"gmaTargetService"];
         [prefs synchronize];
 
     }   

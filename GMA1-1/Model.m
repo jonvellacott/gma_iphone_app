@@ -35,6 +35,8 @@ MyCustomBlock openBlock;
     NSString *userName =  [[PDKeychainBindings sharedKeychainBindings]  objectForKey:@"UserName"];
 
     NSString *gmaServer = [prefs objectForKey:@"gmaServer"];
+   
+    
     
     self.myRenId = [prefs objectForKey:@"renId"];
     self.gma_Api=dispatch_queue_create("gma-api", NULL);
@@ -53,12 +55,21 @@ MyCustomBlock openBlock;
         [prefs synchronize];
     }
 
-    api = [[gmaAPI alloc] initWithBaseURL:gmaServer] ;
-    if([prefs objectForKey:@"casServicePrefix"]) api.cas_service_prefix =[prefs objectForKey:@"casServicePrefix"];
+        
+    
+    
+    
+    
+
     
     if (!self.allNodesForUser){
         openBlock = block;
+        api = [[gmaAPI alloc] initWithBaseURL:gmaServer] ;
         
+        if (![prefs objectForKey:@"gmaTargetService"]) [self.api targetServerForGmaServer:gmaServer];
+        else self.api.targetService = (NSString *)[prefs objectForKey:@"gmaTargetService"];
+        
+        NSLog(@"tg:%@", (NSString *)[prefs objectForKey:@"gmaTargetService"]);
         NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject];
       
             
@@ -79,7 +90,7 @@ MyCustomBlock openBlock;
         }
     }
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gmaSeverDidChange:)name:@"gmaServerChanged" object:nil];
+   // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gmaSeverDidChange:)name:@"gmaServerChanged" object:nil];
 
     
     
@@ -247,8 +258,7 @@ MyCustomBlock openBlock;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
   
     NSString *gmaServer = [prefs objectForKey:@"gmaServer"];
-    
-    
+            
     
     NSString * fileName = [self getFileNameForUser:Username atGMAServer:gmaServer ];
     BOOL filenameChanged = NO;
@@ -276,6 +286,13 @@ MyCustomBlock openBlock;
     
     //Authenticate user in API Thread
     dispatch_async(self.gma_Api, ^{
+        for(int i =1; i<20; i++)  //TODO:  This is a bit ugly. Open Document thread and Get Service Thread (if called) must complete before continuing.
+        {
+            if(!self.api.targetService) sleep(0.5);
+            else break;
+        }
+
+        
         NSMutableDictionary *status= [api AuthenticateUser:Username WithPassword:Password LoginSuccessHandler:loginBlock ].mutableCopy;
         [status setObject:[NSNumber numberWithBool:filenameChanged] forKey:@"filenameChanged"] ;
         

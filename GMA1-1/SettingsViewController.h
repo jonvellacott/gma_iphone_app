@@ -23,7 +23,7 @@
 - (IBAction)customServerChanged:(id)sender;
 - (IBAction)doneButtonPressed:(id)sender;
 @property (weak, nonatomic) IBOutlet UINavigationItem *myNavigationItem;
-@property (weak, nonatomic) IBOutlet UITextField *cas_service_prefix;
+
 
 
 	

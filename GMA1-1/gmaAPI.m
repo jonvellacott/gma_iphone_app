@@ -11,7 +11,8 @@
 @implementation gmaAPI
 
 @synthesize gmaURL;
-@synthesize cas_service_prefix;
+
+@synthesize targetService;
 #define MOBILECAS_URL @"https://agapeconnect.me/MobileCAS/MobileCAS.svc/AuthenticateWithTheKey"
 //#define TARGET_SERVICE @"https%3a%2f%2fwww.globalopsccci.org%2fgma41demo15%2f%3fq%3den%2fgmaservices%26destination%3dgmaservices"
 
@@ -37,36 +38,37 @@ int counter =0 ;
 {
     self = [super init];
     gmaURL = URL;
-    self.cas_service_prefix = @"";
     return self;
 }
+
+- (void) targetServerForGmaServer: (NSString *)gmaServer {
+    
+    NSURL *url = [NSURL URLWithString:gmaServer];
+    NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+    [httpRequest setHTTPMethod:@"HEAD"];
+    NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self];
+        
+    if(false) urlConnection = urlConnection;  //Get rid of the unused field warning
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+   //Save TargetService to to UserDefaults...
+    self.targetService = [[response.URL query] stringByReplacingOccurrencesOfString:@"service=" withString:@""] ;  // get the service from the querystring
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs setObject: self.targetService forKey:@"gmaTargetService"];
+    [prefs synchronize];
+    
+    
+}
+
 
 - (NSDictionary *)AuthenticateUser: (NSString *)Username WithPassword: (NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock
 {
     NSMutableDictionary *rtn= [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", @"Unknown", @"Reason", nil];
     
-        
-    NSString *targetService =  [[gmaURL stringByDeletingLastPathComponent]  stringByAppendingString:TARGET_SERVICE_SUFFIX];
-    
-    targetService = [targetService stringByReplacingOccurrencesOfString:@"/?q=" withString:[@"/?q=" stringByAppendingString:self.cas_service_prefix]];
-    
-    
-    if (![targetService hasPrefix:@"https://"] && [targetService hasPrefix:@"https:/"]) 
-        targetService = [targetService stringByReplacingOccurrencesOfString:@"https:/" withString:@"https://"];
-    if (![targetService hasPrefix:@"http://"] && [targetService hasPrefix:@"http:/"])
-        targetService = [targetService stringByReplacingOccurrencesOfString:@"http:/" withString:@"http://"];
-    
-    NSString *encodedString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(
-                                                                                  NULL,
-                                                                                  (CFStringRef)targetService,
-                                                                                   NULL,
-                                                                                  (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-                                                                                  kCFStringEncodingUTF8 ) ;
-    encodedString=  [encodedString lowercaseString] ;
-  // targetService = [targetService stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //NSLog(@"encodedString: %@", encodedString);
-    
-    NSString *query=  [MOBILECAS_URL  stringByAppendingFormat: @"?username=%@&password=%@&targetService=%@", Username, Password, encodedString];
+    NSString *query=  [MOBILECAS_URL  stringByAppendingFormat: @"?username=%@&password=%@&targetService=%@", Username, Password, self.targetService];
     
     query =[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
