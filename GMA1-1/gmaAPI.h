@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface gmaAPI : NSObject
+
+
 #define GMA_SUCCESS @"SUCCESS"
 #define GMA_NO_CONNECT @"NO_CONNECT"
 #define GMA_NO_AUTH @"NO_AUTH"
@@ -29,7 +31,7 @@
 #define offlineColor [UIColor redColor]
 
 @property (nonatomic, strong) NSString *gmaURL;
-@property (nonatomic, strong) NSString *cas_service_prefix ;
+@property (nonatomic, strong) NSString *targetService;
 
 - (id)initWithBaseURL: (NSString *)URL;
 
@@ -45,6 +47,8 @@
 - (NSString *) submitDirectorReport:(NSNumber *) directorReportId;
 -(NSArray *)getReportsForDirectorNode: (NSNumber *)nodeId atDate: (NSNumber *)date;
 -(NSDictionary *)getCurrentUser;
+- (void) targetServerForGmaServer: (NSString *)gmaServer ;
+
 
 
 @end

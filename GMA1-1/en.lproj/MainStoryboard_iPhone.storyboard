@@ -63,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jdR-jA-05X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1090" y="-1013"/>
+            <point key="canvasLocation" x="-1094" y="-1013"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YvX-Bf-8vG">
@@ -87,7 +87,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="unx-WD-U0X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-724" y="-1013"/>
+            <point key="canvasLocation" x="-656" y="-1003"/>
         </scene>
         <!--NodeTVC - GMA-->
         <scene sceneID="OmW-QN-ypM">
@@ -193,7 +193,7 @@
                             <constraints>
                                 <constraint firstItem="wh9-Q1-eKe" firstAttribute="trailing" secondItem="tMy-fr-1Hd" secondAttribute="trailing" type="default" id="1Ew-xx-HBc"/>
                                 <constraint firstItem="wh9-Q1-eKe" firstAttribute="leading" secondItem="tMy-fr-1Hd" secondAttribute="leading" type="default" id="70t-GI-4eJ"/>
-                                <constraint firstItem="wh9-Q1-eKe" firstAttribute="top" secondItem="tMy-fr-1Hd" secondAttribute="top" type="default" id="f3o-KP-9eF"/>
+                                <constraint firstItem="wh9-Q1-eKe" firstAttribute="top" secondItem="tMy-fr-1Hd" secondAttribute="top" constant="-1" id="9Cx-qJ-kKs"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -729,15 +729,6 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CAS Service Prefix: (eg. &quot;en/&quot;)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="EyU-X2-Rad">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="9FT-vX-oEu"/>
-                                    <constraint firstAttribute="width" constant="251" id="GMT-Jz-N2l"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="39R-lr-rqJ">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="zW7-Ay-A1C"/>
@@ -758,18 +749,6 @@
                                     <action selector="doneButtonPressed:" destination="OnH-pQ-UwH" eventType="editingDidEndOnExit" id="ZGT-JS-Weq"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aSn-wZ-Wl4">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="PJS-ZV-Z6u"/>
-                                    <constraint firstAttribute="width" constant="60" id="SGi-IN-tiW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <action selector="customServerChanged:" destination="OnH-pQ-UwH" eventType="valueChanged" id="S01-cB-48w"/>
-                                    <action selector="doneButtonPressed:" destination="OnH-pQ-UwH" eventType="editingDidEndOnExit" id="4iz-lI-A4m"/>
-                                </connections>
-                            </textField>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="La3-0u-aHh">
                                 <items>
                                     <navigationItem title="GMA Server" id="eFy-mI-4u1">
@@ -784,22 +763,17 @@
                             <constraint firstItem="39R-lr-rqJ" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" type="default" id="8q6-6o-sKc"/>
                             <constraint firstItem="39R-lr-rqJ" firstAttribute="trailing" secondItem="jz1-8k-Yhu" secondAttribute="trailing" type="default" id="EV8-NV-DkA"/>
                             <constraint firstItem="ivr-J3-Fgd" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="JH4-Bq-SQ8"/>
-                            <constraint firstItem="EyU-X2-Rad" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="MU8-l7-jIi"/>
                             <constraint firstAttribute="bottom" secondItem="8v2-kv-H8h" secondAttribute="bottom" constant="138" id="OeV-st-bjd"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="trailing" secondItem="jz1-8k-Yhu" secondAttribute="trailing" type="default" id="WOw-Lm-2Wt"/>
                             <constraint firstAttribute="trailing" secondItem="8v2-kv-H8h" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Xkj-wN-tyu"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" type="default" id="bDj-qx-tFn"/>
-                            <constraint firstAttribute="bottom" secondItem="EyU-X2-Rad" secondAttribute="bottom" constant="104" id="bTu-Wc-vFJ"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="top" secondItem="jz1-8k-Yhu" secondAttribute="top" type="default" id="e6j-Gu-I9i"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="bottom" secondItem="39R-lr-rqJ" secondAttribute="top" type="default" id="ku8-2U-p04"/>
                             <constraint firstItem="8v2-kv-H8h" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="tC1-Qn-n73"/>
-                            <constraint firstItem="aSn-wZ-Wl4" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="tRu-Zd-qP0"/>
-                            <constraint firstAttribute="bottom" secondItem="aSn-wZ-Wl4" secondAttribute="bottom" constant="70" id="xqY-rn-gGT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="S97-lM-uwG"/>
                     <connections>
-                        <outlet property="cas_service_prefix" destination="aSn-wZ-Wl4" id="ITw-mm-gbd"/>
                         <outlet property="customServer" destination="8v2-kv-H8h" id="aHv-GS-l3e"/>
                         <outlet property="gmaPicker" destination="39R-lr-rqJ" id="f1u-cd-jlG"/>
                         <outlet property="myNavigationItem" destination="eFy-mI-4u1" id="Mpm-ej-JKX"/>
@@ -815,6 +789,92 @@
         <image name="Settings.png" width="256" height="256"/>
         <image name="logo_thekey.png" width="512" height="512"/>
     </resources>
+    <classes>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="GradientButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonPressed:"/>
+                <relationship kind="action" name="changeServerClicked:"/>
+                <relationship kind="action" name="loginButtonPressed:"/>
+                <relationship kind="outlet" name="LogginIn" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="changeServerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="gmaServer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLoginFailed" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveCredentials" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="userName" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NodeTVC" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeTVC.h"/>
+        </class>
+        <class className="QuestionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionCell.h"/>
+            <relationships>
+                <relationship kind="action" name="asnwerChanged:" candidateClass="UITextField"/>
+                <relationship kind="action" name="editingDidBegin:"/>
+                <relationship kind="action" name="plusButtonPressed:"/>
+                <relationship kind="action" name="textDidChange:"/>
+                <relationship kind="outlet" name="addButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="answer" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="lblAnswer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblCalc" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="totalAnswer" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="QuestionDetailTVC" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionDetailTVC.h"/>
+        </class>
+        <class className="QuestionTVC" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentAction:"/>
+                <relationship kind="action" name="submitReport:"/>
+                <relationship kind="outlet" name="dateSegmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="customServerChanged:"/>
+                <relationship kind="action" name="doneButtonPressed:"/>
+                <relationship kind="outlet" name="customServer" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="gmaPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
+            </relationships>
+        </class>
+        <class className="TextQuestionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextQuestionCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="answer" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="alertViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/alertViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="alertBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="alertText" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="pvcNode" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/pvcNode.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
