@@ -66,7 +66,14 @@ MyCustomBlock openBlock;
         openBlock = block;
         api = [[gmaAPI alloc] initWithBaseURL:gmaServer] ;
         
-        if (![prefs objectForKey:@"gmaTargetService"]) [self.api targetServerForGmaServer:gmaServer];
+        
+        if (![prefs objectForKey:@"gmaTargetService"] || [[prefs objectForKey:@"gmaTargetService"] hasPrefix:@"q="])
+        {
+            self.api.targetService = nil;
+            [self.api targetServerForGmaServer:gmaServer];
+        }
+        
+        
         else self.api.targetService = (NSString *)[prefs objectForKey:@"gmaTargetService"];
         
         NSLog(@"tg:%@", (NSString *)[prefs objectForKey:@"gmaTargetService"]);
