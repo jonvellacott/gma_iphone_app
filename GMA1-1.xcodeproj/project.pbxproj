@@ -55,6 +55,10 @@
 		FCBA812E16B81771000410C4 /* Graph-icon-sm.png in Resources */ = {isa = PBXBuildFile; fileRef = FCBA812D16B81771000410C4 /* Graph-icon-sm.png */; };
 		FCBA813016B8177C000410C4 /* Graph-icon-ret.png in Resources */ = {isa = PBXBuildFile; fileRef = FCBA812F16B8177C000410C4 /* Graph-icon-ret.png */; };
 		FCD847A416B80B600002BF26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD847A316B80B600002BF26 /* CoreData.framework */; };
+		FCE55A591733FA9A0055CD42 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FCE55A521733FA9A0055CD42 /* downArrow.png */; };
+		FCE55A5A1733FA9A0055CD42 /* NSString+NSArrayExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE55A541733FA9A0055CD42 /* NSString+NSArrayExtension.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FCE55A5B1733FA9A0055CD42 /* NWPickerField.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE55A561733FA9A0055CD42 /* NWPickerField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FCE55A5C1733FA9A0055CD42 /* NWPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE55A581733FA9A0055CD42 /* NWPickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCFA03AC16E89F8700B3DA8A /* StaffReports.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA03AB16E89F8700B3DA8A /* StaffReports.m */; };
 		FCFA03AF16E89F8700B3DA8A /* Nodes.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA03AE16E89F8700B3DA8A /* Nodes.m */; };
 		FCFA03B216E89F8800B3DA8A /* Answers.m in Sources */ = {isa = PBXBuildFile; fileRef = FCFA03B116E89F8800B3DA8A /* Answers.m */; };
@@ -141,6 +145,13 @@
 		FCBA812D16B81771000410C4 /* Graph-icon-sm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Graph-icon-sm.png"; sourceTree = "<group>"; };
 		FCBA812F16B8177C000410C4 /* Graph-icon-ret.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Graph-icon-ret.png"; sourceTree = "<group>"; };
 		FCD847A316B80B600002BF26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FCE55A521733FA9A0055CD42 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
+		FCE55A531733FA9A0055CD42 /* NSString+NSArrayExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSArrayExtension.h"; sourceTree = "<group>"; };
+		FCE55A541733FA9A0055CD42 /* NSString+NSArrayExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+NSArrayExtension.m"; sourceTree = "<group>"; };
+		FCE55A551733FA9A0055CD42 /* NWPickerField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPickerField.h; sourceTree = "<group>"; };
+		FCE55A561733FA9A0055CD42 /* NWPickerField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPickerField.m; sourceTree = "<group>"; };
+		FCE55A571733FA9A0055CD42 /* NWPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPickerView.h; sourceTree = "<group>"; };
+		FCE55A581733FA9A0055CD42 /* NWPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPickerView.m; sourceTree = "<group>"; };
 		FCFA03AA16E89F8700B3DA8A /* StaffReports.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffReports.h; sourceTree = "<group>"; };
 		FCFA03AB16E89F8700B3DA8A /* StaffReports.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffReports.m; sourceTree = "<group>"; };
 		FCFA03AD16E89F8700B3DA8A /* Nodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nodes.h; sourceTree = "<group>"; };
@@ -208,6 +219,7 @@
 		FC227F5216B7FDD900EB7584 /* GMA1-1 */ = {
 			isa = PBXGroup;
 			children = (
+				FCE55A511733FA9A0055CD42 /* NWPickerView */,
 				FC47546C16E241E800C3ABAD /* GradientButton */,
 				FC358FE316DFDA390039CB9F /* PDKeychainBindingsController */,
 				FCD8479416B807F80002BF26 /* Model */,
@@ -330,6 +342,21 @@
 			name = Database;
 			sourceTree = "<group>";
 		};
+		FCE55A511733FA9A0055CD42 /* NWPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				FCE55A521733FA9A0055CD42 /* downArrow.png */,
+				FCE55A531733FA9A0055CD42 /* NSString+NSArrayExtension.h */,
+				FCE55A541733FA9A0055CD42 /* NSString+NSArrayExtension.m */,
+				FCE55A551733FA9A0055CD42 /* NWPickerField.h */,
+				FCE55A561733FA9A0055CD42 /* NWPickerField.m */,
+				FCE55A571733FA9A0055CD42 /* NWPickerView.h */,
+				FCE55A581733FA9A0055CD42 /* NWPickerView.m */,
+			);
+			name = NWPickerView;
+			path = Source;
+			sourceTree = "<group>";
+		};
 		FCFA03B916E8EA2400B3DA8A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +435,7 @@
 				FCBA813016B8177C000410C4 /* Graph-icon-ret.png in Resources */,
 				FCFA03CF16E8EA9C00B3DA8A /* Icon.png in Resources */,
 				FCFA03D116E8EAAE00B3DA8A /* Icon@2x.png in Resources */,
+				FCE55A591733FA9A0055CD42 /* downArrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +477,9 @@
 				FCFA03B216E89F8800B3DA8A /* Answers.m in Sources */,
 				FCFA03B516E89F8800B3DA8A /* Measurements.m in Sources */,
 				FCFA03B816E89F8800B3DA8A /* Users.m in Sources */,
+				FCE55A5A1733FA9A0055CD42 /* NSString+NSArrayExtension.m in Sources */,
+				FCE55A5B1733FA9A0055CD42 /* NWPickerField.m in Sources */,
+				FCE55A5C1733FA9A0055CD42 /* NWPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
