@@ -26,6 +26,8 @@
 @synthesize hasChanged;
 @synthesize oldValue;
 
+
+
 -(void) setIsDirector:(BOOL)isDirector
 {
     _isDirector = isDirector;
@@ -38,7 +40,7 @@
         self.accessoryType = UITableViewCellAccessoryNone ;
        [self.addButton setHidden:NO];
     }
-   
+    [answer setDelegate:self];
     
 }
 
@@ -105,6 +107,11 @@
      self.accessoryType = UITableViewCellAccessoryNone ;
         hasChanged=NO;
        
+        //numbers = [NSMutableArray array];
+       // for (NSUInteger i = 0; i < 1000; i++) {
+       //     [numbers addObject: [NSNumber numberWithUnsignedInteger:i].stringValue];
+       // }
+       
     }
     return self;
 }
@@ -143,6 +150,37 @@
     aLabel.font = font;
 }
 
+
+-(NSInteger)numberOfComponentsInPickerField:(NWPickerField *)pickerField{
+	return 1;
+    
+}
+- (NSInteger)pickerField:(NWPickerField *)pickerField numberOfRowsInComponent:(NSInteger)component{
+	return 1000;
+}
+-(NSString *)pickerField:(NWPickerField *)pickerField titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+     return [NSNumber numberWithInteger:row].stringValue;
+   
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if(tvc){
+        
+        
+    }
+    else{
+       [self.tvcd dismissPickerView]; 
+    }
+    
+    
+       // [self.answer dismissPickerView];
+        //[self asnwerChanged:nil ];
+       
+
+
+
+    
+}
 
 
 @end

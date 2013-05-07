@@ -616,5 +616,29 @@
     
         
 }
+-(void) dismissPickerView
+{
+    //[self.tableView indexPathsForVisibleRows] ;
+    
+   // QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow ];
+    //[cell resignFirstResponder] ;
+    //[cell asnwerChanged:nil ];
+    for(UITableViewCell *cell in self.tableView.visibleCells)
+    {
+        if([cell isMemberOfClass: [QuestionCell class]]){
+        QuestionCell *qc = (QuestionCell *)cell;
+        
+        
+        [qc.answer dismissPickerView ];
+    
+        [qc asnwerChanged:nil ];
+        
+        }
+    }
+    
+
+    
+}	
+
 
 @end
