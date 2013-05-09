@@ -355,11 +355,20 @@ BOOL refreshAfterSave = NO;
 
    // }
 }
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [self dismissPickerView];
+    [super viewWillDisappear:animated];
+    
+}
+
 - (void)viewWillUnload
 {
    
     [self.dataModel saveModel];
+  
      [super viewWillUnload];
+    
   // [self.dataModel.allNodesForUser.managedObjectContext save:nil];
     
 }
@@ -479,6 +488,7 @@ BOOL refreshAfterSave = NO;
    // [self setDateSegmentedControl:nil];
     //[self setAnswerChanged:nil];
     [self setBbSubmit:nil];
+    [self dismissPickerView];
    // self.fetchedResultsController = nil;
     //[NSFetchedResultsController deleteCacheWithName:nil];
     
@@ -893,6 +903,27 @@ BOOL refreshAfterSave = NO;
     //resign all keypads of all textfields use array containing keypads
     [self.view endEditing:YES];
 }
-
+-(void) dismissPickerView
+{
+    //[self.tableView indexPathsForVisibleRows] ;
+    
+    // QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow ];
+    //[cell resignFirstResponder] ;
+    //[cell asnwerChanged:nil ];
+    for(UITableViewCell *cell in self.tableView.visibleCells)
+    {
+        if([cell isMemberOfClass: [QuestionCell class]]){
+            QuestionCell *qc = (QuestionCell *)cell;
+            
+            
+            if([qc.answer dismissPickerView ])
+              [qc asnwerChanged:nil ];
+            
+        }
+    }
+    
+    
+    
+}
 
 @end

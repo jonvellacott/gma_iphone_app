@@ -48,8 +48,15 @@
 - (void)viewWillUnload
 {
     [self.dataModel saveModel];
+       
+}
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [self dismissPickerView];
+    [super viewWillDisappear:animated];
     
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -629,9 +636,8 @@
         QuestionCell *qc = (QuestionCell *)cell;
         
         
-        [qc.answer dismissPickerView ];
-    
-        [qc asnwerChanged:nil ];
+            if([qc.answer dismissPickerView ])
+                [qc asnwerChanged:nil ];
         
         }
     }

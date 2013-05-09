@@ -56,8 +56,8 @@ extern NSString* UIPickerViewDidHideNotification;
 
 -(void) selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated;
 -(NSInteger) selectedRowInComponent:(NSInteger)component;
--(void) dismissPickerView;
 
+-(BOOL) dismissPickerView;
 @end
 
 @protocol NWPickerFieldDelegate

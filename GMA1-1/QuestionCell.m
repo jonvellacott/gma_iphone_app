@@ -62,23 +62,23 @@
     });
 }
 
-- (IBAction)editingDidBegin:(id)sender {
+/*- (IBAction)editingDidBegin:(id)sender {
     
     self.oldValue= answer.text.integerValue;
                                               
     
-}
+}*/
 
-- (IBAction)textDidChange:(id)sender {
+/*- (IBAction)textDidChange:(id)sender {
     
     hasChanged=YES;
 
-}
+}*/
 
 - (void)asnwerChanged:(UITextField *)sender
 {
-    if(hasChanged)
-    {
+    //if(hasChanged)
+    //{
         hasChanged=NO;
         if(answer.text.length==0)
             answer.text = @"0";
@@ -92,7 +92,7 @@
                 
             }
         });
-    }
+    //}
 }
 
 
@@ -107,11 +107,8 @@
      self.accessoryType = UITableViewCellAccessoryNone ;
         hasChanged=NO;
        
-        //numbers = [NSMutableArray array];
-       // for (NSUInteger i = 0; i < 1000; i++) {
-       //     [numbers addObject: [NSNumber numberWithUnsignedInteger:i].stringValue];
-       // }
-       
+        
+        
     }
     return self;
 }
@@ -165,13 +162,13 @@
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if(tvc){
-        
+        [self.tvc dismissPickerView];
         
     }
     else{
        [self.tvcd dismissPickerView]; 
     }
-    
+        
     
        // [self.answer dismissPickerView];
         //[self asnwerChanged:nil ];

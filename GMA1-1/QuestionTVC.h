@@ -35,5 +35,6 @@
 
 - (IBAction)submitReport:(id)sender;
 -(void) refresh ;
+-(void) dismissPickerView;
 
 @end
