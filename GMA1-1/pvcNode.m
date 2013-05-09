@@ -201,9 +201,11 @@
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     
-    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer  class]])
+    if([gestureRecognizer isKindOfClass:[UITapGestureRecognizer  class]]){
+      
         return NO;
-   
+        
+    }
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] ) {
       
         

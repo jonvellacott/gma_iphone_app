@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pHY-a3-Vz2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pHY-a3-Vz2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -204,7 +204,7 @@
                                     <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rN9-KJ-kww">
+                                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rN9-KJ-kww" customClass="NWPickerField">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="49" id="pkQ-IV-wvX"/>
                                             </constraints>
@@ -212,8 +212,6 @@
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                             <connections>
                                                 <action selector="asnwerChanged:" destination="uqq-gL-5HJ" eventType="editingDidEnd" id="GFb-cI-u7h"/>
-                                                <action selector="editingDidBegin:" destination="uqq-gL-5HJ" eventType="editingDidBegin" id="2Li-IC-S8X"/>
-                                                <action selector="textDidChange:" destination="uqq-gL-5HJ" eventType="editingChanged" id="hKH-MH-N7C"/>
                                             </connections>
                                         </textField>
                                         <label autoresizesSubviews="NO" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Evangelistic " lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="202" translatesAutoresizingMaskIntoConstraints="NO" id="3lr-Id-egu">
@@ -331,7 +329,7 @@
                                     <rect key="frame" x="10" y="0.0" width="267" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="2GZ-Y9-Pyc">
+                                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="2GZ-Y9-Pyc" customClass="NWPickerField">
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="49" id="JGC-qI-EL6"/>
                                                 <constraint firstAttribute="height" constant="32" id="UNl-UL-ILy"/>
@@ -340,8 +338,6 @@
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                             <connections>
                                                 <action selector="asnwerChanged:" destination="cku-N1-P1O" eventType="editingDidEnd" id="BPa-n8-Gc6"/>
-                                                <action selector="editingDidBegin:" destination="cku-N1-P1O" eventType="editingDidEnd" id="gBq-LS-GQZ"/>
-                                                <action selector="textDidChange:" destination="cku-N1-P1O" eventType="editingDidEnd" id="Evd-CR-lsW"/>
                                             </connections>
                                         </textField>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Evangelistic" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="204" translatesAutoresizingMaskIntoConstraints="NO" id="uOY-Sn-9cu">
@@ -406,7 +402,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OQm-cS-prk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-676" y="-335"/>
+            <point key="canvasLocation" x="-611" y="-351"/>
         </scene>
         <!--Question DetailTVC-->
         <scene sceneID="uHC-8j-5rk">
@@ -424,21 +420,19 @@
                                     <rect key="frame" x="10" y="1" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="123" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="YhE-4S-sLA">
+                                        <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="123" borderStyle="roundedRect" textAlignment="center" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="YhE-4S-sLA" customClass="NWPickerField">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="57" id="bhz-cl-2Rb"/>
+                                                <constraint firstAttribute="width" constant="60" id="8hC-8l-h3L"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                             <connections>
                                                 <action selector="asnwerChanged:" destination="tv6-gz-H8E" eventType="editingDidEnd" id="XWf-Yj-Vlo"/>
-                                                <action selector="editingDidBegin:" destination="tv6-gz-H8E" eventType="editingDidEnd" id="4ZL-gw-t8m"/>
-                                                <action selector="textDidChange:" destination="tv6-gz-H8E" eventType="editingDidEnd" id="jC0-sJ-rpL"/>
                                             </connections>
                                         </textField>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Test" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="182" translatesAutoresizingMaskIntoConstraints="NO" id="efu-s4-23C">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Test" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="6" adjustsLetterSpacingToFitWidth="YES" preferredMaxLayoutWidth="179" translatesAutoresizingMaskIntoConstraints="NO" id="efu-s4-23C">
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="182" id="0RP-FC-v6a"/>
+                                                <constraint firstAttribute="width" constant="179" id="Tbr-cl-I9e"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -464,11 +458,11 @@
                                 <constraints>
                                     <constraint firstItem="efu-s4-23C" firstAttribute="leading" secondItem="tv6-gz-H8E" secondAttribute="leading" constant="19" id="28Y-7c-m1m"/>
                                     <constraint firstItem="YhE-4S-sLA" firstAttribute="top" secondItem="OMV-3e-sY2" secondAttribute="top" type="default" id="4A4-wC-bC5"/>
+                                    <constraint firstItem="efu-s4-23C" firstAttribute="top" secondItem="tv6-gz-H8E" secondAttribute="top" constant="7" id="5LV-KI-ZVF"/>
                                     <constraint firstItem="YhE-4S-sLA" firstAttribute="bottom" secondItem="OMV-3e-sY2" secondAttribute="bottom" type="default" id="D5p-y8-vjC"/>
                                     <constraint firstItem="OMV-3e-sY2" firstAttribute="leading" secondItem="YhE-4S-sLA" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="DVj-l4-JKw"/>
-                                    <constraint firstItem="efu-s4-23C" firstAttribute="top" secondItem="tv6-gz-H8E" secondAttribute="top" constant="7" id="Mpi-Fz-FQr"/>
-                                    <constraint firstItem="YhE-4S-sLA" firstAttribute="top" secondItem="efu-s4-23C" secondAttribute="top" type="default" id="STb-hw-o1t"/>
-                                    <constraint firstItem="YhE-4S-sLA" firstAttribute="leading" secondItem="efu-s4-23C" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="gdc-ah-ruS"/>
+                                    <constraint firstItem="YhE-4S-sLA" firstAttribute="top" secondItem="efu-s4-23C" secondAttribute="top" type="default" id="cY1-8n-V2e"/>
+                                    <constraint firstItem="YhE-4S-sLA" firstAttribute="leading" secondItem="efu-s4-23C" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="kOY-zq-8kK"/>
                                     <constraint firstItem="YhE-4S-sLA" firstAttribute="bottom" secondItem="efu-s4-23C" secondAttribute="bottom" type="default" id="lfs-6c-KmE"/>
                                 </constraints>
                                 <connections>
@@ -542,7 +536,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CIG-vV-Rzo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-246" y="-345"/>
+            <point key="canvasLocation" x="-243" y="-344"/>
         </scene>
         <!--Login View Controller - Login-->
         <scene sceneID="hrV-Kr-YmZ">
@@ -789,92 +783,6 @@
         <image name="Settings.png" width="256" height="256"/>
         <image name="logo_thekey.png" width="512" height="512"/>
     </resources>
-    <classes>
-        <class className="CoreDataTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-        </class>
-        <class className="GradientButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
-        </class>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelButtonPressed:"/>
-                <relationship kind="action" name="changeServerClicked:"/>
-                <relationship kind="action" name="loginButtonPressed:"/>
-                <relationship kind="outlet" name="LogginIn" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="cancelButton" candidateClass="GradientButton"/>
-                <relationship kind="outlet" name="changeServerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="gmaServer" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblLoginFailed" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="GradientButton"/>
-                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="saveCredentials" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="userName" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NodeTVC" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeTVC.h"/>
-        </class>
-        <class className="QuestionCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionCell.h"/>
-            <relationships>
-                <relationship kind="action" name="asnwerChanged:" candidateClass="UITextField"/>
-                <relationship kind="action" name="editingDidBegin:"/>
-                <relationship kind="action" name="plusButtonPressed:"/>
-                <relationship kind="action" name="textDidChange:"/>
-                <relationship kind="outlet" name="addButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="answer" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="lblAnswer" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblCalc" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="subTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="totalAnswer" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="QuestionDetailTVC" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionDetailTVC.h"/>
-        </class>
-        <class className="QuestionTVC" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionTVC.h"/>
-            <relationships>
-                <relationship kind="action" name="segmentAction:"/>
-                <relationship kind="action" name="submitReport:"/>
-                <relationship kind="outlet" name="dateSegmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="SettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="customServerChanged:"/>
-                <relationship kind="action" name="doneButtonPressed:"/>
-                <relationship kind="outlet" name="customServer" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="gmaPicker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
-            </relationships>
-        </class>
-        <class className="TextQuestionCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextQuestionCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="answer" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="alertViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/alertViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="alertBar" candidateClass="UIView"/>
-                <relationship kind="outlet" name="alertText" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="pvcNode" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pvcNode.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

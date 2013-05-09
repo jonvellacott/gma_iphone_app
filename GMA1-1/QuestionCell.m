@@ -26,6 +26,8 @@
 @synthesize hasChanged;
 @synthesize oldValue;
 
+
+
 -(void) setIsDirector:(BOOL)isDirector
 {
     _isDirector = isDirector;
@@ -38,7 +40,7 @@
         self.accessoryType = UITableViewCellAccessoryNone ;
        [self.addButton setHidden:NO];
     }
-   
+    [answer setDelegate:self];
     
 }
 
@@ -60,23 +62,23 @@
     });
 }
 
-- (IBAction)editingDidBegin:(id)sender {
+/*- (IBAction)editingDidBegin:(id)sender {
     
     self.oldValue= answer.text.integerValue;
                                               
     
-}
+}*/
 
-- (IBAction)textDidChange:(id)sender {
+/*- (IBAction)textDidChange:(id)sender {
     
     hasChanged=YES;
 
-}
+}*/
 
 - (void)asnwerChanged:(UITextField *)sender
 {
-    if(hasChanged)
-    {
+    //if(hasChanged)
+    //{
         hasChanged=NO;
         if(answer.text.length==0)
             answer.text = @"0";
@@ -90,7 +92,7 @@
                 
             }
         });
-    }
+    //}
 }
 
 
@@ -105,6 +107,8 @@
      self.accessoryType = UITableViewCellAccessoryNone ;
         hasChanged=NO;
        
+        
+        
     }
     return self;
 }
@@ -143,6 +147,37 @@
     aLabel.font = font;
 }
 
+
+-(NSInteger)numberOfComponentsInPickerField:(NWPickerField *)pickerField{
+	return 1;
+    
+}
+- (NSInteger)pickerField:(NWPickerField *)pickerField numberOfRowsInComponent:(NSInteger)component{
+	return 1000;
+}
+-(NSString *)pickerField:(NWPickerField *)pickerField titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+     return [NSNumber numberWithInteger:row].stringValue;
+   
+}
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if(tvc){
+        [self.tvc dismissPickerView];
+        
+    }
+    else{
+       [self.tvcd dismissPickerView]; 
+    }
+        
+    
+       // [self.answer dismissPickerView];
+        //[self asnwerChanged:nil ];
+       
+
+
+
+    
+}
 
 
 @end

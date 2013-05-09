@@ -22,4 +22,5 @@
 
 -(void) calculateTotal;
 - (void) saveAnswerForMeasurementId:(NSNumber *)measurementId  measurementType: (NSString *) measurementType inStaffReport:(NSNumber *)  staffReportId atNodeId: (NSNumber *)childNodeId withValue:(NSString *)value oldValue: (NSString *) oldValue;
+-(void) dismissPickerView;
 @end
