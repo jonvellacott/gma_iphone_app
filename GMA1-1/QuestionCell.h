@@ -47,4 +47,5 @@
     reuseIdentifier:(NSString *)reuseIdentifier;
 - (IBAction)asnwerChanged:(UITextField *)sender;
 + (void)resizeFontForLabel:(UILabel*)aLabel maxSize:(int)maxSize minSize:(int)minSize labelWidth: (int)labelWidth labelHeight: (int)labelHeight;
+
 @end

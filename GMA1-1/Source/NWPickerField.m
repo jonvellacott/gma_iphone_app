@@ -55,14 +55,17 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
     // when in a table cell.
     if (pickerView.hidden == YES)
         [pickerView toggle];
-	
+	[pickerView selectRow:self.text.intValue inComponent:0 animated:false];
     return YES;
 }
 
--(void) dismissPickerView{
+-(BOOL) dismissPickerView{
     if (pickerView.hidden == NO)
+    {
         [pickerView toggle];
-
+        return YES;
+    }
+    else return NO;
 }
 
 
@@ -88,7 +91,7 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
 	pickerView.field = self;
 	
 	// lets load our indecicator image and get its size.
-	CGRect bounds = self.bounds;
+	
 	UIImage* image = [UIImage imageNamed:@"downArrow.png"];
 	CGSize imageSize = image.size;
 	
