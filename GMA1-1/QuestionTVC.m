@@ -168,7 +168,7 @@ BOOL refreshAfterSave = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+
     
         
     saveValueBlock = ^(NSString *result) {
@@ -315,10 +315,11 @@ BOOL refreshAfterSave = NO;
 {
     [super viewWillAppear: animated] ;
     
-    
+
  
-       
-      
+  //   NSString * cacheName = [NSString stringWithFormat:@"QuestionTVC-%@",self.staffReportId];
+  //    [NSFetchedResultsController deleteCacheWithName:cacheName	 ];
+    
  
     if(!self.fetchedResultsController)
     {
@@ -335,19 +336,28 @@ BOOL refreshAfterSave = NO;
             //              NSLog(@"Sections1: %d",self.tableView.numberOfSections);
             //              [self performFetch];
             //              NSLog(@"Sections2: %d",self.tableView.numberOfSections);
-            //             NSLog(@"Sections3: %d",self.fetchedResultsController.sections.count);
+            //             NSLog(@"Sections3: %d",self.feßtc		edResultsController.sections.count);
             //         });
             
-        }] ;
+       }] ;
         
         
     }
-    else [self performFetch];
-
+    [self setHeader];
+    //[self.dataModel.allNodesForUser.managedObjectContext performBlock:^{
+    dispatch_async(self.dataModel.gma_Api, ^{
+        
+        [NSThread sleepForTimeInterval:0.2f];
+         [self performFetch];
+    });
+                   
+      
+   // [self.tableView reloadData];
     
-     [self setHeader];
+    //}];
+     
    
-   
+   [super viewWillAppear: animated] ;
     
     
     
@@ -355,6 +365,13 @@ BOOL refreshAfterSave = NO;
 
    // }
 }
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+}
+
 -(void) viewWillDisappear:(BOOL)animated
 {
     [self dismissPickerView];

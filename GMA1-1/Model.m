@@ -330,6 +330,7 @@ MyCustomBlock openBlock;
 
     
     //if offline node - don't try to fetch data
+    
     if(self.offlineMode) return ;
     
         
@@ -395,15 +396,17 @@ MyCustomBlock openBlock;
 
 -(void) fetchStaffReport:(NSNumber *) sr forNode: (NSNumber *) nodeId atDate: (NSNumber *)date completionHandler:(void (^)())block
 {
-    //Retrieve individual staff or Director report (Sorry about the name!!!)
     
-    
+
     if(self.offlineMode){if(block) block(); return ;}
-    
+   
     [self.alertBarController showMessage:@"Downloading..." withBackgroundColor:activityColor withSpinner: YES];
    
     //Call api on the API Thread
     dispatch_async(self.gma_Api, ^{
+      
+        
+        
         NSDictionary *measurements;
         NSArray *groupedData ;
         NSString *type=@"Staff";
@@ -416,11 +419,14 @@ MyCustomBlock openBlock;
         else{
                 measurements=[self.api getMeasurementsForNode:nodeId];
         }
+       
         //dispatch managedObjectContext to load into model
         [self.allNodesForUser.managedObjectContext performBlock:^{
         [Nodes addMeasurements:measurements toNode:nodeId inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:[nodeId intValue]<0];
         }];
         
+        
+      
         //back on API thread - get answers for the current staff report
             NSDictionary *answers ;
             if([nodeId intValue]<0)
@@ -519,7 +525,6 @@ MyCustomBlock openBlock;
             }
             
             //Save model to file
-            [self saveModel];
             
             //gma.agapeconnect.me has hacked gma services to add SubNode Reports to the Director Report Retrieve.
             //see: https://docs.google.com/a/agape.org.uk/document/d/1L1k5CH2bHzbFYHDz7a1YL4ofe3hDCz5-dWsgmz3bZ5M/edit
@@ -562,7 +567,7 @@ MyCustomBlock openBlock;
         //Save model to disk
         [self saveModel];
            
-        
+          
         
         //Now get all the staff reports (if director)
         if([nodeId intValue]<0){
