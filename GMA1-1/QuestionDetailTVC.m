@@ -104,17 +104,17 @@
    }
     [self calculateTotal];
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(keyboardDidShow:)
-													 name:UIKeyboardDidShowNotification
-												   object:nil];
-	} else {
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(keyboardWillShow:)
-													 name:UIKeyboardWillShowNotification
-												   object:nil];
-	}
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+//		[[NSNotificationCenter defaultCenter] addObserver:self
+//												 selector:@selector(keyboardDidShow:)
+//													 name:UIKeyboardDidShowNotification
+//												   object:nil];
+//	} else {
+//		[[NSNotificationCenter defaultCenter] addObserver:self
+//												 selector:@selector(keyboardWillShow:)
+//													 name:UIKeyboardWillShowNotification
+//												   object:nil];
+//	}
     
     
     //load the current period
