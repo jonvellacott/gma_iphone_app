@@ -176,7 +176,7 @@
     }
     
   
-    
+    int viewOrder=0;
     //Process Numeric Measurements
     NSArray *mNumeric = [measurements objectForKey:@"numericMeasurements"] ;
        if(mNumeric != (id)[NSNull null]){
@@ -194,8 +194,9 @@
                                                  MeasurementWithMeasurementId:[ms objectForKey:  @"measurementId"]
                                                  Name:[ms objectForKey:  @"measurementName"]
                                                  Type:@"Numeric" Mcc:mcc
+                                                 ViewOrder:[NSNumber numberWithInt: viewOrder]
                                                  inManagedObjectContext:context]  ];
-    
+                   viewOrder+=1;
                
            }
            }
@@ -217,8 +218,9 @@
                                                           Name:[m objectForKey:  @"measurementName"]
                                                           Type:@"Text"
                                                            Mcc: @"zzz"
+                     ViewOrder:[NSNumber numberWithInt: viewOrder]
                                         inManagedObjectContext:context]  ];
-    
+                     viewOrder+=1;
                }
     
            }
@@ -240,9 +242,10 @@
                                                      MeasurementWithMeasurementId:[ms objectForKey:  @"measurementId"]
                                                      Name:[ms objectForKey:  @"measurementName"]
                                                      Type:@"Calculated" Mcc:mcc
+                                                     ViewOrder:[NSNumber numberWithInt: viewOrder]
                                                      inManagedObjectContext:context]  ];
                        
-                       
+                       viewOrder+=1;
                    }
                }
                

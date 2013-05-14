@@ -13,6 +13,7 @@
                                           Name: (NSString *)name
                                           Type: (NSString *)type
                                            Mcc: (NSString *)mcc
+                                     ViewOrder: (NSNumber *)viewOrder
                         inManagedObjectContext: (NSManagedObjectContext *) context;
 
 @end
