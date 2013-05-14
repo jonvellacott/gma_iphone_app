@@ -46,6 +46,7 @@
 
 - (IBAction)plusButtonPressed:(id)sender
 {
+
    self.oldValue= answer.text.integerValue;
     NSInteger value = [answer.text intValue ] +1;
     
@@ -105,7 +106,7 @@
         
         //UIImage *btnAdd = [[UIImage alloc]  initWithContentsOfFile:@"32.png"];
      self.accessoryType = UITableViewCellAccessoryNone ;
-        hasChanged=NO;
+      //  hasChanged=NO;
        
         
         
@@ -153,7 +154,7 @@
     
 }
 - (NSInteger)pickerField:(NWPickerField *)pickerField numberOfRowsInComponent:(NSInteger)component{
-	return 1000;
+	return (self.answer.text.intValue + 1000)  ;
 }
 -(NSString *)pickerField:(NWPickerField *)pickerField titleForRow:(NSInteger)row forComponent:(NSInteger)component{
      return [NSNumber numberWithInteger:row].stringValue;

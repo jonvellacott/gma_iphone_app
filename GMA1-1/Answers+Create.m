@@ -40,8 +40,8 @@
             
         }
 
-         // [context save: nil];
-         NSLog(@"edited Value: %@", value);
+        // [context save: nil];
+        NSLog(@"edited Value: %@", value);
        
     }else if ([matches count]==0){
         

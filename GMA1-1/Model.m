@@ -734,14 +734,15 @@ BOOL stringIsNumeric(NSString *str) {
     [self.alertBarController showMessage:@"Saving..." withBackgroundColor:activityColor withSpinner: YES];
     NSString *type=@"Staff";
     
-    //If the Staff ReportId <0, it is a Director Report. (I know this is horrible. TODO: user ReportType on Reports Table)
+    //If the Staff ReportId <0, it is a Director Report. (I know this is horrible. TODO: use ReportType on Reports Table)
     if(staffReportId.intValue <0)
         type=@"Director";
 
     
-    
+    			
     [self.allNodesForUser.managedObjectContext performBlock:^{
         [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
+       
         }];
     
     if(offlineMode)
