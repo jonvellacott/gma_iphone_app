@@ -673,6 +673,7 @@ BOOL refreshAfterSave = NO;
         }
         
         cell.tvc=self;
+        cell.tvcd=nil;
         cell.title.text= a.measurement.name;
         
         [QuestionCell resizeFontForLabel:cell.title maxSize:14 minSize:10 labelWidth:202 labelHeight:32];
@@ -730,6 +731,7 @@ BOOL refreshAfterSave = NO;
         }
         
         cell.tvc=self;
+        cell.tvcd=nil;
         cell.title.text= a.measurement.name;
         [QuestionCell resizeFontForLabel:cell.title maxSize:14 minSize:10 labelWidth:202 labelHeight:32];
         
@@ -757,6 +759,7 @@ BOOL refreshAfterSave = NO;
     }
   
     cell.tvc=self;
+    cell.tvcd=nil;
     cell.title.text= a.measurement.name;
     [QuestionCell resizeFontForLabel:cell.title maxSize:14 minSize:10 labelWidth:202 labelHeight:32];
     cell.lblCalc.hidden = NO;

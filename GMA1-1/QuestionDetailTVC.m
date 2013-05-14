@@ -252,102 +252,102 @@
     }
     
 }
--(UIView *)findFirstResponderFrom:(UIView *)thisView
-{
-    if ([thisView isFirstResponder])
-        return thisView;
-    
-    for (UIView * subView in thisView.subviews)
-    {
-        UIView * fr = [self findFirstResponderFrom:subView];
-        if (fr != nil)
-            return fr;
-    }
-    
-    return nil;
-}
-
-- (void)addButtonToKeyboard {
-	// create custom button
-    BOOL isQuestionCell = NO;
-    
-    for(UIView *subView in self.tableView.subviews)
-    {
-        if ([subView isKindOfClass: [QuestionCell class]])
-        {
-            if([self findFirstResponderFrom:subView])
-                isQuestionCell = YES;
-            
-        }
-    }
-    if(!isQuestionCell) return ;
-    
-    
-    
-    
-	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	doneButton.frame = CGRectMake(0, 163, 106, 53);
-	doneButton.adjustsImageWhenHighlighted = NO;
-	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.0) {
-		[doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
-		[doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
-	} else {
-		[doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
-		[doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
-	}
-	[doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
-	// locate keyboard view
-	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-	UIView* keyboard;
-	for(int i=0; i<[tempWindow.subviews count]; i++) {
-		keyboard = [tempWindow.subviews objectAtIndex:i];
-		// keyboard found, add the button
-        
-        
-        
-        
-		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
-				[keyboard addSubview:doneButton];
-		} else {
-			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
-				[keyboard addSubview:doneButton];
-		}
-	}
-}
-- (void)keyboardWillShow:(NSNotification *)note {
-    
-	// if clause is just an additional precaution, you could also dismiss it
-	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
-		[self addButtonToKeyboard];
-	}
-    
-}
-
-- (void)keyboardDidShow:(NSNotification *)note {
-    
-	// if clause is just an additional precaution, you could also dismiss it
-	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-		[self addButtonToKeyboard];
-    }
-    
-}
-
-- (void)doneButton:(id)sender {
-	[self.tableView indexPathsForVisibleRows] ;
-    for(NSIndexPath *ip in  [self.tableView indexPathsForVisibleRows])
-    {
-        
-        QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:ip ];
-        
-        if([cell.answer isFirstResponder]){
-            [cell.answer resignFirstResponder];
-            [cell asnwerChanged:nil ];
-        }
-        
-    }
-    
-}
+//-(UIView *)findFirstResponderFrom:(UIView *)thisView
+//{
+//    if ([thisView isFirstResponder])
+//        return thisView;
+//    
+//    for (UIView * subView in thisView.subviews)
+//    {
+//        UIView * fr = [self findFirstResponderFrom:subView];
+//        if (fr != nil)
+//            return fr;
+//    }
+//    
+//    return nil;
+//}
+//
+//- (void)addButtonToKeyboard {
+//	// create custom button
+//    BOOL isQuestionCell = NO;
+//    
+//    for(UIView *subView in self.tableView.subviews)
+//    {
+//        if ([subView isKindOfClass: [QuestionCell class]])
+//        {
+//            if([self findFirstResponderFrom:subView])
+//                isQuestionCell = YES;
+//            
+//        }
+//    }
+//    if(!isQuestionCell) return ;
+//    
+//    
+//    
+//    
+//	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//	doneButton.frame = CGRectMake(0, 163, 106, 53);
+//	doneButton.adjustsImageWhenHighlighted = NO;
+//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.0) {
+//		[doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
+//		[doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
+//	} else {
+//		[doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
+//		[doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
+//	}
+//	[doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
+//	// locate keyboard view
+//	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+//	UIView* keyboard;
+//	for(int i=0; i<[tempWindow.subviews count]; i++) {
+//		keyboard = [tempWindow.subviews objectAtIndex:i];
+//		// keyboard found, add the button
+//        
+//        
+//        
+//        
+//		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+//			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
+//				[keyboard addSubview:doneButton];
+//		} else {
+//			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
+//				[keyboard addSubview:doneButton];
+//		}
+//	}
+//}
+//- (void)keyboardWillShow:(NSNotification *)note {
+//    
+//	// if clause is just an additional precaution, you could also dismiss it
+//	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
+//		[self addButtonToKeyboard];
+//	}
+//    
+//}
+//
+//- (void)keyboardDidShow:(NSNotification *)note {
+//    
+//	// if clause is just an additional precaution, you could also dismiss it
+//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+//		[self addButtonToKeyboard];
+//    }
+//    
+//}
+//
+//- (void)doneButton:(id)sender {
+//	[self.tableView indexPathsForVisibleRows] ;
+//    for(NSIndexPath *ip in  [self.tableView indexPathsForVisibleRows])
+//    {
+//        
+//        QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:ip ];
+//        
+//        if([cell.answer isFirstResponder]){
+//            [cell.answer resignFirstResponder];
+//            [cell asnwerChanged:nil ];
+//        }
+//        
+//    }
+//    
+//}
 
 
 
@@ -425,15 +425,16 @@
     //NSLog(@"Type: %@",a.measurement.type );
     if([a.measurement.type isEqualToString: @"Numeric"])
     {
-        static NSString *CellIdentifier = @"QuestionCell";
+        static NSString *CellIdentifier = @"QuestionCellD";
         QuestionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
         if (cell == nil) {
             cell = [[QuestionCell alloc]   initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier ] ;
             
         }
-        
+         cell.isDirector =NO;  //!!!!! SET TO YES TO SHOW DETAIL DISCLOSURE INTICATOR (ACCESSSORY)
         cell.tvcd=self;
+        cell.tvc = nil;
         if([a.staffReport.type isEqualToString:@"SubNode"]){
             if(a.staffReport.node.name)
                 cell.title.text = [NSString stringWithFormat:@"SubNode: %@",  a.staffReport.node.name];
@@ -442,7 +443,7 @@
         }
         else if([a.staffReport.staffReportId intValue] < 0){
             
-            cell.title.Text = a.staffReport.node.name ;
+            cell.title.text = a.staffReport.node.name ;
         }
         else{
             cell.title.text=  [NSString stringWithFormat:@"%@ ", a.staffReport.user.name] ; //a.measurement.name;
@@ -451,14 +452,18 @@
         cell.subTitle.text = a.measurement.type;
         //cell.textLabel.text = a.measurement.name;
         // cell.detailTextLabel.text = a.measurement.type;
-        cell.answer.text= a.value;
+        cell.answer.text=a.value;
+        
+        
         [cell.answer setEnabled:YES];
+        cell.answer.hidden = NO ;
+        cell.lblAnswer.hidden = YES;
         [cell.addButton setHidden:NO];
         cell.measurementId  =a.measurement.measurementId;
         cell.measurementType = a.measurement.type ;
         cell.staffReportId = a.staffReport.staffReportId;
-        
-        cell.isDirector =NO;  //!!!!! SET TO YES TO SHOW DETAIL DISCLOSURE INTICATOR (ACCESSSORY)
+        cell.lblCalc.hidden = YES;
+       
         cell.addButton.hidden = [a.staffReport.type isEqualToString:@"SubNode"];
         cell.nodeId = a.staffReport.node.nodeId;
     
@@ -479,7 +484,7 @@
         }
         
         cell.tvcd=self;
-        
+        cell.tvc=nil;
         if([a.staffReport.type isEqualToString:@"SubNode"]){
             if(a.staffReport.node.name)
                 cell.title.text = [NSString stringWithFormat:@"SubNode: %@",  a.staffReport.node.name];
@@ -493,13 +498,16 @@
         else{
             cell.title.text=  [NSString stringWithFormat:@"%@ ", a.staffReport.user.name] ; //a.measurement.name;
         }
+        
+      
         [QuestionCell resizeFontForLabel:cell.title maxSize:17 minSize:10 labelWidth:159 labelHeight:32];
 
         
         
         
-        cell.title.text= a.measurement.name;
+        //cell.title.text= a.measurement.name;
         cell.answer.text= a.value;
+      
         cell.measurementId  =a.measurement.measurementId;
         
         cell.staffReportId = a.staffReport.staffReportId;
@@ -511,7 +519,7 @@
     
     //Calculated Measurement
     
-    static NSString *CellIdentifier = @"QuestionCell";
+    static NSString *CellIdentifier = @"QuestionCellD";
     QuestionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
@@ -521,6 +529,7 @@
     
       
     cell.tvcd=self;
+    cell.tvc=nil;
     if([a.staffReport.type isEqualToString:@"SubNode"]){
         if(a.staffReport.node.name)
             cell.title.text = [NSString stringWithFormat:@"SubNode: %@",  a.staffReport.node.name];
