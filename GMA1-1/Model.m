@@ -402,7 +402,7 @@ MyCustomBlock openBlock;
    
     [self.alertBarController showMessage:@"Downloading..." withBackgroundColor:activityColor withSpinner: YES];
    
-    //Call api on the API Thread
+    //Call api on the	 API Thread
     dispatch_async(self.gma_Api, ^{
       
         
