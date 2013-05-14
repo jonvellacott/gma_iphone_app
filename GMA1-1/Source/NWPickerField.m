@@ -55,7 +55,8 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
     // when in a table cell.
     if (pickerView.hidden == YES)
         [pickerView toggle];
-	[pickerView selectRow:self.text.intValue inComponent:0 animated:false];
+   
+        [pickerView selectRow:self.text.intValue inComponent:0 animated:false];
     return YES;
 }
 
@@ -139,9 +140,14 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
 
         int component = 0;
 	
-        // select the first items in each component by default.
-        for (component = 0; component < [pickerView numberOfComponents]; component++) 
+        
+        if(![self.text isEqualToString:@""])
+            [self selectRow:self.text.intValue inComponent:component animated:false];
+        else
+            for (component = 0; component < [pickerView numberOfComponents]; component++) 
             [self selectRow:0 inComponent:component animated:NO];
+        
+        
     }
 }
 

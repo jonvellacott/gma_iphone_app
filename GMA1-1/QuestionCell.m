@@ -41,8 +41,10 @@
        [self.addButton setHidden:NO];
     }
     [answer setDelegate:self];
-    
+   
 }
+
+
 
 - (IBAction)plusButtonPressed:(id)sender
 {
@@ -119,13 +121,7 @@
 
 
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    
-    // Configure the view for the selected state
-}
+
 
 + (void)resizeFontForLabel:(UILabel*)aLabel maxSize:(int)maxSize minSize:(int)minSize labelWidth: (int)labelWidth labelHeight: (int)labelHeight{
     // use font from provided label so we don't lose color, style, etc

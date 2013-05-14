@@ -18,7 +18,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *title;
 @property (nonatomic, weak) IBOutlet UILabel *subTitle;
-@property (nonatomic, strong) IBOutlet NWPickerField *answer;
+@property (nonatomic, weak) IBOutlet NWPickerField *answer;
 @property (nonatomic, weak) IBOutlet UIButton *addButton;
 @property (weak, nonatomic) IBOutlet UILabel *lblCalc;
 @property (weak, nonatomic) IBOutlet UILabel *lblAnswer;
