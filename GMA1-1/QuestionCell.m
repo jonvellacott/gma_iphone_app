@@ -79,9 +79,9 @@
 {
     //if(hasChanged)
     //{
-        hasChanged=NO;
-        if(answer.text.length==0)
-            answer.text = @"0";
+        //hasChanged=NO;
+       // if(answer.text.length==0)
+        //    answer.text = @"0";
         dispatch_queue_t fetchQ =dispatch_queue_create("UpdateNumber", nil);
         dispatch_async(fetchQ, ^{
             if(tvc)
