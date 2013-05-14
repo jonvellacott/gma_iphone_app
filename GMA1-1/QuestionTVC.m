@@ -172,7 +172,7 @@ BOOL refreshAfterSave = NO;
     
         
     saveValueBlock = ^(NSString *result) {
-        
+         self.suspendAutomaticTrackingOfChangesInManagedObjectContext = NO;
         if([result isEqualToString:GMA_NO_CONNECT] )
         {
             UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Connect Failed" message:GMA_NOCONNECT_Message delegate:self cancelButtonTitle:GMA_OFFLINE otherButtonTitles:GMA_TRY_AGAIN, nil];
@@ -196,7 +196,7 @@ BOOL refreshAfterSave = NO;
             [self.dataModel.alertBarController hideAlertBar];
             //if(refreshAfterSave)
             //{
-                [self refresh];
+           //     [self refresh];
                 
             //}
         }
@@ -324,40 +324,29 @@ BOOL refreshAfterSave = NO;
     if(!self.fetchedResultsController)
     {
         [self setupFetchedResultsController];
-        
-        [self.dataModel fetchStaffReport:self.staffReportId forNode:self.nodeId  atDate: self.startDate completionHandler:^{
-            [self performFetch];
-           
-            
-            //[self performSelector: @selector(refresh) withObject:self afterDelay:5];
-            //[self.tableView reloadData];
-            //         NSLog(@"Sections0: %d",self.tableView.numberOfSections);
-            //         dispatch_async(dispatch_get_main_queue(), ^{
-            //              NSLog(@"Sections1: %d",self.tableView.numberOfSections);
-            //              [self performFetch];
-            //              NSLog(@"Sections2: %d",self.tableView.numberOfSections);
-            //             NSLog(@"Sections3: %d",self.feßtc		edResultsController.sections.count);
-            //         });
-            
-       }] ;
-        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                                 (unsigned long)NULL), ^(void) {
+            [self.dataModel fetchStaffReport:self.staffReportId forNode:self.nodeId  atDate: self.startDate completionHandler:^{
+                [self performFetch];
+            }] ;
+        });
         
     }
     [self setHeader];
     //[self.dataModel.allNodesForUser.managedObjectContext performBlock:^{
-    dispatch_async(self.dataModel.gma_Api, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
+                                             (unsigned long)NULL), ^(void) {
         
         [NSThread sleepForTimeInterval:0.2f];
          [self performFetch];
     });
                    
-      
+    
    // [self.tableView reloadData];
     
     //}];
      
-   
-   [super viewWillAppear: animated] ;
+
     
     
     
@@ -366,14 +355,10 @@ BOOL refreshAfterSave = NO;
    // }
 }
 
--(void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-}
+
 
 -(void) viewWillDisappear:(BOOL)animated
-{
+{	
     [self dismissPickerView];
     [super viewWillDisappear:animated];
     
@@ -533,7 +518,7 @@ BOOL refreshAfterSave = NO;
 - (void) saveAnswerForMeasurementId:(NSNumber *)measurementId measurementType: (NSString *) measurementType inStaffReport:(NSNumber *)  staffReportId withValue:(NSString *)value oldValue:(NSString *) oldValue
 {
   // [self  performFetch];
-    
+    self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [self.dataModel saveModelAnswerForMeasurementId:measurementId measurementType:measurementType inStaffReport:staffReportId atNodeId:self.nodeId  withValue:value oldValue:oldValue completionHandler: saveValueBlock];
         
 }

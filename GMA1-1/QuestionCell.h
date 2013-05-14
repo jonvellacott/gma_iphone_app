@@ -39,9 +39,9 @@
 @property (nonatomic, assign) BOOL hasChanged;
 - (IBAction)plusButtonPressed:(id)sender ;
 
-- (IBAction)editingDidBegin:(id)sender;
+//- (IBAction)editingDidBegin:(id)sender;
 
-- (IBAction)textDidChange:(id)sender;
+//- (IBAction)textDidChange:(id)sender;
 
 - (id)initWithStyle:(UITableViewCellStyle)style
     reuseIdentifier:(NSString *)reuseIdentifier;
