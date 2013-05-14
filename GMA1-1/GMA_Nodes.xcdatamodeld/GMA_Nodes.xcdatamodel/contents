@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C60" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Answers" representedClassName="Answers" syncable="YES">
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="measurement" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Measurements" inverseName="answers" inverseEntity="Measurements" syncable="YES"/>
@@ -10,6 +10,7 @@
         <attribute name="measurementId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="type" attributeType="String" syncable="YES"/>
+        <attribute name="viewOrder" optional="YES" attributeType="Integer 16" defaultValueString="99" syncable="YES"/>
         <relationship name="answers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Answers" inverseName="measurement" inverseEntity="Answers" syncable="YES"/>
         <relationship name="node" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nodes" inverseName="measurements" inverseEntity="Nodes" syncable="YES"/>
     </entity>
@@ -49,7 +50,7 @@
     </entity>
     <elements>
         <element name="Answers" positionX="-2439" positionY="-765" width="128" height="88"/>
-        <element name="Measurements" positionX="-2720" positionY="-918" width="128" height="133"/>
+        <element name="Measurements" positionX="-2720" positionY="-918" width="128" height="73"/>
         <element name="Nodes" positionX="-2907" positionY="-937" width="128" height="298"/>
         <element name="StaffReports" positionX="-2718" positionY="-775" width="128" height="163"/>
         <element name="Users" positionX="-2907" positionY="-610" width="128" height="88"/>

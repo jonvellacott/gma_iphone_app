@@ -2,7 +2,7 @@
 //  Measurements.h
 //  GMA1-1
 //
-//  Created by Jon Vellacott on 07/03/2013.
+//  Created by Jon Vellacott on 14/05/2013.
 //  Copyright (c) 2013 Jon Vellacott. All rights reserved.
 //
 
@@ -13,10 +13,11 @@
 
 @interface Measurements : NSManagedObject
 
+@property (nonatomic, retain) NSString * mcc;
 @property (nonatomic, retain) NSNumber * measurementId;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * type;
-@property (nonatomic, retain) NSString * mcc;
+@property (nonatomic, retain) NSNumber * viewOrder;
 @property (nonatomic, retain) NSSet *answers;
 @property (nonatomic, retain) Nodes *node;
 @end

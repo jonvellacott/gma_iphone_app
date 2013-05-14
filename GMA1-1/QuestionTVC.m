@@ -54,7 +54,7 @@ BOOL refreshAfterSave = NO;
      request.predicate = [NSPredicate predicateWithFormat:@"staffReport.staffReportId == %@ AND staffReport.user.renId == %@ AND staffReport.type != 'SubNode' and staffReport.node.nodeId=%@", self.staffReportId, self.dataModel.myRenId, self.nodeId] ;
                          
                          
-    request.sortDescriptors =   [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:@"measurement.mcc"  ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"measurement.measurementId"  ascending:YES] , nil];
+    request.sortDescriptors =   [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:@"measurement.mcc"  ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"measurement.viewOrder"  ascending:YES] , nil];
    
     NSString * cacheName = [NSString stringWithFormat:@"QuestionTVC-%@",self.staffReportId];
     

@@ -13,6 +13,7 @@
                                           Name: (NSString *)name
                                           Type: (NSString *)type
                                            Mcc: (NSString *)mcc
+                                     ViewOrder: (NSNumber *)viewOrder
                         inManagedObjectContext: (NSManagedObjectContext *) context
 {
     
@@ -37,7 +38,8 @@
         }
         if(![m.mcc isEqualToString: mcc])
             m.mcc=mcc;
-
+        if(![m.viewOrder isEqualToNumber: viewOrder])
+            m.viewOrder=viewOrder;
        // [context save: nil];
     }else if ([matches count]==0){
         
@@ -46,7 +48,7 @@
         m.name=name;
         m.type=type;
         m.mcc=mcc;
-        
+        m.viewOrder=viewOrder;
       //  [context save: nil];
     }else{
         m = [matches lastObject];
@@ -58,7 +60,8 @@
        // }
         if(![m.mcc isEqualToString: mcc])
             m.mcc=mcc;
-        
+        if(![m.viewOrder isEqualToNumber: viewOrder])
+            m.viewOrder=viewOrder;
         //[context save: nil];
     }
     
