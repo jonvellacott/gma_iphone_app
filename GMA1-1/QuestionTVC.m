@@ -152,17 +152,21 @@ BOOL refreshAfterSave = NO;
     self.refreshControl = refreshControl;
 
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(keyboardDidShow:) 
-													 name:UIKeyboardDidShowNotification 
-												   object:nil];		
-	} else {
-		[[NSNotificationCenter defaultCenter] addObserver:self 
-												 selector:@selector(keyboardWillShow:) 
-													 name:UIKeyboardWillShowNotification 
-												   object:nil];
-	}
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+//		[[NSNotificationCenter defaultCenter] addObserver:self 
+//												 selector:@selector(keyboardDidShow:) 
+//													 name:UIKeyboardDidShowNotification 
+//												   object:nil];		
+//	} else {
+//		[[NSNotificationCenter defaultCenter] addObserver:self 
+//												 selector:@selector(keyboardWillShow:) 
+//													 name:UIKeyboardWillShowNotification 
+//												   object:nil];
+//	}
+    
+    
+    
+    
         // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -339,7 +343,9 @@ BOOL refreshAfterSave = NO;
                                              (unsigned long)NULL), ^(void) {
         
         [NSThread sleepForTimeInterval:0.2f];
-         [self performFetch];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        });
     });
                    
     
@@ -348,7 +354,7 @@ BOOL refreshAfterSave = NO;
     //}];
      
 
-    
+    	
     
     
    
@@ -382,106 +388,106 @@ BOOL refreshAfterSave = NO;
    return  nil;
 }
 
--(UIView *)findFirstResponderFrom:(UIView *)thisView
-{
-    if ([thisView isFirstResponder])
-        return thisView;
-    
-    for (UIView * subView in thisView.subviews)
-    {
-        UIView * fr = [self findFirstResponderFrom:subView];
-        if (fr != nil)
-            return fr;
-    }
-    
-    return nil;
-}
-
-
-- (void)addButtonToKeyboard {
-	// create custom button
-    BOOL isQuestionCell = NO;
-    
-    for(UIView *subView in self.tableView.subviews)
-    {
-        if ([subView isKindOfClass: [QuestionCell class]])
-        {
-            if([self findFirstResponderFrom:subView])
-                isQuestionCell = YES;
-                
-        }
-    }
-    if(!isQuestionCell) return ;
-    
-     
-    
-    
-	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	doneButton.frame = CGRectMake(0, 163, 106, 53);
-	doneButton.adjustsImageWhenHighlighted = NO;
-	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.0) {
-		[doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
-		[doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
-	} else {        
-		[doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
-		[doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
-	}
-	[doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
-	// locate keyboard view
-	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-	UIView* keyboard;
-	for(int i=0; i<[tempWindow.subviews count]; i++) {
-		keyboard = [tempWindow.subviews objectAtIndex:i];
-		// keyboard found, add the button
-        
-       
-       
-        
-		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
-				[keyboard addSubview:doneButton];
-		} else {
-			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
-				[keyboard addSubview:doneButton];
-		}
-	}
-}
-- (void)keyboardWillShow:(NSNotification *)note {
-   
-	// if clause is just an additional precaution, you could also dismiss it
-	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
-		[self addButtonToKeyboard];
-	}
-
-}
-
-- (void)keyboardDidShow:(NSNotification *)note {
-    
-	// if clause is just an additional precaution, you could also dismiss it
-	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-		[self addButtonToKeyboard];
-    }
-    
-}
-
-
-
-
-- (void)doneButton:(id)sender {
-	[self.tableView indexPathsForVisibleRows] ;
-    for(NSIndexPath *ip in  [self.tableView indexPathsForVisibleRows])
-    {
-        
-        QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:ip ];
-        
-        if([cell.answer isFirstResponder]){
-            [cell.answer resignFirstResponder];
-            [cell asnwerChanged:nil ];
-        }
-        
-    }
-        
-}
+//-(UIView *)findFirstResponderFrom:(UIView *)thisView
+//{
+//    if ([thisView isFirstResponder])
+//        return thisView;
+//    
+//    for (UIView * subView in thisView.subviews)
+//    {
+//        UIView * fr = [self findFirstResponderFrom:subView];
+//        if (fr != nil)
+//            return fr;
+//    }
+//    
+//    return nil;
+//}
+//
+//
+//- (void)addButtonToKeyboard {
+//	// create custom button
+//    BOOL isQuestionCell = NO;
+//    
+//    for(UIView *subView in self.tableView.subviews)
+//    {
+//        if ([subView isKindOfClass: [QuestionCell class]])
+//        {
+//            if([self findFirstResponderFrom:subView])
+//                isQuestionCell = YES;
+//                
+//        }
+//    }
+//    if(!isQuestionCell) return ;
+//    
+//     
+//    
+//    
+//	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//	doneButton.frame = CGRectMake(0, 163, 106, 53);
+//	doneButton.adjustsImageWhenHighlighted = NO;
+//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.0) {
+//		[doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
+//		[doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
+//	} else {        
+//		[doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
+//		[doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
+//	}
+//	[doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
+//	// locate keyboard view
+//	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+//	UIView* keyboard;
+//	for(int i=0; i<[tempWindow.subviews count]; i++) {
+//		keyboard = [tempWindow.subviews objectAtIndex:i];
+//		// keyboard found, add the button
+//        
+//       
+//       
+//        
+//		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+//			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
+//				[keyboard addSubview:doneButton];
+//		} else {
+//			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
+//				[keyboard addSubview:doneButton];
+//		}
+//	}
+//}
+//- (void)keyboardWillShow:(NSNotification *)note {
+//   
+//	// if clause is just an additional precaution, you could also dismiss it
+//	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
+//		[self addButtonToKeyboard];
+//	}
+//
+//}
+//
+//- (void)keyboardDidShow:(NSNotification *)note {
+//    
+//	// if clause is just an additional precaution, you could also dismiss it
+//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+//		[self addButtonToKeyboard];
+//    }
+//    
+//}
+//
+//
+//
+//
+//- (void)doneButton:(id)sender {
+//	[self.tableView indexPathsForVisibleRows] ;
+//    for(NSIndexPath *ip in  [self.tableView indexPathsForVisibleRows])
+//    {
+//        
+//        QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:ip ];
+//        
+//        if([cell.answer isFirstResponder]){
+//            [cell.answer resignFirstResponder];
+//            [cell asnwerChanged:nil ];
+//        }
+//        
+//    }
+//        
+//}
 
 - (void)viewDidUnload
 {
@@ -920,7 +926,7 @@ BOOL refreshAfterSave = NO;
 -(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //resign all keypads of all textfields use array containing keypads
-    [self.view endEditing:YES];
+    //[self.view endEditing:YES];
 }
 -(void) dismissPickerView
 {
