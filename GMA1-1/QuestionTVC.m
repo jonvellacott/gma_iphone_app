@@ -194,6 +194,7 @@ BOOL refreshAfterSave = NO;
         {
             
             [self.dataModel.alertBarController hideAlertBar];
+            
             //if(refreshAfterSave)
             //{
            //     [self refresh];
@@ -824,6 +825,19 @@ BOOL refreshAfterSave = NO;
 
 
 
+-(void) calculateTotalsForCell: (QuestionCell   *) cell{
+    NSFetchRequest *request = [NSFetchRequest  fetchRequestWithEntityName:@"Answers" ];
+    NSError *error = nil;
+    request.predicate = [NSPredicate predicateWithFormat:@"measurement.measurementId == %@ AND staffReport.startDate == %@", cell.measurementId, self.startDate] ;
+    
+    NSArray *matches = [self.dataModel.allNodesForUser.managedObjectContext executeFetchRequest:request error:&error];
+    if(matches)
+        cell.totalAnswer.text=[[matches valueForKeyPath:@"@sum.value"] stringValue];
+    else
+        cell.totalAnswer.Text = @"0";
+    
+}
+
 
 
 /*
@@ -919,12 +933,19 @@ BOOL refreshAfterSave = NO;
             
             
             if([qc.answer dismissPickerView ])
+            {
               [qc asnwerChanged:nil ];
+                if(self.staffReportId.intValue<0)  //Director Report
+                {
+                    [self calculateTotalsForCell:qc];
+                    
+                }
+            }
             
         }
     }
     
-    
+   
     
 }
 
