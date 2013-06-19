@@ -15,7 +15,7 @@
    // NSDictionary *gmaServers;
 
 }
-@property (nonatomic, strong) NSDictionary *gmaServers;
+@property (nonatomic, strong) NSArray  *gmaServers;
 
 
 @property (weak, nonatomic) IBOutlet UIPickerView *gmaPicker;

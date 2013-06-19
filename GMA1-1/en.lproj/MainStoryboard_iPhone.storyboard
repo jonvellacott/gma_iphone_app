@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pHY-a3-Vz2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="pHY-a3-Vz2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -757,11 +757,11 @@
                             <constraint firstItem="39R-lr-rqJ" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" type="default" id="8q6-6o-sKc"/>
                             <constraint firstItem="39R-lr-rqJ" firstAttribute="trailing" secondItem="jz1-8k-Yhu" secondAttribute="trailing" type="default" id="EV8-NV-DkA"/>
                             <constraint firstItem="ivr-J3-Fgd" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="JH4-Bq-SQ8"/>
-                            <constraint firstAttribute="bottom" secondItem="8v2-kv-H8h" secondAttribute="bottom" constant="138" id="OeV-st-bjd"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="trailing" secondItem="jz1-8k-Yhu" secondAttribute="trailing" type="default" id="WOw-Lm-2Wt"/>
                             <constraint firstAttribute="trailing" secondItem="8v2-kv-H8h" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Xkj-wN-tyu"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" type="default" id="bDj-qx-tFn"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="top" secondItem="jz1-8k-Yhu" secondAttribute="top" type="default" id="e6j-Gu-I9i"/>
+                            <constraint firstAttribute="bottom" secondItem="8v2-kv-H8h" secondAttribute="bottom" constant="138" id="hzs-nd-auD"/>
                             <constraint firstItem="La3-0u-aHh" firstAttribute="bottom" secondItem="39R-lr-rqJ" secondAttribute="top" type="default" id="ku8-2U-p04"/>
                             <constraint firstItem="8v2-kv-H8h" firstAttribute="leading" secondItem="jz1-8k-Yhu" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="tC1-Qn-n73"/>
                         </constraints>
@@ -783,96 +783,6 @@
         <image name="Settings.png" width="256" height="256"/>
         <image name="logo_thekey.png" width="512" height="512"/>
     </resources>
-    <classes>
-        <class className="CoreDataTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
-        </class>
-        <class className="GradientButton" superclassName="UIButton">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
-        </class>
-        <class className="LoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelButtonPressed:"/>
-                <relationship kind="action" name="changeServerClicked:"/>
-                <relationship kind="action" name="loginButtonPressed:"/>
-                <relationship kind="outlet" name="LogginIn" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="cancelButton" candidateClass="GradientButton"/>
-                <relationship kind="outlet" name="changeServerView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="gmaServer" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblLoginFailed" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="GradientButton"/>
-                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="saveCredentials" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="userName" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="NWPickerField" superclassName="UITextField">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NWPickerField.h"/>
-            <relationships>
-                <relationship kind="outlet" name="delegate"/>
-            </relationships>
-        </class>
-        <class className="NodeTVC" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeTVC.h"/>
-        </class>
-        <class className="QuestionCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionCell.h"/>
-            <relationships>
-                <relationship kind="action" name="asnwerChanged:" candidateClass="UITextField"/>
-                <relationship kind="action" name="plusButtonPressed:"/>
-                <relationship kind="outlet" name="addButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="answer" candidateClass="NWPickerField"/>
-                <relationship kind="outlet" name="lblAnswer" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="lblCalc" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="subTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="totalAnswer" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="QuestionDetailTVC" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionDetailTVC.h"/>
-        </class>
-        <class className="QuestionTVC" superclassName="CoreDataTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionTVC.h"/>
-            <relationships>
-                <relationship kind="action" name="segmentAction:"/>
-                <relationship kind="action" name="submitReport:"/>
-                <relationship kind="outlet" name="dateSegmentedControl" candidateClass="UISegmentedControl"/>
-            </relationships>
-        </class>
-        <class className="SettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="customServerChanged:"/>
-                <relationship kind="action" name="doneButtonPressed:"/>
-                <relationship kind="outlet" name="customServer" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="gmaPicker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
-            </relationships>
-        </class>
-        <class className="TextQuestionCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextQuestionCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="answer" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="alertViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/alertViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="alertBar" candidateClass="UIView"/>
-                <relationship kind="outlet" name="alertText" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="pvcNode" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/pvcNode.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

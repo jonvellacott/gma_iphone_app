@@ -205,7 +205,7 @@
        }
     
        //Process Text  Measurements
-       NSArray *mText = [measurements objectForKey:@"textMeasurements"] ;
+       NSArray *mText = [measurements objectForKey:@"textMeasurement		"] ;
        if(mText != (id)[NSNull null]){
     
                for(NSDictionary *m in mText)

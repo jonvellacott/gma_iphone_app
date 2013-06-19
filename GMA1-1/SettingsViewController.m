@@ -22,7 +22,7 @@
 
 #define Global_Ops @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
 #define Ensteins_Gravity @"https://www.einsteinsgravity.com/index.php?q=gmaservices"
-
+#define GetAllServers @"https://api.agapeconnect.me/GMA/gma_global_directory.svc/GetAllGmaServers?authKey=zRm7aQB4TLzLKH"
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -34,36 +34,57 @@
     return self;
 }
 
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self dismissModalViewControllerAnimated:YES];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     //arrServers = [[NSArray alloc] initWithObjects: @"Africa", @"Australia", @"Asia",  @"Canada", @"Europe",  @"South America",@"USA",@"Custom",  nil];
     
-   gmaServers =  [[NSDictionary alloc] initWithObjectsAndKeys:@"https://www.einsteinsgravity.com/index.php?q=gmaservices", @"Einstiens Gravity" ,
-     @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices", @"Global Ops (Demo)",
-            @"http://gma.agapeconnect.me/index.php?q=gmaservices" ,     @"AgapeConnect",nil];
+    NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: GetAllServers]   encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *error = nil;
+   gmaServers=jsonData ? [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error]: nil;
+    
+    if(!gmaServers ){
+        
+        NSLog(@"Error retrieving servers");
+        UIAlertView *av = [[UIAlertView alloc]initWithTitle:@"No Connection" message:@"Unable to download the list of servers from the internet at this time. Please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [av show];
+        
+        return ;
+    }
     
     
-    //Need to set the current server
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    
+     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [self.customServer setText: @""];
     [self.customServer setEnabled:NO];
-    NSArray *servers = [[gmaServers allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare: )];
+    //NSArray *servers = [sortedArrayUsingSelector:@selector( )];
+    
+    
+    
     
     if([prefs objectForKey:@"gmaServer"])
-    {
+    { 
         int i = 0;
-        for(NSString *s in servers)
+        for(NSDictionary *d in gmaServers)
         {
-            if([[gmaServers objectForKey:s] isEqualToString: [prefs objectForKey:@"gmaServer"]])
-            {
+            if([[d objectForKey: @"displayName"] isEqualToString:[prefs objectForKey:@"gmaServer"]])
+             {
                 [self.gmaPicker selectRow:i inComponent:0 animated:NO];
                 return ;
             }
             i+=1;
         }
-        [self.gmaPicker selectRow:servers.count inComponent:0 animated:NO];
+        [self.gmaPicker selectRow:gmaServers.count inComponent:0 animated:NO];
         [self.customServer setText: [prefs objectForKey:@"gmaServer"]];
         [self.customServer setEnabled: YES];
         
@@ -134,37 +155,34 @@
 {
     //set item per row
     
-    NSArray *servers = [[gmaServers allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare: )];
-    if(servers.count == row)
+    
+    if(gmaServers.count == row)
         return @"Custom...";
     else
-        return [servers objectAtIndex:row];
+        return [((NSDictionary *)[gmaServers objectAtIndex:row])  objectForKey: @"displayName" ]  ;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSString *serverName = [self pickerView:pickerView titleForRow:row forComponent:component];
-    NSString *gmaServer ;
-    if([serverName isEqualToString:@"Custom..."])
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if(gmaServers.count == row)
     {
-        gmaServer = self.customServer.text;
-        [self.customServer setEnabled:YES];
+        [prefs setObject:self.customServer.text forKey:@"gmaServer"];
+        [prefs setObject: nil forKey:@"gmaTargetService"];
     }
     else
     {
-        gmaServer = [gmaServers objectForKey:  serverName];
-        [self.customServer setEnabled:NO];
+         NSDictionary *thisServer= [gmaServers objectAtIndex:row] ;
         
+        [prefs setObject:[[thisServer objectForKey:@"rootUrl"] stringByAppendingString:@"/index.php?q=gmaservices"] forKey:@"gmaServer" ];
+        [prefs setObject: [thisServer objectForKey:@"serviceURL"] forKey:@"gmaTargetService"];
+       
     }
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if(![[prefs objectForKey:@"gmaServer"] isEqualToString:  gmaServer])
-    {
-        
-        [prefs setObject:gmaServer forKey:@"gmaServer"];
-        [prefs setObject: nil forKey:@"gmaTargetService"];
-        [prefs synchronize];
+    [prefs synchronize];
 
-    }   
+    
+
+    
 }
 
 - (IBAction)customServerChanged:(id)sender {

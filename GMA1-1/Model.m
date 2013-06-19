@@ -50,7 +50,7 @@ MyCustomBlock openBlock;
     NSString *fileName;
     if(!gmaServer)
     {
-        gmaServer = @"http://gma.agapeconnect.me/index.php?q=gmaservices";
+        gmaServer = @"http://gma.agapeconnect.me/index.php?q=gmaservices";  // TODO: REMOVE BEFORE SUBMITTING
         [prefs setObject:gmaServer forKey:@"gmaServer"];
         [prefs synchronize];
     }
@@ -105,38 +105,7 @@ MyCustomBlock openBlock;
 }
 
 
-//- (void)gmaSeverDidChange:(NSNotification *)notification {
-    //do something with the notification here
-//    NSLog(@"gmaServerChanged");
-//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-//    NSString *userName =  [[PDKeychainBindings sharedKeychainBindings]  objectForKey:@"UserName"];
-//    NSString *gmaServer = [prefs objectForKey:@"gmaServer"];
-//    
-//    self.myRenId = nil;
-//    
-//    if(gmaServer)
-//        self.api.gmaURL = gmaServer;
-//    
-//    [self.allNodesForUser    closeWithCompletionHandler:^(BOOL success) {
-//        if(userName)
-//        {
-//            NSString *fileName;
-//            
-//            fileName = [self getFileNameForUser:userName atGMAServer:gmaServer] ;
-//            
-//            //NSLog(@"Filename: %@",fileName);
-//            
-//            
-//            url = [url URLByAppendingPathComponent:fileName] ;
-//            
-//            self.allNodesForUser= [[UIManagedDocument alloc] initWithFileURL:url] ;
-//        }
-//        
-//    }
-//    
-//
-    
-//}
+
 
 -(void) setUsername: (NSString *)username
 {
