@@ -77,7 +77,7 @@
     
     CGRect titleRect = CGRectMake(0, 0, 200, 20);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleRect];
-    titleLabel.textAlignment= UITextAlignmentRight;
+    titleLabel.textAlignment= NSTextAlignmentRight;
     [titleLabel setFont: [UIFont boldSystemFontOfSize:18]];
        [titleLabel setTextColor: [UIColor whiteColor]];
     titleLabel.text = @"Total:";
@@ -87,7 +87,7 @@
    
     CGRect totalRect = CGRectMake(220, 0,self.view.frame.size.width-220 , 20);
    self.Total= [[UILabel alloc] initWithFrame:totalRect];
-    self.Total.textAlignment= UITextAlignmentLeft;
+    self.Total.textAlignment= NSTextAlignmentLeft;
     [self.Total setFont: [UIFont boldSystemFontOfSize:18]];
    [self.Total setTextColor: [UIColor whiteColor]];
        

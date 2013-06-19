@@ -14,7 +14,7 @@
 #import "Answers+Create.h"
 #import "alertViewController.h"
 #import "Users+Create.h"
-
+#import "Measurements+Create.h"
 
 
 
@@ -26,8 +26,8 @@
 @property (nonatomic) BOOL loggedIn;
 @property (nonatomic, strong) alertViewController *alertBarController;
 @property (nonatomic, strong) NSNumber *myRenId;
-@property (nonatomic, assign) dispatch_queue_t gma_Api;
-@property (nonatomic, assign) dispatch_queue_t gma_Moc;
+@property (nonatomic, strong) dispatch_queue_t gma_Api;
+@property (nonatomic, strong) dispatch_queue_t gma_Moc;
 @property (nonatomic) BOOL offlineMode;
 @property (nonatomic) BOOL forceSave ;
 
