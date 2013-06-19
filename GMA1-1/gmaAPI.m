@@ -94,7 +94,7 @@ int counter =0 ;
     NSMutableDictionary *rtn= [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", @"Unknown", @"Reason", nil];
     
     NSString *query=  [MOBILECAS_URL  stringByAppendingFormat: @"?username=%@&password=%@&targetService=%@", Username, Password, self.targetService];
-    
+    NSLog(@"%@", query);
     query =[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: query]   encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
@@ -270,6 +270,8 @@ int counter =0 ;
     
     
 }
+
+	
 -(NSArray *)getAllDirectorNodes
 {
     NSString *getReportsURL = [gmaURL  stringByAppendingFormat: @"/%@", GMA_DirectorReport_SearchOwn];
