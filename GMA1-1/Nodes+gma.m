@@ -205,7 +205,7 @@
        }
     
        //Process Text  Measurements
-       NSArray *mText = [measurements objectForKey:@"textMeasurement		"] ;
+       NSArray *mText = [measurements objectForKey:@"textMeasurement"] ;
        if(mText != (id)[NSNull null]){
     
                for(NSDictionary *m in mText)
@@ -216,7 +216,7 @@
                    [node addMeasurementsObject:
                     [Measurements MeasurementWithMeasurementId: [m objectForKey:  @"measurementId"]
                                                           Name:[m objectForKey:  @"measurementName"]
-                                                          Type:@"Text"
+                                    	                      Type:@"Text"
                                                            Mcc: @"zzz"
                      ViewOrder:[NSNumber numberWithInt: viewOrder]
                                         inManagedObjectContext:context]  ];

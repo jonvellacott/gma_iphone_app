@@ -219,7 +219,7 @@ saveBlock cacheCompletionBlock;
         }
         else{
             self.dataModel.offlineMode = YES;
-              dispatch_async(dispatch_get_main_queue(), ^{   [self dismissModalViewControllerAnimated:YES]; });
+              dispatch_async(dispatch_get_main_queue(), ^{   [self dismissViewControllerAnimated:YES completion:nil]; });
             [self.loginButton setEnabled:YES];
             [self.dataModel.alertBarController showMessage:GMA_OFFLINE_MODE withBackgroundColor: [UIColor redColor ] withSpinner: NO];
         }

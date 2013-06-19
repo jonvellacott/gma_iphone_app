@@ -50,9 +50,9 @@ MyCustomBlock openBlock;
     NSString *fileName;
     if(!gmaServer)
     {
-        gmaServer = @"http://gma.agapeconnect.me/index.php?q=gmaservices";  // TODO: REMOVE BEFORE SUBMITTING
-        [prefs setObject:gmaServer forKey:@"gmaServer"];
-        [prefs synchronize];
+        //gmaServer = @"http://gma.agapeconnect.me/index.php?q=gmaservices";  // TODO: REMOVE BEFORE SUBMITTING
+       // [prefs setObject:gmaServer forKey:@"gmaServer"];
+        //[prefs synchronize];
     }
 
         
@@ -143,7 +143,7 @@ MyCustomBlock openBlock;
     }
 
     
-    NSMutableDictionary *newStackItem= [NSDictionary dictionaryWithObjectsAndKeys:measurementId, @"measurementId", measurementType, @"measurementType", staffReportId, @"staffReportId",  value, @"value", oldValue, @"oldValue", nil];
+    NSMutableDictionary *newStackItem= [NSMutableDictionary dictionaryWithObjectsAndKeys:measurementId, @"measurementId", measurementType, @"measurementType", staffReportId, @"staffReportId",  value, @"value", oldValue, @"oldValue", nil];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSMutableArray *cacheStack;
     if([prefs objectForKey:@"cacheStack"])
@@ -376,23 +376,23 @@ MyCustomBlock openBlock;
       
         
         
-        NSDictionary *measurements;
+        //NSDictionary *measurements;
         NSArray *groupedData ;
         NSString *type=@"Staff";
         NSNumber *absSr = [sr copy];
         if([nodeId intValue]<0){
-             measurements=[self.api getMeasurementsForNode:[NSNumber numberWithInt: abs([nodeId intValue])]];
+         //    measurements=[self.api getMeasurementsForNode:[NSNumber numberWithInt: abs([nodeId intValue])]];
             absSr = [NSNumber numberWithInt:-[absSr intValue]];
             type=@"Director";
         }
-        else{
-                measurements=[self.api getMeasurementsForNode:nodeId];
-        }
+        //else{
+                //measurements=[self.api getMeasurementsForNode:nodeId];
+        //}
        
         //dispatch managedObjectContext to load into model
-        [self.allNodesForUser.managedObjectContext performBlock:^{
-        [Nodes addMeasurements:measurements toNode:nodeId inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:[nodeId intValue]<0];
-        }];
+       // [self.allNodesForUser.managedObjectContext performBlock:^{
+       // [Nodes addMeasurements:measurements toNode:nodeId inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:[nodeId intValue]<0];
+       // }];
         
         
       
@@ -415,26 +415,41 @@ MyCustomBlock openBlock;
             //previous ensure changes are saved - to avoid duplicates
             [self saveModel];
        
+            [Nodes addMeasurements:answers toNode:nodeId inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:[nodeId intValue]<0];
+            
+            
             
             //Answers is broken down by Question Type
             
             //Iterate through the Numeric Answers
+            //int vieworder = 0;
+            
             NSArray *mNumeric = [answers objectForKey:@"numericMeasurements"] ;
                 
             if(mNumeric != (id)[NSNull null]){
                 for(NSDictionary *mccs  in mNumeric)
                 {
+                    //int mccCount = 0;
+                    
                     for(NSArray *mcc in mccs.allValues)
                     {
+                        //NSString *mccName = [mccs.allKeys objectAtIndex:mccCount];
+                        //mccCount++;
                         for(NSDictionary *m in mcc)
                         {
                             //NSLog(@"%@: %@", [m   objectForKey: @"measurementValue" ], [m objectForKey:  @"measurementId"]);
                             //Add Answers to Staff Report to node...
                             
+                            
+                            
+                            
+                           // [Measurements MeasurementWithMeasurementId:[m objectForKey: @"measurementId"]  Name:[m objectForKey: @"measurementName"] Type:type Mcc: mccName ViewOrder: [NSNumber numberWithInt:vieworder] inManagedObjectContext:self.allNodesForUser.managedObjectContext];
+                           // vieworder++;
                             [Answers AnswerForMeasurementId:[m objectForKey: @"measurementId"] MeasurementType: @"Numeric" InStaffReport:sr WithValue:[[m objectForKey:  @"measurementValue"] stringValue]  InNode: nodeId
                                                        type: type
                                      inManagedObjectContext:self.allNodesForUser.managedObjectContext ] ;
                             
+                
                             
                             
                             
@@ -459,6 +474,8 @@ MyCustomBlock openBlock;
                 {
                     //NSLog(@"%@: %@", [m   objectForKey: @"measurementName" ], [m objectForKey:  @"measurementId"]);
                     //Add Answers to Staff Report to node...
+                    
+                    
                     
                     [Answers AnswerForMeasurementId:[m objectForKey:  @"measurementId"]  MeasurementType: @"Text"  InStaffReport:sr WithValue:[m objectForKey:  @"measurementValue"]  InNode: nodeId type:type inManagedObjectContext:self.allNodesForUser.managedObjectContext ] ;
                     
