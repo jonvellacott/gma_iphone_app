@@ -73,7 +73,7 @@
                 
                 a.value=value;
               //  a.mcc= ((Measurements *)[matches2 lastObject] ).mcc;
-                NSLog(@"Added Value: %@", value);
+              //  NSLog(@"Added Value: %@", value);
                 [(StaffReports *)[matches1 lastObject] addAnswersObject: a];
                 [(Measurements *)[matches2 lastObject] addAnswersObject: a];
             }
