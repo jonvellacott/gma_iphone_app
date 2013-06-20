@@ -32,6 +32,7 @@
 
 @property (nonatomic, strong) NSString *gmaURL;
 @property (nonatomic, strong) NSString *targetService;
+@property (nonatomic, strong) NSString *KeyGUID;
 
 - (id)initWithBaseURL: (NSString *)URL;
 
@@ -46,9 +47,10 @@
 - (NSString *) saveAnswerForMeasurementId:(NSNumber *)measurementId inDirectorReport:(NSNumber *)  directorReportId withValue:(NSString *)value ofType:(NSString *)type;
 - (NSString *) submitDirectorReport:(NSNumber *) directorReportId;
 -(NSArray *)getReportsForDirectorNode: (NSNumber *)nodeId atDate: (NSNumber *)date;
--(NSDictionary *)getCurrentUser;
+-(NSArray *)getUsers: (BOOL) active;
 - (void) targetServerForGmaServer: (NSString *)gmaServer ;
 
 
 
 @end
+;

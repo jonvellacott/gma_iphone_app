@@ -13,6 +13,7 @@
 @synthesize gmaURL;
 
 @synthesize targetService;
+@synthesize KeyGUID;
 #define MOBILECAS_URL @"https://agapeconnect.me/MobileCAS/MobileCAS.svc/AuthenticateWithTheKey"
 //#define TARGET_SERVICE @"https%3a%2f%2fwww.globalopsccci.org%2fgma41demo15%2f%3fq%3den%2fgmaservices%26destination%3dgmaservices"
 
@@ -109,15 +110,20 @@ int counter =0 ;
         return rtn;
     }
     BOOL success = [(NSString *)[results  objectForKey:@"LoginSuccess"] boolValue];
-    NSString *guid = (NSString *)[results  objectForKey:@"GUID"];
+   self.KeyGUID = (NSString *)[results  objectForKey:@"GUID"];
    
     
     
     if(success == YES)
     {
+        //Save GUID (so I can recognise my own RenId
+         
+        
+
+        
         
         NSString *proxyTicket = (NSString *)[results  objectForKey:@"ProxyTicket"];
-        NSLog(@"Authanticated with TheKey. GUID:%@ Ticket:%@", guid, proxyTicket);
+        NSLog(@"Authanticated with TheKey. GUID:%@ Ticket:%@", self.KeyGUID, proxyTicket);
         if(loginBlock) loginBlock(YES);
         //AuthenticateWithGMA
         NSString *gmaQuery = [gmaURL  stringByAppendingFormat: @"&ticket=%@", proxyTicket];
@@ -608,9 +614,12 @@ int counter =0 ;
     
 }
 
--(NSDictionary *)getCurrentUser
+-(NSArray *)getUsers: (BOOL) active
 {
+    
     NSString *query=  [self.gmaURL   stringByAppendingFormat: @"/%@", GMA_User_Current];
+    if(active)
+        query=  [self.gmaURL   stringByAppendingFormat: @"/%@", GMA_User_Active];
     
     query = [query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -621,7 +630,11 @@ int counter =0 ;
     
     NSArray *thedata = [results objectForKey: @"data"];
     
-    return (NSDictionary *)[thedata objectAtIndex:0];
+    BOOL success = [(NSString *)[results  objectForKey:@"success"] boolValue];
+    if(!success && active)
+        thedata = [self getUsers: NO];
+    
+    return thedata;
     
     
 }

@@ -38,7 +38,11 @@ MyCustomBlock openBlock;
    
     
     
-    self.myRenId = [prefs objectForKey:@"renId"];
+    
+    
+    
+    
+   // self.myRenId = [prefs objectForKey:@"renId"];
     self.gma_Api=dispatch_queue_create("gma-api", NULL);
     
     self.gma_Moc=dispatch_queue_create("gma-moc", NULL);
@@ -48,12 +52,7 @@ MyCustomBlock openBlock;
     self.forceSave = NO;
     
     NSString *fileName;
-    if(!gmaServer)
-    {
-        //gmaServer = @"http://gma.agapeconnect.me/index.php?q=gmaservices";  // TODO: REMOVE BEFORE SUBMITTING
-       // [prefs setObject:gmaServer forKey:@"gmaServer"];
-        //[prefs synchronize];
-    }
+    
 
         
     
@@ -307,26 +306,37 @@ MyCustomBlock openBlock;
     dispatch_async(self.gma_Api, ^{
         [self.alertBarController showMessage:@"Downloading..." withBackgroundColor:activityColor withSpinner: YES];
         
-        NSDictionary *user = [api getCurrentUser];  //TODO: THis might need to switch to Get All Users - but requires GMA permissions
+        NSArray *users= [api getUsers: YES];  //TODO: THis might need to switch to Get All Users - but requires GMA permissions
         NSArray *groupedData = [api getAllUserNodes]; // Get Staff Reports 
         NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
-        
-        
-        if(user)
+         [self.allNodesForUser.managedObjectContext performBlock:^{
+       
+             
+                        
+             
+        if(users)
         {
             //Save my User details to UserDefaults
-            self.myRenId=[user objectForKey:@"renId"];
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            [prefs setObject:self.myRenId forKey:@"renId"];
-            [prefs synchronize];
-            
+            //self.myRenId=[user objectForKey:@"renId"];
+           // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+           // [prefs setObject:self.myRenId forKey:@"renId"];
+           // [prefs synchronize];
+           
+                for(NSDictionary *user in users)
+                {
+                    if([[user objectForKey:@"GUID"] isEqualToString:self.api.KeyGUID])
+                    {
+                        self.myRenId=[user objectForKey:@"renId"];
+                            
+                    }
+                    [Users userWithRenId:[user objectForKey:@"renId"] Name:[user objectForKey:@"preferredName"] inManagedObjectContext:self.allNodesForUser.managedObjectContext ];
+                }
         }
-        
-        
+             
+             
         //Load data into Model in the managedObjectContext
-        [self.allNodesForUser.managedObjectContext performBlock:^{
-            [Users userWithRenId:self.myRenId Name:[user objectForKey:@"preferredName"] inManagedObjectContext:self.allNodesForUser.managedObjectContext ];
-            
+   
+           
             for (NSArray *nodeInfo in groupedData){
                // NSLog(@"Processing Node: %@", [(NSDictionary *)[(NSDictionary *)[nodeInfo objectAtIndex:0] valueForKey:@"node"] valueForKey:@"nodeId"] );
                                 
