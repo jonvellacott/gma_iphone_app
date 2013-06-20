@@ -290,7 +290,7 @@ MyCustomBlock openBlock;
 -(void) saveModel
 {
     //Thread Safe save model - which will actually write to disk
-    [self.allNodesForUser.managedObjectContext performBlock:^{
+    [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
         
         
         [self.allNodesForUser.managedObjectContext save:nil];
@@ -317,7 +317,7 @@ MyCustomBlock openBlock;
         NSArray *groupedData = [api getAllUserNodes]; // Get Staff Reports 
         NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
         dispatch_async(dispatch_get_main_queue(), ^{
-         [self.allNodesForUser.managedObjectContext performBlock:^{
+         [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
        
              
                         
@@ -429,7 +429,7 @@ MyCustomBlock openBlock;
             }
           
         //Switch to managedObjectConext to load answers into model
-        [self.allNodesForUser.managedObjectContext performBlock:^{
+        [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
             //previous ensure changes are saved - to avoid duplicates
             [self saveModel];
        
@@ -744,7 +744,7 @@ BOOL stringIsNumeric(NSString *str) {
 
     
     			
-    [self.allNodesForUser.managedObjectContext performBlock:^{
+    [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
         [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
        
         }];
