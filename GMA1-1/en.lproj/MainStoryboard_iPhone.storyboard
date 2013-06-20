@@ -635,7 +635,7 @@
                                             <action selector="changeServerClicked:" destination="lqs-O5-p1e" eventType="touchUpInside" id="YKD-GH-udl"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9P-f9-BsG">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9P-f9-BsG">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="182" id="mic-wQ-KLP"/>
                                         </constraints>
@@ -785,6 +785,96 @@
         <image name="Settings.png" width="256" height="256"/>
         <image name="logo_thekey.png" width="512" height="512"/>
     </resources>
+    <classes>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="GradientButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GradientButton.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonPressed:"/>
+                <relationship kind="action" name="changeServerClicked:"/>
+                <relationship kind="action" name="loginButtonPressed:"/>
+                <relationship kind="outlet" name="LogginIn" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="cancelButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="changeServerView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="gmaServer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblLoginFailed" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="GradientButton"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="saveCredentials" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="userName" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="NWPickerField" superclassName="UITextField">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NWPickerField.h"/>
+            <relationships>
+                <relationship kind="outlet" name="delegate"/>
+            </relationships>
+        </class>
+        <class className="NodeTVC" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NodeTVC.h"/>
+        </class>
+        <class className="QuestionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionCell.h"/>
+            <relationships>
+                <relationship kind="action" name="asnwerChanged:" candidateClass="UITextField"/>
+                <relationship kind="action" name="plusButtonPressed:"/>
+                <relationship kind="outlet" name="addButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="answer" candidateClass="NWPickerField"/>
+                <relationship kind="outlet" name="lblAnswer" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblCalc" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="totalAnswer" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="QuestionDetailTVC" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionDetailTVC.h"/>
+        </class>
+        <class className="QuestionTVC" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QuestionTVC.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentAction:"/>
+                <relationship kind="action" name="submitReport:"/>
+                <relationship kind="outlet" name="dateSegmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="customServerChanged:"/>
+                <relationship kind="action" name="doneButtonPressed:"/>
+                <relationship kind="outlet" name="customServer" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="gmaPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="myNavigationItem" candidateClass="UINavigationItem"/>
+            </relationships>
+        </class>
+        <class className="TextQuestionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextQuestionCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="answer" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="alertViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/alertViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="alertBar" candidateClass="UIView"/>
+                <relationship kind="outlet" name="alertText" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="pvcNode" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/pvcNode.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
