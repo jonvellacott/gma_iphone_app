@@ -89,10 +89,13 @@ MyCustomBlock openBlock;
         
         
             url = [url URLByAppendingPathComponent:fileName] ;
-        dispatch_async(self.gma_Moc, ^{
+       // dispatch_async(self.gma_Moc, ^{
             self.allNodesForUser= [[UIManagedDocument alloc] initWithFileURL:url] ;
-           
-        });
+            NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                                     [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+            self.allNodesForUser.persistentStoreOptions = options;
+        //});
         }
     }
 
@@ -195,7 +198,7 @@ MyCustomBlock openBlock;
     //Filename consists of the GMA Server Id , the UsernameId, and the 
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSString *fileName = @"NodeDatabase_" ;
+    NSString *fileName = @"Gma_" ;
     NSMutableDictionary *fileIds=[prefs objectForKey:@"FileIds"];
     
     NSString *fileKey = [[[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] substringToIndex:MIN([userName length], 30)]stringByAppendingString:[[gmaServer stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] substringToIndex:MIN([gmaServer length], 30)]]  ;
@@ -247,7 +250,11 @@ MyCustomBlock openBlock;
         url = [url URLByAppendingPathComponent:fileName] ;
         
         self.allNodesForUser= [[UIManagedDocument alloc] initWithFileURL:url] ;
-        
+        NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                                 [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                                 [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+        self.allNodesForUser.persistentStoreOptions = options;
+
         
         self.api.gmaURL = gmaServer;
         
@@ -309,6 +316,7 @@ MyCustomBlock openBlock;
         NSArray *users= [api getUsers: YES];  //TODO: THis might need to switch to Get All Users - but requires GMA permissions
         NSArray *groupedData = [api getAllUserNodes]; // Get Staff Reports 
         NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
+        dispatch_async(dispatch_get_main_queue(), ^{
          [self.allNodesForUser.managedObjectContext performBlock:^{
        
              
@@ -358,7 +366,7 @@ MyCustomBlock openBlock;
            
             if(block) block();
         }];
-        
+        });
         
 
         
