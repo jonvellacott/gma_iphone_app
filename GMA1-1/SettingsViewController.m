@@ -20,8 +20,8 @@
 
 
 
-#define Global_Ops @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
-#define Ensteins_Gravity @"https://www.einsteinsgravity.com/index.php?q=gmaservices"
+//#define Global_Ops @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
+//#define Ensteins_Gravity @"https://www.einsteinsgravity.com/index.php?q=gmaservices"
 #define GetAllServers @"https://api.agapeconnect.me/GMA/gma_global_directory.svc/GetAllGmaServers?authKey=zRm7aQB4TLzLKH"
 
 
@@ -77,7 +77,7 @@
         int i = 0;
         for(NSDictionary *d in gmaServers)
         {
-            if([[d objectForKey: @"displayName"] isEqualToString:[prefs objectForKey:@"gmaServer"]])
+            if([[d objectForKey: @"rootUrl"] hasPrefix:[prefs objectForKey:@"gmaServer"]])
              {
                 [self.gmaPicker selectRow:i inComponent:0 animated:NO];
                 return ;
@@ -114,7 +114,7 @@
     
 }
 -(void)barButtonBackPressed:(id)sender{
-    [self pickerView:self.gmaPicker didSelectRow:0 inComponent:0] ;
+    [self pickerView:self.gmaPicker didSelectRow: [self.gmaPicker selectedRowInComponent:0] inComponent:0] ;
     
         
     //}
@@ -174,7 +174,7 @@
     {
          NSDictionary *thisServer= [gmaServers objectAtIndex:row] ;
         
-        [prefs setObject:[[thisServer objectForKey:@"rootUrl"] stringByAppendingString:@"/index.php?q=gmaservices"] forKey:@"gmaServer" ];
+        [prefs setObject:[[thisServer objectForKey:@"rootUrl"] stringByAppendingString:@"index.php?q=gmaservices"] forKey:@"gmaServer" ];
         [prefs setObject: [thisServer objectForKey:@"serviceUrl"] forKey:@"gmaTargetService"];
        
     }
