@@ -42,7 +42,7 @@ MyCustomBlock openBlock;
     
     
     
-   // self.myRenId = [prefs objectForKey:@"renId"];
+    self.myRenId = [prefs objectForKey:@"renId"];
     self.gma_Api=dispatch_queue_create("gma-api", NULL);
     
     self.gma_Moc=dispatch_queue_create("gma-moc", NULL);
@@ -335,6 +335,9 @@ MyCustomBlock openBlock;
                     if([[user objectForKey:@"GUID"] isEqualToString:self.api.KeyGUID])
                     {
                         self.myRenId=[user objectForKey:@"renId"];
+                        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                        [prefs setObject:self.myRenId forKey:@"renId"];
+                        [prefs synchronize];
                             
                     }
                     [Users userWithRenId:[user objectForKey:@"renId"] Name:[user objectForKey:@"preferredName"] inManagedObjectContext:self.allNodesForUser.managedObjectContext ];
