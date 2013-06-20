@@ -72,7 +72,7 @@ int count =0 ;
     if([prefs objectForKey:@"AutoLogin"])
         saveCredentials.on = [(NSNumber *)[prefs objectForKey:@"AutoLogin"]  boolValue];
     if([prefs objectForKey:@"gmaServer"]) self.gmaServer.text = [prefs objectForKey:@"gmaServer"];
-    
+    NSLog(@"%@", [prefs objectForKey:@"gmaServer"]);
     [self.loginButton useBlackStyle];
     [self.cancelButton useBlackStyle];
     [self enableControls];
@@ -128,8 +128,9 @@ int count =0 ;
 
 
 - (IBAction)changeServerClicked:(id)sender {
+    
     UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Settings"];
-[self presentViewController:viewController animated:NO completion:nil ];
+    [self presentViewController:viewController animated:NO completion:nil ];
  
 //[self.navigationController pushViewController:viewController animated:NO];
     
