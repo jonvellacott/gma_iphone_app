@@ -257,6 +257,13 @@ MyCustomBlock openBlock;
 
         
         self.api.gmaURL = gmaServer;
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:nil forKey:@"renId"];
+        [prefs synchronize];
+        self.myRenId=nil;
+        
+        [self setUsername:nil];
+        [self setPassword:nil];
         
         
         filenameChanged= YES;
