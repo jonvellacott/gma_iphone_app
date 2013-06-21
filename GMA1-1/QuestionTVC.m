@@ -258,7 +258,8 @@ BOOL refreshAfterSave = NO;
     self.bbSubmit = [[UIBarButtonItem alloc] initWithTitle:@"Submitted" style:UIBarButtonItemStylePlain target: self action:@selector(submitReport:)];
     self.bbSubmit.enabled = !self.isSubmitted;
     self.bbSubmit.title = self.isSubmitted ? @"Submitted" : @"Submit" ;
-    self.pvc.navigationItem.rightBarButtonItem = self.bbSubmit;
+    //removed submit button for now
+   // self.pvc.navigationItem.rightBarButtonItem = self.bbSubmit;
     
     
     
