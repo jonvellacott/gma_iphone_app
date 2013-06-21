@@ -748,19 +748,20 @@ BOOL stringIsNumeric(NSString *str) {
     [self.alertBarController showMessage:@"Saving..." withBackgroundColor:activityColor withSpinner: YES];
     NSString *type=@"Staff";
     
-    //If the Staff ReportId <0, it is a Director Report. (I know this is horrible. TODO: use ReportType on Reports Table)
+    //If the Staff ReportId <0, it is a Director Report. (I know this is horrible. )
     if(staffReportId.intValue <0)
         type=@"Director";
 
     
     			
-    [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
-        [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
        
-        }];
-    
     if(offlineMode)
     {
+        [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+            [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
+            
+        }];
+
         [self addItemToCacheStackForMeasurementId:measurementId measurementType:measurementType inStaffReport:staffReportId withValue:value
                                          oldValue:oldValue];
         block(GMA_OFFLINE_MODE);
@@ -778,6 +779,12 @@ BOOL stringIsNumeric(NSString *str) {
                 result = [self.api saveAnswerForMeasurementId:measurementId inStaffReport:staffReportId withValue:value ofType:[measurementType lowercaseString]];
             }
             
+            if([result isEqualToString:GMA_NO_CONNECT]  || [result isEqualToString:GMA_NO_AUTH] || [result isEqualToString:GMA_SUCCESS]){
+                [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+                    [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
+                
+                }];
+            }
             
             if([result isEqualToString:GMA_NO_CONNECT]  || [result isEqualToString:GMA_NO_AUTH])
                 [self addItemToCacheStackForMeasurementId:measurementId measurementType:measurementType inStaffReport:staffReportId withValue:value

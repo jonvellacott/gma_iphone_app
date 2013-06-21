@@ -366,6 +366,7 @@ BOOL refreshAfterSave = NO;
 
 -(void) viewWillDisappear:(BOOL)animated
 {	
+    [self.view endEditing:YES];
     [self dismissPickerView];
     [super viewWillDisappear:animated];
     
@@ -498,6 +499,7 @@ BOOL refreshAfterSave = NO;
     //[self setAnswerChanged:nil];
     [self setBbSubmit:nil];
     [self dismissPickerView];
+    [self.view endEditing:YES];
    // self.fetchedResultsController = nil;
     //[NSFetchedResultsController deleteCacheWithName:nil];
     
@@ -926,7 +928,7 @@ BOOL refreshAfterSave = NO;
 -(void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //resign all keypads of all textfields use array containing keypads
-    //[self.view endEditing:YES];
+    [self.view endEditing:YES];
 }
 -(void) dismissPickerView
 {

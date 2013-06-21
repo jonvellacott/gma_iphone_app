@@ -209,6 +209,9 @@
         else
         {
             //FAIL
+            
+            
+            
             UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Error" message:@"GMA Server did not allow you to save this measurement. The value has been reverted back to its original value" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             dispatch_async(dispatch_get_main_queue(), ^{  [av show]; });
             
@@ -242,9 +245,13 @@
         else{
             self.dataModel.offlineMode = YES;
             [self.dataModel.alertBarController showMessage:GMA_OFFLINE_MODE withBackgroundColor:[UIColor redColor] withSpinner: NO];
+          
         }
     }
-    
+    else{
+        
+        [self.dataModel.alertBarController hideAlertBar];
+    }
     
     
     if (buttonIndex == 0){
@@ -453,7 +460,6 @@
         //cell.textLabel.text = a.measurement.name;
         // cell.detailTextLabel.text = a.measurement.type;
         cell.answer.text=a.value;
-        
         
         [cell.answer setEnabled:YES];
         cell.answer.hidden = NO ;

@@ -160,10 +160,12 @@
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     if(tvc){
         [self.tvc dismissPickerView];
+        [self.tvc.view endEditing:YES];
         
     }
     else{
-       [self.tvcd dismissPickerView]; 
+       [self.tvcd dismissPickerView];
+         [self.tvcd.view endEditing:YES];
     }
         
     
