@@ -26,11 +26,11 @@
 @property (nonatomic) BOOL loggedIn;
 @property (nonatomic, strong) alertViewController *alertBarController;
 @property (nonatomic, strong) NSNumber *myRenId;
+@property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) dispatch_queue_t gma_Api;
 @property (nonatomic, strong) dispatch_queue_t gma_Moc;
 @property (nonatomic) BOOL offlineMode;
 @property (nonatomic) BOOL forceSave ;
-
 
 
 
