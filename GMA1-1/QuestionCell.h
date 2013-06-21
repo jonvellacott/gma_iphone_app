@@ -30,6 +30,7 @@
 @property (nonatomic, weak) QuestionDetailTVC *tvcd;
 
 @property (nonatomic, strong) NSNumber *nodeId;
+
 @property (nonatomic, strong) NSNumber *staffReportId;
 @property (nonatomic, strong) NSNumber *measurementId;
 @property (nonatomic, assign) NSInteger oldValue;
