@@ -191,7 +191,7 @@ int counter =0 ;
    // [formatter setDateFormat:@"yyyyMMdd"];
     
    // NSString *post = [NSString stringWithFormat:@"{ \"dateWithin\": \"%@\",\"maxResult\": 0,\"orderBy\" : \"nodeId\" }", [formatter stringFromDate:since]   ];
-    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 0,\"orderBy\" : \"startDate\" }" ];
+    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 100,\"orderBy\" : \"startDate\" }" ];
     
     
     
@@ -287,7 +287,7 @@ int counter =0 ;
     // [formatter setDateFormat:@"yyyyMMdd"];
     
     // NSString *post = [NSString stringWithFormat:@"{ \"dateWithin\": \"%@\",\"maxResult\": 0,\"orderBy\" : \"nodeId\" }", [formatter stringFromDate:since]   ];
-    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 0,\"orderBy\" : \"startDate\" }" ];
+    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 100,\"orderBy\" : \"startDate\" }" ];
     
     
     
