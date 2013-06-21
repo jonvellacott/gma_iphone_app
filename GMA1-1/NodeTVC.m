@@ -103,10 +103,10 @@ saveBlock cacheCompletionBlock;
             self.dataModel.offlineMode = NO;
             
              //check cacheStack for pending transaction to upload
-            if([prefs objectForKey:@"cacheStack"])
+            if([prefs objectForKey:[@"cacheStack" stringByAppendingString:self.dataModel.fileName]])
             {
                 //If the Cache exists, look for existing Item
-                NSMutableArray *cacheStack = [NSMutableArray arrayWithArray:[prefs objectForKey:@"cacheStack"] ];
+                NSMutableArray *cacheStack = [NSMutableArray arrayWithArray:[prefs objectForKey:[@"cacheStack" stringByAppendingString:self.dataModel.fileName]] ];
                 if(self.dataModel.forceSave)
                 {
                     self.dataModel.forceSave = false;

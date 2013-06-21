@@ -18,6 +18,7 @@
 @synthesize gma_Moc;
 @synthesize offlineMode;
 @synthesize forceSave;
+@synthesize fileName;
 
 typedef void(^MyCustomBlock)(BOOL success);
 
@@ -51,7 +52,7 @@ MyCustomBlock openBlock;
     self.offlineMode = NO;
     self.forceSave = NO;
     
-    NSString *fileName;
+    
     
 
         
@@ -83,12 +84,12 @@ MyCustomBlock openBlock;
         {
         
             
-            fileName = [self getFileNameForUser:userName atGMAServer:gmaServer] ;
+            self.fileName = [self getFileNameForUser:userName atGMAServer:gmaServer] ;
         
             //NSLog(@"Filename: %@",fileName);
         
         
-            url = [url URLByAppendingPathComponent:fileName] ;
+            url = [url URLByAppendingPathComponent:self.fileName] ;
        // dispatch_async(self.gma_Moc, ^{
             self.allNodesForUser= [[UIManagedDocument alloc] initWithFileURL:url] ;
             NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -148,10 +149,10 @@ MyCustomBlock openBlock;
     NSMutableDictionary *newStackItem= [NSMutableDictionary dictionaryWithObjectsAndKeys:measurementId, @"measurementId", measurementType, @"measurementType", staffReportId, @"staffReportId",  value, @"value", oldValue, @"oldValue", nil];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSMutableArray *cacheStack;
-    if([prefs objectForKey:@"cacheStack"])
+    if([prefs objectForKey:[@"cacheStack" stringByAppendingString:self.fileName]])
     {
         //If the Cache exists, look for existing Item
-        cacheStack = [NSMutableArray arrayWithArray:[prefs objectForKey:@"cacheStack"] ];
+        cacheStack = [NSMutableArray arrayWithArray:[prefs objectForKey:[@"cacheStack" stringByAppendingString:self.fileName]] ];
          NSDictionary *existingItem;
         for (NSDictionary* dict in cacheStack) {
             if([[dict objectForKey:@"measurementId"] isEqualToNumber: measurementId] && [[dict objectForKey:@"staffReportId"] isEqualToNumber: staffReportId]  ){
@@ -185,7 +186,7 @@ MyCustomBlock openBlock;
                       
     }
    
-    [prefs setObject:cacheStack forKey:@"cacheStack"];
+    [prefs setObject:cacheStack forKey:[@"cacheStack" stringByAppendingString:self.fileName]];
    
        
     
@@ -195,10 +196,10 @@ MyCustomBlock openBlock;
 
 -(NSString *) getFileNameForUser: (NSString *) userName atGMAServer: (NSString *)gmaServer
 {
-    //Filename consists of the GMA Server Id , the UsernameId, and the 
+    //Filename consists of the GMA Server Id , the UsernameId, and the
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    NSString *fileName = @"Gma_" ;
+    NSString *fn = @"Gma_" ;
     NSMutableDictionary *fileIds=[prefs objectForKey:@"FileIds"];
     
     NSString *fileKey = [[[userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] substringToIndex:MIN([userName length], 30)]stringByAppendingString:[[gmaServer stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] substringToIndex:MIN([gmaServer length], 30)]]  ;
@@ -213,7 +214,7 @@ MyCustomBlock openBlock;
             [prefs synchronize];
             
         }
-       fileName = [fileName stringByAppendingString:[fileIds objectForKey:fileKey] ];
+       fn = [fn stringByAppendingString:[fileIds objectForKey:fileKey] ];
         
     }
     else
@@ -221,10 +222,10 @@ MyCustomBlock openBlock;
         NSMutableDictionary *fileIds = [NSMutableDictionary dictionaryWithObject:@"0" forKey: fileKey] ;
         [prefs setObject:fileIds forKey:@"FileIds"];
         [prefs synchronize];
-        fileName = [fileName stringByAppendingString:@"0"] ; 
+        fn = [fn stringByAppendingString:@"0"] ;
     }
-    NSLog(@"filename: %@",  fileName);
-    return fileName ;
+    NSLog(@"filename: %@",  fn);
+    return fn ;
 }
 
 
@@ -238,16 +239,16 @@ MyCustomBlock openBlock;
     NSString *gmaServer = [prefs objectForKey:@"gmaServer"];
             
     
-    NSString * fileName = [self getFileNameForUser:Username atGMAServer:gmaServer ];
+    self.fileName = [self getFileNameForUser:Username atGMAServer:gmaServer ];
     BOOL filenameChanged = NO;
-    if( ![self.allNodesForUser.fileURL.absoluteString hasSuffix: fileName])
+    if( ![self.allNodesForUser.fileURL.absoluteString hasSuffix: [fileName stringByAppendingString:@"/"]])
     {
         //  the username has changed... the database is incorrected and needs changing.
         
         NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject];
         
                
-        url = [url URLByAppendingPathComponent:fileName] ;
+        url = [url URLByAppendingPathComponent:self.fileName] ;
         
         self.allNodesForUser= [[UIManagedDocument alloc] initWithFileURL:url] ;
         NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -670,9 +671,9 @@ BOOL stringIsNumeric(NSString *str) {
 {
     //Are there transactions queued that have not been uploaded
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if([prefs objectForKey:@"cacheStack"])
+    if([prefs objectForKey:[@"cacheStack" stringByAppendingString:self.fileName]])
     {
-        return ((NSArray *)[prefs objectForKey:@"cacheStack"]).count ==0;
+        return ((NSArray *)[prefs objectForKey:[@"cacheStack" stringByAppendingString:self.fileName]]).count ==0;
     }
     else
         return YES;
@@ -682,7 +683,7 @@ BOOL stringIsNumeric(NSString *str) {
 {
     //Clear any pending transactions
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setObject:nil forKey:@"cacheStack"];
+    [prefs setObject:nil forKey:[@"cacheStack" stringByAppendingString:self.fileName]];
     [prefs synchronize];
     
 }
@@ -695,12 +696,12 @@ BOOL stringIsNumeric(NSString *str) {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
    
-    if([prefs objectForKey:@"cacheStack"])
+    if([prefs objectForKey:[@"cacheStack" stringByAppendingString:self.fileName]])
     {
         //If the Cache exists, look for existing Item
          
         dispatch_async(self.gma_Api, ^{
-            NSMutableArray *cacheStack = [NSMutableArray arrayWithArray:[prefs objectForKey:@"cacheStack"] ] ;
+            NSMutableArray *cacheStack = [NSMutableArray arrayWithArray:[prefs objectForKey:[@"cacheStack" stringByAppendingString:self.fileName]] ] ;
             NSMutableArray *cacheStack2 = cacheStack.mutableCopy;
 
             
@@ -730,7 +731,7 @@ BOOL stringIsNumeric(NSString *str) {
         }
             
             
-        [prefs setObject:cacheStack2 forKey:@"cacheStack"];
+        [prefs setObject:cacheStack2 forKey:[@"cacheStack" stringByAppendingString:self.fileName]];
         [prefs synchronize];
         if(fail) result = GMA_FAIL;
         if (block) block(result);
