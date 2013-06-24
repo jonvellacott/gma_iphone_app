@@ -90,7 +90,7 @@
         if(users.count ==0)
         {
             //create an unkown user
-           user = [Users userWithRenId:thisRenId Name:@"Unknown" inManagedObjectContext:context ];
+           user = [Users userWithRenId:thisRenId Name:[NSString stringWithFormat:@"Unknown(%@)", thisRenId] inManagedObjectContext:context ];
         }
         else
             user = [users objectAtIndex:0];
