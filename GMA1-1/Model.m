@@ -298,6 +298,7 @@ MyCustomBlock openBlock;
 -(void) saveModel
 {
     //Thread Safe save model - which will actually write to disk
+    dispatch_async(dispatch_get_main_queue(), ^{
     [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
         
         
@@ -305,6 +306,7 @@ MyCustomBlock openBlock;
         [self.allNodesForUser savePresentedItemChangesWithCompletionHandler:nil];
               
     }];
+    });
 }
 
 -(void) fetchAllUserNodesWithCompletionHandler: (void (^)())block
@@ -325,7 +327,7 @@ MyCustomBlock openBlock;
         NSArray *groupedData = [api getAllUserNodes]; // Get Staff Reports 
         NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
         dispatch_async(dispatch_get_main_queue(), ^{
-         [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+         [self.allNodesForUser.managedObjectContext performBlock:^{
        
              
                         
@@ -351,7 +353,7 @@ MyCustomBlock openBlock;
                     [Users userWithRenId:[user objectForKey:@"renId"] Name:[user objectForKey:@"preferredName"] inManagedObjectContext:self.allNodesForUser.managedObjectContext ];
                 }
         }
-             
+             [self saveModel] ;
              
         //Load data into Model in the managedObjectContext
    
@@ -403,6 +405,7 @@ MyCustomBlock openBlock;
     //Call api on the	 API Thread
     dispatch_async(self.gma_Api, ^{
       
+        NSLog(@"Getting Staff Report: %@", sr);
         
         
         //NSDictionary *measurements;
@@ -440,7 +443,7 @@ MyCustomBlock openBlock;
             }
           
         //Switch to managedObjectConext to load answers into model
-        [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+        [self.allNodesForUser.managedObjectContext performBlock:^{
             //previous ensure changes are saved - to avoid duplicates
             [self saveModel];
        
@@ -603,7 +606,7 @@ MyCustomBlock openBlock;
                             [Users userWithRenId:[report valueForKey:@"renId"] Name:[NSString stringWithFormat:@"Unknown(%@)",[report valueForKey:@"renId"] ]inManagedObjectContext:self.allNodesForUser.managedObjectContext ];
                         
                         
-                        [self fetchStaffReport:[report valueForKey:@"staffReportId"] forNode:[NSNumber numberWithInt:-[nodeId intValue]] atDate:date completionHandler:nil] ;
+                        [self fetchStaffReport:[report valueForKey:@"staffReportId"] forNode:[NSNumber numberWithInt:-[nodeId intValue]] atDate:date completionHandler:block] ;
                     }
                    [self saveModel];
                 
@@ -758,7 +761,7 @@ BOOL stringIsNumeric(NSString *str) {
        
     if(offlineMode)
     {
-        [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+        [self.allNodesForUser.managedObjectContext performBlock:^{
             [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
             
         }];
@@ -781,7 +784,7 @@ BOOL stringIsNumeric(NSString *str) {
             }
             
             if([result isEqualToString:GMA_NO_CONNECT]  || [result isEqualToString:GMA_NO_AUTH] || [result isEqualToString:GMA_SUCCESS]){
-                [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+                [self.allNodesForUser.managedObjectContext performBlock:^{
                     [Answers AnswerForMeasurementId:measurementId MeasurementType: measurementType InStaffReport:staffReportId WithValue:value InNode: nodeId type: type inManagedObjectContext:self.allNodesForUser.managedObjectContext];
                 
                 }];

@@ -40,7 +40,7 @@
       //  [context save: nil];
     }else{
         u = [matches lastObject];
-        if(![u.name isEqualToString: name])
+        if(!([u.name isEqualToString: name] || [name hasPrefix:@"Unknown"]))
             u.name=name;
         
                

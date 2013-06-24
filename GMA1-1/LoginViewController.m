@@ -158,15 +158,6 @@ int count =0 ;
 - (IBAction)cancelButtonPressed:(id)sender
 {
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if(![[prefs objectForKey:@"gmaServer"] isEqualToString:  cachedServer])
-    {
-        
-        [prefs setObject:cachedServer forKey:@"gmaServer"];
-        [prefs synchronize];
-        
-    }
-
     
      [self.view endEditing:YES];
     [self.nodesTVC dismissViewControllerAnimated:TRUE completion:nil ];
