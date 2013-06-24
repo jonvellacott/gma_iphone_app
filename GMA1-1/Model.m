@@ -19,6 +19,9 @@
 @synthesize offlineMode;
 @synthesize forceSave;
 @synthesize fileName;
+@synthesize myusername    ;
+@synthesize mypassword;
+
 
 typedef void(^MyCustomBlock)(BOOL success);
 
@@ -108,6 +111,22 @@ MyCustomBlock openBlock;
 }
 
 
+
+
+- (void) removeDatabase
+{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    [prefs setObject:nil forKey:[@"cacheStack" stringByAppendingString:self.fileName]];
+    
+    [prefs synchronize];
+    
+    [self.allNodesForUser.managedObjectContext performBlockAndWait:^{
+        NSError *error = nil;
+        [[NSFileManager defaultManager] removeItemAtURL:self.allNodesForUser.fileURL error:&error];
+    }];
+    
+}
 
 
 -(void) setUsername: (NSString *)username
@@ -237,7 +256,8 @@ MyCustomBlock openBlock;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
   
     NSString *gmaServer = [prefs objectForKey:@"gmaServer"];
-            
+    self.myusername = Username;
+    self.mypassword = Password;
     
     self.fileName = [self getFileNameForUser:Username atGMAServer:gmaServer ];
     BOOL filenameChanged = NO;

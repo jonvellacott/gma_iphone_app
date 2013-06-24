@@ -52,6 +52,7 @@ saveBlock cacheCompletionBlock;
 
 -(void) loginUser: (NSString *)username WithPassword: (NSString *)password
 {
+    
     if(!self.dataModel){
         [NSFetchedResultsController deleteCacheWithName:nil];
         
@@ -75,7 +76,7 @@ saveBlock cacheCompletionBlock;
                 
     }
     
-   ;
+   
     [self.loginButton setEnabled:NO];
     
     //Authenticate user. Ther are to handlers: one after GCX Authentication and one after GMA authentication
@@ -224,6 +225,17 @@ saveBlock cacheCompletionBlock;
             [self.dataModel.alertBarController showMessage:GMA_OFFLINE_MODE withBackgroundColor: [UIColor redColor ] withSpinner: NO];
         }
     }
+    else if([btnTitle isEqualToString:@"Reset"])
+    {
+        [self.dataModel removeDatabase];
+        NSString *u =[self.dataModel.myusername copy];
+        NSString *p =[self.dataModel.mypassword copy];
+        
+        self.dataModel = nil;
+        [self loginUser:u WithPassword:p];
+        //TODO: reset connection
+    
+    }
        
 }
 
@@ -269,7 +281,10 @@ saveBlock cacheCompletionBlock;
 
     
 }
-
+-(void)resetPressed:(id)sender{
+    UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Reset Connection" message:@"Resetting the connection will remove the GMA data stored locally on this device, and re-download the data from the GMA server. Any unsaved changes will be lost." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: @"Reset", nil];
+    [av show];
+}
 
 - (void)viewDidLoad
 {
@@ -280,6 +295,13 @@ saveBlock cacheCompletionBlock;
     [refreshControl addTarget:self action:@selector(refresh)
              forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
+    
+    UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithTitle:@"Reset..." style:UIBarButtonItemStylePlain target:self
+                                                                  action:@selector(resetPressed:)];
+    
+    self.navigationItem.rightBarButtonItem = backButton;
+
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

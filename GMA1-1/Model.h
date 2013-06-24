@@ -27,6 +27,8 @@
 @property (nonatomic, strong) alertViewController *alertBarController;
 @property (nonatomic, strong) NSNumber *myRenId;
 @property (nonatomic, strong) NSString *fileName;
+@property (nonatomic, strong) NSString *myusername;
+@property (nonatomic, strong) NSString *mypassword;
 @property (nonatomic, strong) dispatch_queue_t gma_Api;
 @property (nonatomic, strong) dispatch_queue_t gma_Moc;
 @property (nonatomic) BOOL offlineMode;
@@ -52,6 +54,6 @@
 -(NSString *) getPassword;
 -(void) saveModel;
 
-
+- (void) removeDatabase;
 @end
 
