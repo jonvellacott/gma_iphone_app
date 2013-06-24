@@ -578,7 +578,7 @@ int counter =0 ;
     // [formatter setDateFormat:@"yyyyMMdd"];
     
     // NSString *post = [NSString stringWithFormat:@"{ \"dateWithin\": \"%@\",\"maxResult\": 0,\"orderBy\" : \"nodeId\" }", [formatter stringFromDate:since]   ];
-    NSString *post = [NSString stringWithFormat:@"{ \"nodeId\": %d,\"dateWithin\": \"%d\",\"maxResult\": 0}", [nodeId intValue], [date intValue] ];
+    NSString *post = [NSString stringWithFormat:@"{ \"nodeId\":[%d],\"dateWithin\": \"%d\",\"maxResult\": 0}", [nodeId intValue], [date intValue] ];
     
     
     
