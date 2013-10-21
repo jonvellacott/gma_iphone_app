@@ -68,7 +68,7 @@
         }
       
     }
-
+    self.navigationController.navigationBar.translucent=NO;
     
 }
 

@@ -13,18 +13,13 @@
 		FC227F5716B7FDD900EB7584 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC227F5516B7FDD900EB7584 /* InfoPlist.strings */; };
 		FC227F5916B7FDD900EB7584 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC227F5816B7FDD900EB7584 /* main.m */; };
 		FC227F5D16B7FDD900EB7584 /* GMAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC227F5C16B7FDD900EB7584 /* GMAAppDelegate.m */; };
-		FC227F5F16B7FDD900EB7584 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FC227F5E16B7FDD900EB7584 /* Default.png */; };
-		FC227F6116B7FDD900EB7584 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6016B7FDD900EB7584 /* Default@2x.png */; };
-		FC227F6316B7FDD900EB7584 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6216B7FDD900EB7584 /* Default-568h@2x.png */; };
 		FC227F6616B7FDD900EB7584 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6416B7FDD900EB7584 /* MainStoryboard_iPhone.storyboard */; };
 		FC227F6916B7FDD900EB7584 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6716B7FDD900EB7584 /* MainStoryboard_iPad.storyboard */; };
-		FC253E2B1779CF00000828D5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FC253E2A1779CF00000828D5 /* Default.png */; };
-		FC253E2D1779D195000828D5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC253E2C1779D195000828D5 /* Default@2x.png */; };
-		FC253E2F1779D1D1000828D5 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC253E2E1779D1D1000828D5 /* Default-568h@2x.png */; };
 		FC358FE216DFD78F0039CB9F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC358FE116DFD78E0039CB9F /* Security.framework */; };
 		FC358FE816DFDA390039CB9F /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = FC358FE516DFDA390039CB9F /* PDKeychainBindings.m */; };
 		FC358FE916DFDA390039CB9F /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC358FE716DFDA390039CB9F /* PDKeychainBindingsController.m */; };
 		FC3CBF2416BAC45800375433 /* Users+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3CBF2316BAC45800375433 /* Users+Create.m */; };
+		FC405F5B1815747200DEDD49 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC405F5A1815747200DEDD49 /* Images.xcassets */; };
 		FC406A0816B81BA00027D4B4 /* GMA_Servers.m in Sources */ = {isa = PBXBuildFile; fileRef = FC406A0716B81BA00027D4B4 /* GMA_Servers.m */; };
 		FC47547216E2426C00C3ABAD /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FC47547116E2426C00C3ABAD /* GradientButton.m */; };
 		FC47547516E2487300C3ABAD /* GMA_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = FC47547416E2487300C3ABAD /* GMA_Button.m */; };
@@ -60,17 +55,16 @@
 		FCC0774117425FAD0013F17E /* Answers.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC0774017425FAD0013F17E /* Answers.m */; };
 		FCC0774417425FAE0013F17E /* Users.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC0774317425FAE0013F17E /* Users.m */; };
 		FCC0774717425FAE0013F17E /* Measurements.m in Sources */ = {isa = PBXBuildFile; fileRef = FCC0774617425FAE0013F17E /* Measurements.m */; };
+		FCD5D5AE1815728B00FB2477 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6216B7FDD900EB7584 /* Default-568h@2x.png */; };
 		FCD847A416B80B600002BF26 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCD847A316B80B600002BF26 /* CoreData.framework */; };
 		FCE55A591733FA9A0055CD42 /* downArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = FCE55A521733FA9A0055CD42 /* downArrow.png */; };
 		FCE55A5A1733FA9A0055CD42 /* NSString+NSArrayExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE55A541733FA9A0055CD42 /* NSString+NSArrayExtension.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCE55A5B1733FA9A0055CD42 /* NWPickerField.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE55A561733FA9A0055CD42 /* NWPickerField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FCE55A5C1733FA9A0055CD42 /* NWPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE55A581733FA9A0055CD42 /* NWPickerView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		FCFA03CF16E8EA9C00B3DA8A /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FCFA03CE16E8EA9B00B3DA8A /* Icon.png */; };
-		FCFA03D116E8EAAE00B3DA8A /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCFA03D016E8EAAE00B3DA8A /* Icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		FC227F4816B7FDD900EB7584 /* GMA1-1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GMA1-1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC227F4816B7FDD900EB7584 /* GMA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC227F4C16B7FDD900EB7584 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FC227F4E16B7FDD900EB7584 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FC227F5016B7FDD900EB7584 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -85,9 +79,6 @@
 		FC227F6216B7FDD900EB7584 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FC227F6516B7FDD900EB7584 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		FC227F6816B7FDD900EB7584 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		FC253E2A1779CF00000828D5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
-		FC253E2C1779D195000828D5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
-		FC253E2E1779D1D1000828D5 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		FC358FE116DFD78E0039CB9F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FC358FE416DFDA390039CB9F /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
 		FC358FE516DFDA390039CB9F /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
@@ -95,6 +86,7 @@
 		FC358FE716DFDA390039CB9F /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		FC3CBF2216BAC45800375433 /* Users+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Users+Create.h"; sourceTree = "<group>"; };
 		FC3CBF2316BAC45800375433 /* Users+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Users+Create.m"; sourceTree = "<group>"; };
+		FC405F5A1815747200DEDD49 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GMA/Images.xcassets; sourceTree = "<group>"; };
 		FC406A0616B81BA00027D4B4 /* GMA_Servers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMA_Servers.h; sourceTree = "<group>"; };
 		FC406A0716B81BA00027D4B4 /* GMA_Servers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMA_Servers.m; sourceTree = "<group>"; };
 		FC47547016E2426C00C3ABAD /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientButton.h; path = My_Buttons/GradientButton.h; sourceTree = "<group>"; };
@@ -156,6 +148,11 @@
 		FCC0774317425FAE0013F17E /* Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Users.m; sourceTree = "<group>"; };
 		FCC0774517425FAE0013F17E /* Measurements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurements.h; sourceTree = "<group>"; };
 		FCC0774617425FAE0013F17E /* Measurements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurements.m; sourceTree = "<group>"; };
+		FCD5D5A91815641000FB2477 /* AppIcon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon60x60@2x.png"; path = "../AppIcon60x60@2x.png"; sourceTree = "<group>"; };
+		FCD5D5AA1815642F00FB2477 /* AppIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon40x40@2x.png"; path = "../AppIcon40x40@2x.png"; sourceTree = "<group>"; };
+		FCD5D5AB1815644B00FB2477 /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon29x29@2x.png"; path = "../AppIcon29x29@2x.png"; sourceTree = "<group>"; };
+		FCD5D5AC181567FC00FB2477 /* Launch-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Launch-Small.png"; path = "../Launch-Small.png"; sourceTree = "<group>"; };
+		FCD5D5AD1815681200FB2477 /* Launch-Large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Launch-Large.png"; path = "../Launch-Large.png"; sourceTree = "<group>"; };
 		FCD847A316B80B600002BF26 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FCE55A521733FA9A0055CD42 /* downArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downArrow.png; sourceTree = "<group>"; };
 		FCE55A531733FA9A0055CD42 /* NSString+NSArrayExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+NSArrayExtension.h"; sourceTree = "<group>"; };
@@ -164,8 +161,6 @@
 		FCE55A561733FA9A0055CD42 /* NWPickerField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPickerField.m; sourceTree = "<group>"; };
 		FCE55A571733FA9A0055CD42 /* NWPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NWPickerView.h; sourceTree = "<group>"; };
 		FCE55A581733FA9A0055CD42 /* NWPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NWPickerView.m; sourceTree = "<group>"; };
-		FCFA03CE16E8EA9B00B3DA8A /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
-		FCFA03D016E8EAAE00B3DA8A /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +182,7 @@
 		FC227F3D16B7FDD900EB7584 = {
 			isa = PBXGroup;
 			children = (
+				FC405F5A1815747200DEDD49 /* Images.xcassets */,
 				FC9B8C4116E0CD3800A2B393 /* SystemConfiguration.framework */,
 				FC358FE116DFD78E0039CB9F /* Security.framework */,
 				FC227F5216B7FDD900EB7584 /* GMA1-1 */,
@@ -198,7 +194,7 @@
 		FC227F4916B7FDD900EB7584 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC227F4816B7FDD900EB7584 /* GMA1-1.app */,
+				FC227F4816B7FDD900EB7584 /* GMA.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -358,11 +354,11 @@
 		FCFA03B916E8EA2400B3DA8A /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				FC253E2E1779D1D1000828D5 /* Default-568h@2x.png */,
-				FC253E2C1779D195000828D5 /* Default@2x.png */,
-				FC253E2A1779CF00000828D5 /* Default.png */,
-				FCFA03D016E8EAAE00B3DA8A /* Icon@2x.png */,
-				FCFA03CE16E8EA9B00B3DA8A /* Icon.png */,
+				FCD5D5AD1815681200FB2477 /* Launch-Large.png */,
+				FCD5D5AC181567FC00FB2477 /* Launch-Small.png */,
+				FCD5D5AB1815644B00FB2477 /* AppIcon29x29@2x.png */,
+				FCD5D5AA1815642F00FB2477 /* AppIcon40x40@2x.png */,
+				FCD5D5A91815641000FB2477 /* AppIcon60x60@2x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -370,9 +366,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FC227F4716B7FDD900EB7584 /* GMA1-1 */ = {
+		FC227F4716B7FDD900EB7584 /* GMA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC227F6F16B7FDD900EB7584 /* Build configuration list for PBXNativeTarget "GMA1-1" */;
+			buildConfigurationList = FC227F6F16B7FDD900EB7584 /* Build configuration list for PBXNativeTarget "GMA" */;
 			buildPhases = (
 				FC227F4416B7FDD900EB7584 /* Sources */,
 				FC227F4516B7FDD900EB7584 /* Frameworks */,
@@ -382,9 +378,9 @@
 			);
 			dependencies = (
 			);
-			name = "GMA1-1";
+			name = GMA;
 			productName = "GMA1-1";
-			productReference = FC227F4816B7FDD900EB7584 /* GMA1-1.app */;
+			productReference = FC227F4816B7FDD900EB7584 /* GMA.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -409,7 +405,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC227F4716B7FDD900EB7584 /* GMA1-1 */,
+				FC227F4716B7FDD900EB7584 /* GMA */,
 			);
 		};
 /* End PBXProject section */
@@ -420,13 +416,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC227F5716B7FDD900EB7584 /* InfoPlist.strings in Resources */,
-				FC227F5F16B7FDD900EB7584 /* Default.png in Resources */,
-				FC227F6116B7FDD900EB7584 /* Default@2x.png in Resources */,
-				FC227F6316B7FDD900EB7584 /* Default-568h@2x.png in Resources */,
 				FC227F6616B7FDD900EB7584 /* MainStoryboard_iPhone.storyboard in Resources */,
 				FC227F6916B7FDD900EB7584 /* MainStoryboard_iPad.storyboard in Resources */,
 				FCB3588016B7FE8700337856 /* things-touch-toolbar-move.png in Resources */,
 				FCB3588116B7FE8700337856 /* 1333636140_DrawingPin1_Blue.png in Resources */,
+				FCD5D5AE1815728B00FB2477 /* Default-568h@2x.png in Resources */,
+				FC405F5B1815747200DEDD49 /* Images.xcassets in Resources */,
 				FCB3588216B7FE8700337856 /* Settings.png in Resources */,
 				FCB3588316B7FE8700337856 /* logo_thekey.png in Resources */,
 				FCB3588416B7FE8700337856 /* 32.png in Resources */,
@@ -434,12 +429,7 @@
 				FCB3588616B7FE8700337856 /* doneup.png in Resources */,
 				FCB3588816B7FE8700337856 /* DoneDown3.png in Resources */,
 				FCB3588916B7FE8700337856 /* DoneUp3.png in Resources */,
-				FCFA03CF16E8EA9C00B3DA8A /* Icon.png in Resources */,
-				FCFA03D116E8EAAE00B3DA8A /* Icon@2x.png in Resources */,
 				FCE55A591733FA9A0055CD42 /* downArrow.png in Resources */,
-				FC253E2B1779CF00000828D5 /* Default.png in Resources */,
-				FC253E2D1779D195000828D5 /* Default@2x.png in Resources */,
-				FC253E2F1779D1D1000828D5 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +529,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -562,7 +552,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PROVISIONING_PROFILE = "67DE6A50-325E-4751-81F2-30EFB3988440";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -575,12 +565,14 @@
 		FC227F7016B7FDD900EB7584 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GMA1-1/GMA1-1-Prefix.pch";
 				INFOPLIST_FILE = "GMA1-1/GMA1-1-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -592,15 +584,17 @@
 		FC227F7116B7FDD900EB7584 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jonathan Vellacott (PJ6DT37F27)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jonathan Vellacott (PJ6DT37F27)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GMA1-1/GMA1-1-Prefix.pch";
 				INFOPLIST_FILE = "GMA1-1/GMA1-1-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2F1DF57A-FF4A-406F-945D-95BD7663E316";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2F1DF57A-FF4A-406F-945D-95BD7663E316";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -618,7 +612,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC227F6F16B7FDD900EB7584 /* Build configuration list for PBXNativeTarget "GMA1-1" */ = {
+		FC227F6F16B7FDD900EB7584 /* Build configuration list for PBXNativeTarget "GMA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC227F7016B7FDD900EB7584 /* Debug */,

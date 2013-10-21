@@ -56,6 +56,7 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
     if (pickerView.hidden == YES)
         [pickerView toggle];
    
+    pickerView.backgroundColor= [UIColor groupTableViewBackgroundColor];
         [pickerView selectRow:self.text.intValue inComponent:0 animated:false];
     return YES;
 }
@@ -93,18 +94,14 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
 	
 	// lets load our indecicator image and get its size.
 	
-	UIImage* image = [UIImage imageNamed:@"downArrow.png"];
-	CGSize imageSize = image.size;
-	
-	// create our indicator imageview and add it as a subview of our textview.
-	//CGRect imageViewRect = CGRectMake((bounds.origin.x + bounds.size.width) - imageSize.width - 5, (bounds.size.height/2) - (imageSize.height/2), imageSize.width, imageSize.height);
+	//UIImage* image = [UIImage imageNamed:@"downArrow.png"];
+	//CGSize imageSize = image.size;
+	//    CGRect imageViewRect = CGRectMake(60- ( imageSize.width +2),5,imageSize.width, imageSize.height);
     
-    CGRect imageViewRect = CGRectMake(60- ( imageSize.width +2),5,imageSize.width, imageSize.height);
-    
-	indicator = [[UIImageView alloc] initWithFrame:imageViewRect];
-	[self addSubview:indicator];
-	indicator.image = image;
-	indicator.hidden = YES;
+	//indicator = [[UIImageView alloc] initWithFrame:imageViewRect];
+	//[self addSubview:indicator];
+	//indicator.image = image;
+	//indicator.hidden = YES;
 	
     // set our default format string.
 	self.formatString = @"%@";

@@ -33,7 +33,7 @@
     _isDirector = isDirector;
     if(isDirector){
        
-        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        self.accessoryType = UITableViewCellAccessoryDetailButton ;
         [self.addButton setHidden:YES];
     }
     else{
@@ -133,11 +133,15 @@
     // start with maxSize and keep reducing until it doesn't clip
     for(int i = maxSize; i >= minSize; i--) {
         font = [font fontWithSize:i];
-        CGSize constraintSize = CGSizeMake(labelWidth, MAXFLOAT);
+        //CGSize constraintSize = CGSizeMake(labelWidth, MAXFLOAT);
         
         // This step checks how tall the label would be with the desired font.
-        CGSize labelSize = [aLabel.text sizeWithFont:font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-        if(labelSize.height <= labelHeight)
+       // CGSize labelSize = [aLabel.text sizeWithFont:font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+        
+        
+        CGRect labelSize = [aLabel.text boundingRectWithSize:CGSizeMake(300.f, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingUsesFontLeading) attributes: nil context:nil];
+        
+        if(labelSize.size.height <= labelHeight)
             break;
     }
     // Set the UILabel's font to the newly adjusted font.
@@ -169,9 +173,6 @@
     }
         
     
-       // [self.answer dismissPickerView];
-        //[self asnwerChanged:nil ];
-       
 
 
 

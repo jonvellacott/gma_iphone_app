@@ -15,12 +15,9 @@
 @synthesize targetService;
 @synthesize KeyGUID;
 #define MOBILECAS_URL @"https://agapeconnect.me/MobileCAS/MobileCAS.svc/AuthenticateWithTheKey"
-//#define TARGET_SERVICE @"https%3a%2f%2fwww.globalopsccci.org%2fgma41demo15%2f%3fq%3den%2fgmaservices%26destination%3dgmaservices"
 
-//#define TARGET_SERVICE_SUFFIX @"/?q=en/gmaservices&destination=gmaservices"
 #define TARGET_SERVICE_SUFFIX @"/?q=gmaservices&destination=gmaservices"
-//#define TARGET_SERVICE_SUFFIX @"/?q=gmaservices"
-//#define GMA_API_URL @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
+
 #define GMA_Nodes_SUFFIX @"gma_node"
 #define GMA_StaffReport_SearchOwn @"gma_staffReport/searchOwn"
 #define GMA_DirectorReport_SearchOwn @"gma_directorReport/searchOwn"
@@ -185,12 +182,7 @@ int counter =0 ;
 -(NSArray *)getAllUserNodes
 {
     NSString *getReportsURL = [gmaURL  stringByAppendingFormat: @"/%@", GMA_StaffReport_SearchOwn];
-    //NSLog(@"%@", getReportsURL);
-   // NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //NSDate *since= [NSDate dateWithTimeIntervalSinceNow:-(3600*24*7*(27))]; //27 weeks
-   // [formatter setDateFormat:@"yyyyMMdd"];
-    
-   // NSString *post = [NSString stringWithFormat:@"{ \"dateWithin\": \"%@\",\"maxResult\": 0,\"orderBy\" : \"nodeId\" }", [formatter stringFromDate:since]   ];
+
     NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 100,\"orderBy\" : \"startDate\" }" ];
     
     
@@ -212,9 +204,7 @@ int counter =0 ;
     NSError *err;
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
     NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil;
-    //NSString *content = [NSString stringWithUTF8String:[returnData bytes]];
-    //NSLog(@"responseData: %@", content);
-    //    NSArray *nodes =  getNodes from Web service
+ 
     
     NSArray *data =(NSArray *)[[results  objectForKey:@"data"] objectForKey:@"staffReports"];
     NSArray *groupedData = [self groupNodes: data];
@@ -281,12 +271,7 @@ int counter =0 ;
 -(NSArray *)getAllDirectorNodes
 {
     NSString *getReportsURL = [gmaURL  stringByAppendingFormat: @"/%@", GMA_DirectorReport_SearchOwn];
-    //NSLog(@"%@", getReportsURL);
-    // NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //NSDate *since= [NSDate dateWithTimeIntervalSinceNow:-(3600*24*7*(27))]; //27 weeks
-    // [formatter setDateFormat:@"yyyyMMdd"];
-    
-    // NSString *post = [NSString stringWithFormat:@"{ \"dateWithin\": \"%@\",\"maxResult\": 0,\"orderBy\" : \"nodeId\" }", [formatter stringFromDate:since]   ];
+
     NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 100,\"orderBy\" : \"startDate\" }" ];
     
     
@@ -308,8 +293,7 @@ int counter =0 ;
     NSError *err;
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
     NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil;
-   // NSString *content = [NSString stringWithUTF8String:[returnData bytes]];
-    //NSLog(@"responseData: %@", content);
+
     
     NSArray *data =(NSArray *)[[results  objectForKey:@"data"] objectForKey:@"directorReports"];
     NSArray *groupedData = [self groupNodes: data];
@@ -405,9 +389,7 @@ int counter =0 ;
         
         NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil ;
         
-       // NSString *content = [[NSString alloc]  initWithBytes:[returnData bytes]
-       //                                               length:[returnData length] encoding: NSUTF8StringEncoding];
-        //NSLog(@"responseData: %@", content);
+
         
         if(err){
             
@@ -453,9 +435,7 @@ int counter =0 ;
         
         NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil ;
         
-        // NSString *content = [[NSString alloc]  initWithBytes:[returnData bytes]
-        //                                               length:[returnData length] encoding: NSUTF8StringEncoding];
-        //NSLog(@"responseData: %@", content);
+
         
         if(err){
             
@@ -504,9 +484,7 @@ int counter =0 ;
         
         NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil ;
         
-        // NSString *content = [[NSString alloc]  initWithBytes:[returnData bytes]
-        //                                               length:[returnData length] encoding: NSUTF8StringEncoding];
-        //NSLog(@"responseData: %@", content);
+
         
         if(err){
             
@@ -552,9 +530,7 @@ int counter =0 ;
         
         NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil ;
         
-        // NSString *content = [[NSString alloc]  initWithBytes:[returnData bytes]
-        //                                               length:[returnData length] encoding: NSUTF8StringEncoding];
-        //NSLog(@"responseData: %@", content);
+        
         
         if(err){
             
@@ -572,12 +548,7 @@ int counter =0 ;
 {
     
     NSString *getReportsURL = [gmaURL  stringByAppendingFormat: @"/%@", GMA_StaffReport_Search];
-    //NSLog(@"%@", getReportsURL);
-    // NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //NSDate *since= [NSDate dateWithTimeIntervalSinceNow:-(3600*24*7*(27))]; //27 weeks
-    // [formatter setDateFormat:@"yyyyMMdd"];
     
-    // NSString *post = [NSString stringWithFormat:@"{ \"dateWithin\": \"%@\",\"maxResult\": 0,\"orderBy\" : \"nodeId\" }", [formatter stringFromDate:since]   ];
     NSString *post = [NSString stringWithFormat:@"{ \"nodeId\":[%d],\"dateWithin\": \"%d\",\"maxResult\": 0}", [nodeId intValue], [date intValue] ];
     
     
@@ -599,9 +570,7 @@ int counter =0 ;
     NSError *err;
     NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
     NSDictionary *results=returnData ? [NSJSONSerialization JSONObjectWithData:returnData options:0 error:&err]: nil;
-   // NSString *content = [NSString stringWithUTF8String:[returnData bytes]];
-    //NSLog(@"responseData: %@", content);
-    //    NSArray *nodes =  getNodes from Web service
+
     
     NSArray *data =(NSArray *)[[results  objectForKey:@"data"] objectForKey:@"staffReports"];
     if(data)

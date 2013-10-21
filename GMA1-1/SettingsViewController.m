@@ -22,7 +22,7 @@
 
 //#define Global_Ops @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
 //#define Ensteins_Gravity @"https://www.einsteinsgravity.com/index.php?q=gmaservices"
-#define GetAllServers @"https://api.agapeconnect.me/GMA/gma_global_directory.svc/GetAllGmaServers?authKey=zRm7aQB4TLzLKH"
+#define GetAllServers @"https://agapeconnect.me/GMA/gma_global_directory.svc/GetAllGmaServers?authKey=zRm7aQB4TLzLKH"
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -191,7 +191,7 @@
 
 - (IBAction)doneButtonPressed:(id)sender {
     
-
+    [self barButtonBackPressed:self];
     
 }
 @end
