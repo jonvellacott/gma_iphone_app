@@ -37,7 +37,7 @@
     _isDirector = isDirector;
     if(isDirector){
         
-        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        self.accessoryType = UITableViewCellAccessoryDetailButton;
        
     }
     else{

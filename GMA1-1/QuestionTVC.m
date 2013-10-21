@@ -150,23 +150,9 @@ BOOL refreshAfterSave = NO;
     [refreshControl addTarget:self action:@selector(refresh)
              forControlEvents:UIControlEventValueChanged];
     self.refreshControl = refreshControl;
-
-    
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-//		[[NSNotificationCenter defaultCenter] addObserver:self 
-//												 selector:@selector(keyboardDidShow:) 
-//													 name:UIKeyboardDidShowNotification 
-//												   object:nil];		
-//	} else {
-//		[[NSNotificationCenter defaultCenter] addObserver:self 
-//												 selector:@selector(keyboardWillShow:) 
-//													 name:UIKeyboardWillShowNotification 
-//												   object:nil];
-//	}
-    
-    
-    
-    
+  
+  
+       
         // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -323,8 +309,7 @@ BOOL refreshAfterSave = NO;
     
 
  
-  //   NSString * cacheName = [NSString stringWithFormat:@"QuestionTVC-%@",self.staffReportId];
-  //    [NSFetchedResultsController deleteCacheWithName:cacheName	 ];
+
     
  
     if(!self.fetchedResultsController)
@@ -339,7 +324,7 @@ BOOL refreshAfterSave = NO;
         
     }
     [self setHeader];
-    //[self.dataModel.allNodesForUser.managedObjectContext performBlock:^{
+   
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,
                                              (unsigned long)NULL), ^(void) {
         
@@ -350,17 +335,7 @@ BOOL refreshAfterSave = NO;
     });
                    
     
-   // [self.tableView reloadData];
-    
-    //}];
-     
-
-    
-    
-    
-   
-
-   // }
+  
 }
 
 
@@ -380,7 +355,7 @@ BOOL refreshAfterSave = NO;
   
      [super viewWillUnload];
     
-  // [self.dataModel.allNodesForUser.managedObjectContext save:nil];
+ 
     
 }
 
@@ -390,122 +365,17 @@ BOOL refreshAfterSave = NO;
    return  nil;
 }
 
-//-(UIView *)findFirstResponderFrom:(UIView *)thisView
-//{
-//    if ([thisView isFirstResponder])
-//        return thisView;
-//    
-//    for (UIView * subView in thisView.subviews)
-//    {
-//        UIView * fr = [self findFirstResponderFrom:subView];
-//        if (fr != nil)
-//            return fr;
-//    }
-//    
-//    return nil;
-//}
-//
-//
-//- (void)addButtonToKeyboard {
-//	// create custom button
-//    BOOL isQuestionCell = NO;
-//    
-//    for(UIView *subView in self.tableView.subviews)
-//    {
-//        if ([subView isKindOfClass: [QuestionCell class]])
-//        {
-//            if([self findFirstResponderFrom:subView])
-//                isQuestionCell = YES;
-//                
-//        }
-//    }
-//    if(!isQuestionCell) return ;
-//    
-//     
-//    
-//    
-//	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//	doneButton.frame = CGRectMake(0, 163, 106, 53);
-//	doneButton.adjustsImageWhenHighlighted = NO;
-//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.0) {
-//		[doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
-//		[doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
-//	} else {        
-//		[doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
-//		[doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
-//	}
-//	[doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
-//	// locate keyboard view
-//	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-//	UIView* keyboard;
-//	for(int i=0; i<[tempWindow.subviews count]; i++) {
-//		keyboard = [tempWindow.subviews objectAtIndex:i];
-//		// keyboard found, add the button
-//        
-//       
-//       
-//        
-//		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-//			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
-//				[keyboard addSubview:doneButton];
-//		} else {
-//			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
-//				[keyboard addSubview:doneButton];
-//		}
-//	}
-//}
-//- (void)keyboardWillShow:(NSNotification *)note {
-//   
-//	// if clause is just an additional precaution, you could also dismiss it
-//	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
-//		[self addButtonToKeyboard];
-//	}
-//
-//}
-//
-//- (void)keyboardDidShow:(NSNotification *)note {
-//    
-//	// if clause is just an additional precaution, you could also dismiss it
-//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-//		[self addButtonToKeyboard];
-//    }
-//    
-//}
-//
-//
-//
-//
-//- (void)doneButton:(id)sender {
-//	[self.tableView indexPathsForVisibleRows] ;
-//    for(NSIndexPath *ip in  [self.tableView indexPathsForVisibleRows])
-//    {
-//        
-//        QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:ip ];
-//        
-//        if([cell.answer isFirstResponder]){
-//            [cell.answer resignFirstResponder];
-//            [cell asnwerChanged:nil ];
-//        }
-//        
-//    }
-//        
-//}
+
 
 - (void)viewDidUnload
 {
       [super viewDidUnload];
     
     [self setDateSegmentedControl:nil];
-   // [self setDateSegmentedControl:nil];
-    //[self setAnswerChanged:nil];
+   
     [self setBbSubmit:nil];
     [self dismissPickerView];
     [self.view endEditing:YES];
-   // self.fetchedResultsController = nil;
-    //[NSFetchedResultsController deleteCacheWithName:nil];
-    
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -513,17 +383,7 @@ BOOL refreshAfterSave = NO;
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-//- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    return 1;
-//}
-//
-//
-//- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    return 5;
-//    
-//}
+
 
 - (void) saveAnswerForMeasurementId:(NSNumber *)measurementId measurementType: (NSString *) measurementType inStaffReport:(NSNumber *)  staffReportId withValue:(NSString *)value oldValue:(NSString *) oldValue
 {
@@ -607,7 +467,7 @@ BOOL refreshAfterSave = NO;
     self.isSubmitted = YES;
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     NSArray *objects = [sectionInfo objects];
     NSString *title = @"";
@@ -622,40 +482,10 @@ BOOL refreshAfterSave = NO;
     }
         
     }
+    return title;
     
-    
-    // Create label with section title
-    UILabel *label = [[UILabel alloc] init] ;
-    label.frame = CGRectMake(10, 0, self.view.frame.size.width-20, 23);
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont italicSystemFontOfSize:20.0f];
-    label.text = title	;
-    label.backgroundColor = [UIColor clearColor];
-    
-    // Create header view and add label as a subview
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-    
-    [view addSubview:label];
-    
-    return view;
-}
+  }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-//    NSArray *objects = [sectionInfo objects];
-//    NSManagedObject *managedObject = [objects objectAtIndex:0];
-//    Measurements *m =[managedObject valueForKey:@"measurement"];
-//    if(m)
-//    {
-//        if([m.mcc isEqualToString:@"zzz"])
-//            return @"";
-//        else
-//            return m.mcc;
-//    }
-//    
-//    return @"";
-//    
-//}
 
 
 
@@ -687,8 +517,7 @@ BOOL refreshAfterSave = NO;
         
         [QuestionCell resizeFontForLabel:cell.title maxSize:14 minSize:10 labelWidth:202 labelHeight:32];
         
-        //cell.textLabel.text = a.measurement.name;
-        // cell.detailTextLabel.text = a.measurement.type;
+        
         cell.answer.text= a.value;
         cell.answer.hidden = NO;
         [cell.answer setEnabled:YES];
@@ -898,15 +727,6 @@ BOOL refreshAfterSave = NO;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
-   
-    
-    // Navigation logic may go here. Create and push another view controller.
-    
-    // QuestionDetailTVC *detailViewController = [[QuestionDetailTVC alloc]  initWithNibName:@"Question Detiail" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-  //   [self.navigationController pushViewController:detailViewController animated:YES];
   }
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
@@ -933,11 +753,7 @@ BOOL refreshAfterSave = NO;
 }
 -(void) dismissPickerView
 {
-    //[self.tableView indexPathsForVisibleRows] ;
     
-    // QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow ];
-    //[cell resignFirstResponder] ;
-    //[cell asnwerChanged:nil ];
     for(UITableViewCell *cell in self.tableView.visibleCells)
     {
         if([cell isMemberOfClass: [QuestionCell class]]){

@@ -425,7 +425,7 @@ MyCustomBlock openBlock;
     //Call api on the	 API Thread
     dispatch_async(self.gma_Api, ^{
       
-        NSLog(@"Getting Staff Report: %@", sr);
+        //NSLog(@"Getting Staff Report: %@", sr);
         
         
         //NSDictionary *measurements;
@@ -485,18 +485,10 @@ MyCustomBlock openBlock;
                     
                     for(NSArray *mcc in mccs.allValues)
                     {
-                        //NSString *mccName = [mccs.allKeys objectAtIndex:mccCount];
-                        //mccCount++;
+                        
                         for(NSDictionary *m in mcc)
                         {
-                            //NSLog(@"%@: %@", [m   objectForKey: @"measurementValue" ], [m objectForKey:  @"measurementId"]);
-                            //Add Answers to Staff Report to node...
-                            
-                            
-                            
-                            
-                           // [Measurements MeasurementWithMeasurementId:[m objectForKey: @"measurementId"]  Name:[m objectForKey: @"measurementName"] Type:type Mcc: mccName ViewOrder: [NSNumber numberWithInt:vieworder] inManagedObjectContext:self.allNodesForUser.managedObjectContext];
-                           // vieworder++;
+                        
                             [Answers AnswerForMeasurementId:[m objectForKey: @"measurementId"] MeasurementType: @"Numeric" InStaffReport:sr WithValue:[[m objectForKey:  @"measurementValue"] stringValue]  InNode: nodeId
                                                        type: type
                                      inManagedObjectContext:self.allNodesForUser.managedObjectContext ] ;
@@ -524,10 +516,6 @@ MyCustomBlock openBlock;
                 
                 for(NSDictionary *m in mText)
                 {
-                    //NSLog(@"%@: %@", [m   objectForKey: @"measurementName" ], [m objectForKey:  @"measurementId"]);
-                    //Add Answers to Staff Report to node...
-                    
-                    
                     
                     [Answers AnswerForMeasurementId:[m objectForKey:  @"measurementId"]  MeasurementType: @"Text"  InStaffReport:sr WithValue:[m objectForKey:  @"measurementValue"]  InNode: nodeId type:type inManagedObjectContext:self.allNodesForUser.managedObjectContext ] ;
                     
@@ -548,8 +536,6 @@ MyCustomBlock openBlock;
                     {
                         for(NSDictionary *m in mcc)
                         {
-                            // NSLog(@"%@: %@", [m   objectForKey: @"measurementName" ], [m objectForKey:  @"measurementId"]);
-                            //Add Answers to Staff Report to node...
                           
                             [Answers AnswerForMeasurementId:[m objectForKey:  @"measurementId"]  MeasurementType: @"Calculated"  InStaffReport:sr WithValue:[[m objectForKey:  @"measurementValue"] stringValue]  InNode: nodeId  type:type   inManagedObjectContext:self.allNodesForUser.managedObjectContext ] ;
                             
@@ -609,7 +595,7 @@ MyCustomBlock openBlock;
         
         //Now get all the staff reports (if director)
         if([nodeId intValue]<0){
-             //NSArray *groupedData =  [self.api getReportsForDirectorNode:[NSNumber numberWithInt:-[nodeId intValue]] atDate:date];
+             
            
                 for (NSArray *nodeInfo in groupedData){
                     

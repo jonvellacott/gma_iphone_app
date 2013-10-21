@@ -72,16 +72,16 @@
    {
     CGRect footerRect = CGRectMake(0, 0, self.view.frame.size.width, 20);
     UIView *tableFooter = [[UIView alloc] initWithFrame:footerRect];
-    tableFooter.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    tableFooter.backgroundColor = [UIColor clearColor];
     tableFooter.opaque= NO;
     
     CGRect titleRect = CGRectMake(0, 0, 200, 20);
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleRect];
     titleLabel.textAlignment= NSTextAlignmentRight;
     [titleLabel setFont: [UIFont boldSystemFontOfSize:18]];
-       [titleLabel setTextColor: [UIColor whiteColor]];
+       [titleLabel setTextColor: [UIColor darkGrayColor]];
     titleLabel.text = @"Total:";
-    titleLabel.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
+    titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.opaque= NO;
     [tableFooter addSubview:titleLabel];
    
@@ -89,7 +89,7 @@
    self.Total= [[UILabel alloc] initWithFrame:totalRect];
     self.Total.textAlignment= NSTextAlignmentLeft;
     [self.Total setFont: [UIFont boldSystemFontOfSize:18]];
-   [self.Total setTextColor: [UIColor whiteColor]];
+   [self.Total setTextColor: [UIColor darkGrayColor]];
        
        self.Total.text = @"1234";
     self.Total.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
@@ -98,33 +98,13 @@
     [tableFooter addSubview:self.Total];
 
     
-   
+       
     
      self.tableView.tableFooterView = tableFooter;
    }
     [self calculateTotal];
     
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-//		[[NSNotificationCenter defaultCenter] addObserver:self
-//												 selector:@selector(keyboardDidShow:)
-//													 name:UIKeyboardDidShowNotification
-//												   object:nil];
-//	} else {
-//		[[NSNotificationCenter defaultCenter] addObserver:self
-//												 selector:@selector(keyboardWillShow:)
-//													 name:UIKeyboardWillShowNotification
-//												   object:nil];
-//	}
-    
-    
-    //load the current period
-    
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 }
 
 - (void)viewDidUnload
@@ -145,24 +125,7 @@
 -(void) calculateTotal
 {
     self.Total.text=[[self.fetchedResultsController.fetchedObjects valueForKeyPath:@"@sum.value"] stringValue];
-    
-  /*
-    int runningTotal = 0;
-    
-    for (Answers *a in self.fetchedResultsController.fetchedObjects)
-    {
-        if(a.measurement.type != @"Text" && a.value != @"")
-        {
-            runningTotal += [a.value intValue];
-            
-        }
-        
-    }
-     
-         self.Total.text = [NSString  stringWithFormat:@"%d", runningTotal];
-     
-    */
-}
+ }
 
 - (void) saveAnswerForMeasurementId:(NSNumber *)measurementId  measurementType: (NSString *) measurementType inStaffReport:(NSNumber *)  staffReportId atNodeId: (NSNumber *)childNodeId withValue:(NSString *)value oldValue: (NSString *) oldValue
 {
@@ -259,103 +222,6 @@
     }
     
 }
-//-(UIView *)findFirstResponderFrom:(UIView *)thisView
-//{
-//    if ([thisView isFirstResponder])
-//        return thisView;
-//    
-//    for (UIView * subView in thisView.subviews)
-//    {
-//        UIView * fr = [self findFirstResponderFrom:subView];
-//        if (fr != nil)
-//            return fr;
-//    }
-//    
-//    return nil;
-//}
-//
-//- (void)addButtonToKeyboard {
-//	// create custom button
-//    BOOL isQuestionCell = NO;
-//    
-//    for(UIView *subView in self.tableView.subviews)
-//    {
-//        if ([subView isKindOfClass: [QuestionCell class]])
-//        {
-//            if([self findFirstResponderFrom:subView])
-//                isQuestionCell = YES;
-//            
-//        }
-//    }
-//    if(!isQuestionCell) return ;
-//    
-//    
-//    
-//    
-//	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//	doneButton.frame = CGRectMake(0, 163, 106, 53);
-//	doneButton.adjustsImageWhenHighlighted = NO;
-//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.0) {
-//		[doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
-//		[doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
-//	} else {
-//		[doneButton setImage:[UIImage imageNamed:@"DoneUp.png"] forState:UIControlStateNormal];
-//		[doneButton setImage:[UIImage imageNamed:@"DoneDown.png"] forState:UIControlStateHighlighted];
-//	}
-//	[doneButton addTarget:self action:@selector(doneButton:) forControlEvents:UIControlEventTouchUpInside];
-//	// locate keyboard view
-//	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-//	UIView* keyboard;
-//	for(int i=0; i<[tempWindow.subviews count]; i++) {
-//		keyboard = [tempWindow.subviews objectAtIndex:i];
-//		// keyboard found, add the button
-//        
-//        
-//        
-//        
-//		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-//			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
-//				[keyboard addSubview:doneButton];
-//		} else {
-//			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
-//				[keyboard addSubview:doneButton];
-//		}
-//	}
-//}
-//- (void)keyboardWillShow:(NSNotification *)note {
-//    
-//	// if clause is just an additional precaution, you could also dismiss it
-//	if ([[[UIDevice currentDevice] systemVersion] floatValue] < 3.2) {
-//		[self addButtonToKeyboard];
-//	}
-//    
-//}
-//
-//- (void)keyboardDidShow:(NSNotification *)note {
-//    
-//	// if clause is just an additional precaution, you could also dismiss it
-//	if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
-//		[self addButtonToKeyboard];
-//    }
-//    
-//}
-//
-//- (void)doneButton:(id)sender {
-//	[self.tableView indexPathsForVisibleRows] ;
-//    for(NSIndexPath *ip in  [self.tableView indexPathsForVisibleRows])
-//    {
-//        
-//        QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:ip ];
-//        
-//        if([cell.answer isFirstResponder]){
-//            [cell.answer resignFirstResponder];
-//            [cell asnwerChanged:nil ];
-//        }
-//        
-//    }
-//    
-//}
-
 
 
 -(void)controllerDidChangeContent:(NSFetchedResultsController *)controller
@@ -369,41 +235,7 @@
     
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    NSArray *objects = [sectionInfo objects];
-    NSManagedObject *managedObject = [objects objectAtIndex:0];
-    StaffReports *s =[managedObject valueForKey:@"staffReport"];
-     NSString *title = @"";
-    if(s)
-    {
-        if([s.type isEqualToString:@"SubNode"])
-            title= @"Nodes:";
-        else
-            title= [s.type stringByAppendingString:@":"] ;
-    }
 
-    
-        
-    
-    
-    
-    // Create label with section title
-    UILabel *label = [[UILabel alloc] init] ;
-    label.frame = CGRectMake(10, 0, self.view.frame.size.width-20, 23);
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont italicSystemFontOfSize:20.0f];
-    label.text = title	;
-    label.backgroundColor = [UIColor clearColor];
-    
-    // Create header view and add label as a subview
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-    
-    [view addSubview:label];
-    
-    return view;
-}
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -416,7 +248,7 @@
         if([s.type isEqualToString:@"SubNode"])
             return @"Nodes";
         else
-            return s.type;
+            return [s.type stringByAppendingString:@":"] ;
     }
 
     return @"";
@@ -640,11 +472,7 @@
 }
 -(void) dismissPickerView
 {
-    //[self.tableView indexPathsForVisibleRows] ;
     
-   // QuestionCell *cell= (QuestionCell *) [self.tableView  cellForRowAtIndexPath:self.tableView.indexPathForSelectedRow ];
-    //[cell resignFirstResponder] ;
-    //[cell asnwerChanged:nil ];
     for(UITableViewCell *cell in self.tableView.visibleCells)
     {
         if([cell isMemberOfClass: [QuestionCell class]]){

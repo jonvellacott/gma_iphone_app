@@ -382,7 +382,6 @@ saveBlock cacheCompletionBlock;
 
 
 
-
 - (void)viewWillUnload
 {
     //Last ditched attempt to ensure data is saved
@@ -454,40 +453,8 @@ saveBlock cacheCompletionBlock;
     
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    NSArray *objects = [sectionInfo objects];
-    NSManagedObject *managedObject = [objects objectAtIndex:0];
-    NSNumber *n =[managedObject valueForKey:@"nodeId"];
-    NSString *title = @"";
-    if(n)
-    {
-        if(n.intValue>0)
-            title= @"Personal Reports:";
-        else
-            title= @"Director Reports:";
-    }
-
-    
-    
-    // Create label with section title
-    UILabel *label = [[UILabel alloc] init] ;
-    label.frame = CGRectMake(10, 0, self.view.frame.size.width-20, 23);
-    label.textColor = [UIColor whiteColor];
-    label.font = [UIFont italicSystemFontOfSize:20.0f];
-    label.text = title	;
-    label.backgroundColor = [UIColor clearColor];
-    
-    // Create header view and add label as a subview
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
-   
-    [view addSubview:label];
-    
-    return view;
-}
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+  
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     NSArray *objects = [sectionInfo objects];
     NSManagedObject *managedObject = [objects objectAtIndex:0];
@@ -540,7 +507,7 @@ saveBlock cacheCompletionBlock;
         cell.textLabel.text = node.name ;	//[NSString stringWithFormat:@"%@%@", node.nodeId, node.name];
         cell.detailTextLabel.text = [node.nodeId stringValue];
         return cell;
-    
+
     }
     
     return nil;
