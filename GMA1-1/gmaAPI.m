@@ -183,7 +183,7 @@ int counter =0 ;
 {
     NSString *getReportsURL = [gmaURL  stringByAppendingFormat: @"/%@", GMA_StaffReport_SearchOwn];
 
-    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 100,\"orderBy\" : \"startDate\" }" ];
+    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 0,\"orderBy\" : \"startDate\" }" ];
     
     
     
@@ -272,7 +272,7 @@ int counter =0 ;
 {
     NSString *getReportsURL = [gmaURL  stringByAppendingFormat: @"/%@", GMA_DirectorReport_SearchOwn];
 
-    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 100,\"orderBy\" : \"startDate\" }" ];
+    NSString *post = [NSString stringWithFormat:@"{ \"maxResult\": 0,\"orderBy\" : \"startDate\" }" ];
     
     
     
