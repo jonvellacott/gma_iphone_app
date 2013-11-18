@@ -18,7 +18,7 @@
 
 #define TARGET_SERVICE_SUFFIX @"/?q=gmaservices&destination=gmaservices"
 
-#define GMA_Nodes_SUFFIX @"gma_node"
+#define GMA_Nodes_SUFFIX @" "
 #define GMA_StaffReport_SearchOwn @"gma_staffReport/searchOwn"
 #define GMA_DirectorReport_SearchOwn @"gma_directorReport/searchOwn"
 #define GMA_StaffReport @"gma_staffReport"
@@ -80,6 +80,7 @@ int counter =0 ;
 
 - (NSDictionary *)AuthenticateUser: (NSString *)Username WithPassword: (NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock
 {
+    //self.targetService=@"https%3A%2F%2Faseaconnexion.org%2FASEA%2F%3Fq%3Dgmaservices%26destination%3Dgmaservices";
     //Delete existing cookie session:
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray *cookies = [cookieStorage cookies];
@@ -92,9 +93,9 @@ int counter =0 ;
     NSMutableDictionary *rtn= [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", @"Unknown", @"Reason", nil];
     
     NSString *query=  [MOBILECAS_URL  stringByAppendingFormat: @"?username=%@&password=%@&targetService=%@", Username, Password, self.targetService];
-    NSLog(@"%@", query);
-    query =[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
+  
+    	query =[query stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      NSLog(@"%@", query);
     NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: query]   encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError *error = nil;

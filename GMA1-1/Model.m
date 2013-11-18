@@ -387,14 +387,16 @@ MyCustomBlock openBlock;
             }
               [self saveModel];
          
-            for (NSArray *nodeInfo in groupedData2){
+             
+            //For now: Director Reports are being excluded
+           /* for (NSArray *nodeInfo in groupedData2){
                 //NSLog(@"Processing Director Node: %@", [(NSDictionary *)[(NSDictionary *)[nodeInfo objectAtIndex:0] valueForKey:@"node"] valueForKey:@"nodeId"]);
                 [Nodes nodeFromGmaInfoStaffReport:nodeInfo  inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:YES  fromRenId:self.myRenId];
                 
                 
             }
             
-            [self saveModel];
+            [self saveModel];*/
             [self.alertBarController hideAlertBar];
            
             if(block) block();
