@@ -78,6 +78,7 @@ int counter =0 ;
 }
 
 
+
 - (NSDictionary *)AuthenticateUser: (NSString *)Username WithPassword: (NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock
 {
     //self.targetService=@"https%3A%2F%2Faseaconnexion.org%2FASEA%2F%3Fq%3Dgmaservices%26destination%3Dgmaservices";
@@ -126,21 +127,35 @@ int counter =0 ;
         //AuthenticateWithGMA
         NSString *gmaQuery = [gmaURL  stringByAppendingFormat: @"&ticket=%@", proxyTicket];
         NSLog(@"%@", gmaQuery);
-        NSString *gmaAuth = [NSString stringWithContentsOfURL:[NSURL URLWithString: gmaQuery] encoding:NSUTF8StringEncoding error:nil] ;
         
-        if (gmaAuth && [gmaAuth rangeOfString:@"successfully"].location != NSNotFound) {
-            //The string has been found
-            
+        
+        NSURL *url = [NSURL URLWithString:gmaQuery];
+        
+   
+        NSMutableURLRequest *httpRequest = [NSMutableURLRequest  requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
+        [httpRequest setHTTPMethod:@"GET"];
+        [httpRequest setHTTPShouldHandleCookies:YES];
+        NSURLResponse *resp;
+        NSError *err;
+        [NSURLConnection sendSynchronousRequest:httpRequest returningResponse:&resp error:&err];
+        
+        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        NSArray *cookies = [cookieStorage cookies];
+        for (NSHTTPCookie *cookie in cookies) {
+            NSLog(@"%@",cookie.name);
+        }
+
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)resp;
+        if ([httpResponse statusCode] == 200) {
+            NSLog(@"GMA Login Successful");
             [rtn setObject:@"SUCCESS" forKey:@"Status"];
             counter = 0;
             return rtn ;
+        
         }
         else{
-            
-            //lblLoginFailed.Text=@"GMA Login Failed";
-            
             counter +=1 ;
-            NSLog(@"%@", gmaAuth);
+            
             NSLog(@"Proxy Authentication via GMA Failed Attempt: %d", counter);
             if(counter <4)
             {
@@ -162,11 +177,52 @@ int counter =0 ;
                 
                 return rtn;
             }
-           
-            
-            
+
+        
         }
         
+        
+//        NSString *gmaAuth = [NSString stringWithContentsOfURL:[NSURL URLWithString: gmaQuery] encoding:NSUTF8StringEncoding error:nil] ;
+//        
+//        if (gmaAuth && [gmaAuth rangeOfString:@"successfully"].location != NSNotFound) {
+//            //The string has been found
+//            
+//            [rtn setObject:@"SUCCESS" forKey:@"Status"];
+//            counter = 0;
+//            return rtn ;
+//        }
+//        else{
+//            
+//            //lblLoginFailed.Text=@"GMA Login Failed";
+//            
+//            counter +=1 ;
+//            NSLog(@"%@", gmaAuth);
+//            NSLog(@"Proxy Authentication via GMA Failed Attempt: %d", counter);
+//            if(counter <4)
+//            {
+//                [self AuthenticateUser:Username WithPassword:Password LoginSuccessHandler: loginBlock] ;
+//                
+//            }
+//            else{
+//                //TheKey successfully authenticated, but GMA failed proxy authentication
+//                //Show login error at footer.
+//                counter = 0;
+//                NSLog(@"TheKey successfully authenticated , but ProxyAuthentication failed after four attempts") ;
+//                [rtn setObject:@"Proxy Authentication Error (4 Attempts)" forKey:@"Reason"];
+//                
+//                //Target Service might be incorrect - so reset it.
+//                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//                self.targetService = nil;
+//                [prefs setObject: nil forKey:@"gmaTargetService"];
+//                [prefs synchronize];
+//                
+//                return rtn;
+//            }
+//           
+//            
+//            
+//        }
+//        
        
         
     }
@@ -339,7 +395,9 @@ int counter =0 ;
 
 -(NSDictionary *)getDirectorReportAnswers: (NSNumber *) directorReportId
 {
-    NSString *getDirectorReport = [self.gmaURL  stringByAppendingFormat: @"/%@/%@", GMA_DirectorReport, directorReportId];
+    if([directorReportId intValue] <0) directorReportId=[NSNumber numberWithInt: -[directorReportId integerValue]];
+    
+    NSString *getDirectorReport = [self.gmaURL  stringByAppendingFormat: @"/%@/%@", GMA_DirectorReport, directorReportId ];
     
     NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: getDirectorReport] encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
     
