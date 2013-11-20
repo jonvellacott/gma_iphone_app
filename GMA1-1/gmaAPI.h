@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface gmaAPI : NSObject
+@interface gmaAPI : NSObject<NSURLConnectionDelegate>
 
 
 #define GMA_SUCCESS @"SUCCESS"
@@ -18,6 +18,9 @@
 #define GMA_OFFLINEMODE @"OFFLINE_MODE"
 #define GMA_NOCONNECT_Message @"Unable to to connect to GMA server. Would you like to try again, or work offline? If you work offline your your changes will be stored locally and sumbitted the next time you connect."
 #define KEY_NOCONNECT_Message @"Unable to connect to TheKey. Would you like to try again, or work offline? If you work offline your your changes will be stored locally and sumbitted the next time you connect."
+#define KEY_INVALID_LOGIN_Message @"Invalid username or password. Would you like to try again, or work offline? If you work offline your your changes will be stored locally and sumbitted the next time you connect."
+
+
 #define GMA_TRY_AGAIN @"Try Again"
 #define GMA_OFFLINE @"Work Offline"
 #define GMA_NOINTERNET_Message @"Unable to to connect to GMA server, as you do not currently have an internet connection. You can continue to work offline and your changes will be stored locally. Next time you connect, you will be asked if you would like to commit your changes to the GMA Server."
@@ -31,12 +34,16 @@
 #define offlineColor [UIColor redColor]
 
 @property (nonatomic, strong) NSString *gmaURL;
+@property (nonatomic, strong) NSString *gmaRootURL;
 @property (nonatomic, strong) NSString *targetService;
 @property (nonatomic, strong) NSString *KeyGUID;
-
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *password;
+@property (nonatomic, assign) int authMode;
+@property (nonatomic, assign) int counter;
 - (id)initWithBaseURL: (NSString *)URL;
 
-- (NSDictionary *)AuthenticateUser: (NSString *)Username WithPassword: (NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock;
+- (void )AuthenticateUser: (NSString *)Username WithPassword: (NSString *)Password ;
 -(NSArray *)getAllUserNodes ;
 -(NSArray *)getAllDirectorNodes;
 -(NSDictionary *)getMeasurementsForNode: (NSNumber *) nodeId;

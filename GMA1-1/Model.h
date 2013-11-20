@@ -33,6 +33,8 @@
 @property (nonatomic, strong) dispatch_queue_t gma_Moc;
 @property (nonatomic) BOOL offlineMode;
 @property (nonatomic) BOOL forceSave ;
+@property (nonatomic, assign) BOOL filenameChanged;
+
 
 
 
@@ -53,6 +55,7 @@
 -(NSString *) getUsername;
 -(NSString *) getPassword;
 -(void) saveModel;
+- (void) receiveGmaLoginComplete:(NSNotification *) notification;
 
 - (void) removeDatabase;
 @end

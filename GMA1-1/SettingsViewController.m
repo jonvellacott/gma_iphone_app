@@ -175,6 +175,7 @@
          NSDictionary *thisServer= [gmaServers objectAtIndex:row] ;
         
         [prefs setObject:[[thisServer objectForKey:@"rootUrl"] stringByAppendingString:@"index.php?q=gmaservices"] forKey:@"gmaServer" ];
+       // [prefs setObject:[thisServer objectForKey:@"rootUrl"] forKey:@"gmaServer" ];
         [prefs setObject: [thisServer objectForKey:@"serviceUrl"] forKey:@"gmaTargetService"];
        
     }

@@ -37,13 +37,14 @@ saveBlock cacheCompletionBlock;
 {
     //self.fethcedResultsController=...
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Nodes"];
-    request.predicate = [NSPredicate predicateWithFormat:@"ANY staffReports.type != 'SubNode'"] ;
+   // request.predicate = [NSPredicate predicateWithFormat:@"ANY staffReports.type != 'SubNode'"] ;
+    request.predicate = [NSPredicate predicateWithFormat:@"ANY staffReports.type == 'Staff'"] ;
     
-    
-    // request.sortDescriptors =   [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name"  ascending:YES]];
-      request.sortDescriptors =   [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:@"directorNode"  ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name"  ascending:YES] , nil];
+     request.sortDescriptors =   [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name"  ascending:YES]];
+      //request.sortDescriptors =   [NSArray arrayWithObjects: [NSSortDescriptor sortDescriptorWithKey:@"directorNode"  ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name"  ascending:YES] , nil];
         
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.dataModel.allNodesForUser.managedObjectContext sectionNameKeyPath:@"directorNode" cacheName:nil];
+   self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.dataModel.allNodesForUser.managedObjectContext sectionNameKeyPath:@"directorNode" cacheName:nil];
+   
 }
 
 
@@ -168,6 +169,11 @@ saveBlock cacheCompletionBlock;
                  UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Connect Failed" message:KEY_NOCONNECT_Message delegate:self cancelButtonTitle:GMA_OFFLINE otherButtonTitles:GMA_TRY_AGAIN, nil];
                    dispatch_async(dispatch_get_main_queue(), ^{  [av show]; });
              }
+            else if([(NSString *)[status objectForKey:@"Reason"] isEqualToString: @"Invalid Username or Password"]){
+                //show connect fail message
+                UIAlertView *av = [[UIAlertView alloc]  initWithTitle:@"Invalid Login" message:KEY_INVALID_LOGIN_Message delegate:self cancelButtonTitle:GMA_OFFLINE otherButtonTitles:GMA_TRY_AGAIN, nil];
+                dispatch_async(dispatch_get_main_queue(), ^{  [av show]; });
+            }
             else
             {
                  //show connect fail message

@@ -27,8 +27,18 @@ typedef void(^MyCustomBlock)(BOOL success);
 
 MyCustomBlock openBlock;
 
+typedef  void(^gmaAuthCompletionBlock)(NSDictionary *status);
+typedef void (^theKeyLoginBlock)(BOOL);
+
+gmaAuthCompletionBlock authBlock;
+theKeyLoginBlock authLoginBock;
 //Standard Colors:
 
+-(void)dealloc
+{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 
@@ -104,13 +114,73 @@ MyCustomBlock openBlock;
     }
 
    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gmaSeverDidChange:)name:@"gmaServerChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveGmaLoginComplete:)
+                                                 name:@"gmaLoginComplete"
+                                               object:nil];
+    
 
     
     
     return self;
 }
 
+- (void) receiveGmaLoginComplete:(NSNotification *) notification
+{
+    // [notification name] should always be @"TestNotification"
+    // unless you use this method for observation of other notifications
+    // as well.
+    
+    if([notification.object isEqualToString:@"Success"]){
+        NSLog(@"GMA Authentication Complete");
+        
+        NSDictionary *rtn= [NSDictionary dictionaryWithObjectsAndKeys:@"SUCCESS", @"Status", @"", @"Reason",[NSNumber numberWithBool:self.filenameChanged], @"filenameChanged",nil];
+    
+        self.filenameChanged = NO;
+    authLoginBock(YES);
+        authBlock(rtn) ;
+        [self.alertBarController hideAlertBar];
+        return;
+    }
+    else if([notification.object isEqualToString:@"NoServiceTicket"])
+    {
+        NSLog(@"No Servcie Ticket on Attempt: %d", self.api.counter);
+        self.api.counter++;
+        if(self.api.counter<4) { [api AuthenticateUser:self.api.username WithPassword:self.api.password ]; return;}
+       
+       
+    }
+    else if([notification.object isEqualToString:@"NoCookie"])
+    {
+         NSLog(@"No Cookie on Attempt: %d", self.api.counter);
+        self.api.counter++;
+        if(self.api.counter<4) { [api AuthenticateUser:self.api.username WithPassword:self.api.password ]; return;}
+    }
+    else if([notification.object isEqualToString:@"AuthFailed"])
+    {
+        NSLog(@"Key Authentication Failed");
+    
+        authLoginBock(NO);
+        NSDictionary *rtn= [NSDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", @"Invalid Username or Password", @"Reason", [NSNumber numberWithBool:self.filenameChanged],@"filenameChanged", nil];
+        
+        self.filenameChanged = NO;
+        
+        authBlock(rtn) ;
+        [self.alertBarController hideAlertBar];
+        return ;
+       
+    }
 
+    
+    NSDictionary *rtn= [NSDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", GMA_OFFLINE, @"Reason", [NSNumber numberWithBool:self.filenameChanged],@"filenameChanged", nil];
+    
+    self.filenameChanged = NO;
+    
+    authBlock(rtn) ;
+    [self.alertBarController hideAlertBar];
+    
+    
+}
 
 
 - (void) removeDatabase
@@ -251,7 +321,7 @@ MyCustomBlock openBlock;
 -(void) authenticateUser: (NSString *)Username WithPassword:(NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock CompletionHander: (void (^)(NSDictionary *status))block
 {
     [self.alertBarController showMessage:@"Authenticating..." withBackgroundColor: activityColor withSpinner: YES];
-    
+    self.api.counter = 0;
     //verify fileId
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
   
@@ -260,7 +330,7 @@ MyCustomBlock openBlock;
     self.mypassword = Password;
     
     self.fileName = [self getFileNameForUser:Username atGMAServer:gmaServer ];
-    BOOL filenameChanged = NO;
+    self.filenameChanged = NO;
     if( ![self.allNodesForUser.fileURL.absoluteString hasSuffix: [fileName stringByAppendingString:@"/"]])
     {
         //  the username has changed... the database is incorrected and needs changing.
@@ -287,13 +357,14 @@ MyCustomBlock openBlock;
         [self setPassword:nil];
         
         
-        filenameChanged= YES;
+        self.filenameChanged= YES;
         
     }
-
+    //loginBlock(YES);
      
     [self.alertBarController showMessage:@"Contacting GMA..." withBackgroundColor:activityColor withSpinner: YES];
-    
+    authLoginBock = loginBlock;
+    authBlock = block;
     //Authenticate user in API Thread
     dispatch_async(self.gma_Api, ^{
         for(int i =1; i<20; i++)  //TODO:  This is a bit ugly. Open Document thread and Get Service Thread (if called) must complete before continuing.
@@ -303,15 +374,15 @@ MyCustomBlock openBlock;
         }
 
         
-        NSMutableDictionary *status= [api AuthenticateUser:Username WithPassword:Password LoginSuccessHandler:loginBlock ].mutableCopy;
-        [status setObject:[NSNumber numberWithBool:filenameChanged] forKey:@"filenameChanged"] ;
+         [api AuthenticateUser:Username WithPassword:Password ];
+       // [status setObject:[NSNumber numberWithBool:filenameChanged] forKey:@"filenameChanged"] ;
         
                
-        block(status.copy) ;
+       // block(status.copy) ;
         
         
         
-        [self.alertBarController hideAlertBar];
+      //  [self.alertBarController hideAlertBar];
     });
     
 }
@@ -332,7 +403,7 @@ MyCustomBlock openBlock;
 -(void) fetchAllUserNodesWithCompletionHandler: (void (^)())block
 {
     //Get Users Reports (Staff/Director/Node) for past three months, grouped by Report Type then Node
-
+    
     
     //if offline node - don't try to fetch data
     
@@ -345,7 +416,7 @@ MyCustomBlock openBlock;
         
         NSArray *users= [api getUsers: YES];  //TODO: THis might need to switch to Get All Users - but requires GMA permissions
         NSArray *groupedData = [api getAllUserNodes]; // Get Staff Reports 
-        NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
+        //NSArray *groupedData2 = [api getAllDirectorNodes];  // Get Director Reports
         dispatch_async(dispatch_get_main_queue(), ^{
          [self.allNodesForUser.managedObjectContext performBlock:^{
        
@@ -389,14 +460,15 @@ MyCustomBlock openBlock;
          
              
             //For now: Director Reports are being excluded
-            for (NSArray *nodeInfo in groupedData2){
+           /* for (NSArray *nodeInfo in groupedData2){
                 //NSLog(@"Processing Director Node: %@", [(NSDictionary *)[(NSDictionary *)[nodeInfo objectAtIndex:0] valueForKey:@"node"] valueForKey:@"nodeId"]);
                 [Nodes nodeFromGmaInfoStaffReport:nodeInfo  inManagedObjectConext:self.allNodesForUser.managedObjectContext asDirectorNode:YES  fromRenId:self.myRenId];
                 
                 
             }
             
-            [self saveModel];
+            [self saveModel];*/
+             
             [self.alertBarController hideAlertBar];
            
             if(block) block();
