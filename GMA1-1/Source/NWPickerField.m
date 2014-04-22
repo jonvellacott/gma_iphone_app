@@ -208,6 +208,6 @@ NSString* UIPickerViewDidHideNotification = @"UIPickerViewDidHideNotification";
 	[componentStrings replaceObjectAtIndex:component withObject:string];
 	
     // format our text representing the change in the selection.
-	self.text = [NSString stringWithFormat:formatString array:componentStrings];
+	self.text = string ;// [NSString stringWithFormat:formatString array:componentStrings];
 }
 @end

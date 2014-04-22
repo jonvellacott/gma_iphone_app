@@ -7,7 +7,7 @@
     </entity>
     <entity name="Measurements" representedClassName="Measurements" syncable="YES">
         <attribute name="mcc" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="measurementId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="measurementId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="type" attributeType="String" syncable="YES"/>
         <attribute name="viewOrder" optional="YES" attributeType="Integer 16" defaultValueString="99" syncable="YES"/>
@@ -25,7 +25,7 @@
         <attribute name="locationId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="locationName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="nodeId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="nodeId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="passPhrase" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="reportStartDate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="sendStaffRemiderEmail" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -35,7 +35,7 @@
     </entity>
     <entity name="StaffReports" representedClassName="StaffReports" syncable="YES">
         <attribute name="endDate" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="staffReportId" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="staffReportId" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="submitted" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" defaultValueString="Staff" syncable="YES"/>
@@ -50,7 +50,7 @@
     </entity>
     <elements>
         <element name="Answers" positionX="-2439" positionY="-765" width="128" height="88"/>
-        <element name="Measurements" positionX="-2720" positionY="-918" width="128" height="73"/>
+        <element name="Measurements" positionX="-2720" positionY="-918" width="128" height="148"/>
         <element name="Nodes" positionX="-2907" positionY="-937" width="128" height="298"/>
         <element name="StaffReports" positionX="-2718" positionY="-775" width="128" height="163"/>
         <element name="Users" positionX="-2907" positionY="-610" width="128" height="88"/>

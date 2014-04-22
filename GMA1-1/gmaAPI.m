@@ -14,11 +14,12 @@
 
 @synthesize targetService;
 @synthesize KeyGUID;
+@synthesize csrf_token;
 
 #define MOBILECAS_URL @"https://agapeconnect.me/MobileCAS/MobileCAS.svc/AuthenticateWithTheKey"
 
 #define TARGET_SERVICE_SUFFIX @"/?q=gmaservices&destination=gmaservices"
-
+#define CSRF_TOKEN_URL @"/?q=services/session/token"
 #define GMA_Nodes_SUFFIX @" "
 #define GMA_StaffReport_SearchOwn @"gma_staffReport/searchOwn"
 #define GMA_DirectorReport_SearchOwn @"gma_directorReport/searchOwn"
@@ -91,7 +92,7 @@ int counter =0 ;
             NSMutableURLRequest *httpRequest = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:newUrl]  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
             [httpRequest setHTTPMethod:@"HEAD"];
             [httpRequest setHTTPShouldHandleCookies:YES];
-        
+            [httpRequest setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
             self.authMode=2;
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self startImmediately:YES];
@@ -113,6 +114,7 @@ int counter =0 ;
             
             
             NSMutableURLRequest *httpRequest1 = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:self.gmaURL] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+            [httpRequest1 setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
             NSURLResponse *resp;
             NSError *err;
             httpRequest1.URL=[NSURL URLWithString:[CAS_URL stringByAppendingString:@"v1/tickets"]];
@@ -120,7 +122,7 @@ int counter =0 ;
             
             NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
             
-            NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+            NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
             
             [httpRequest1 setValue:postLength forHTTPHeaderField:@"Content-Length"];
             [httpRequest1 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -148,10 +150,11 @@ int counter =0 ;
             post = [NSString stringWithFormat:@"service=%@", self.targetService];
             postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
             
-            postLength = [NSString stringWithFormat:@"%d", [postData length]];
+            postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
             
             [httpRequest1 setValue:postLength forHTTPHeaderField:@"Content-Length"];
             [httpRequest1 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+            [httpRequest1 setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
             [httpRequest1 setHTTPBody:postData];
             NSData *data = [NSURLConnection  sendSynchronousRequest:httpRequest1 returningResponse:&resp error:&err];
             NSString *st= [[NSString alloc] initWithData:data
@@ -167,6 +170,7 @@ int counter =0 ;
             NSMutableURLRequest *httpRequest = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:[[service stringByAppendingString:@"&ticket="]stringByAppendingString:st]]  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
             [httpRequest setHTTPMethod:@"HEAD"];
             [httpRequest setHTTPShouldHandleCookies:YES];
+            [httpRequest setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
             self.authMode=1;
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self startImmediately:YES];
@@ -188,7 +192,11 @@ int counter =0 ;
 //        }
         NSString *newCookie = [httpResponse.allHeaderFields valueForKey:@"Set-Cookie"];
         self.authMode=0;
-
+        NSString *csrf_url = [self.gmaRootURL stringByAppendingString:CSRF_TOKEN_URL];
+        
+        self.csrf_token = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:csrf_url] encoding:nil error:nil];
+        
+        
         if(!newCookie)
         {
             [[NSNotificationCenter defaultCenter]
@@ -227,6 +235,14 @@ int counter =0 ;
         [cookieStorage deleteCookie:cookie];
         NSLog(@"deleted cookie");
     }
+     //Try to get csrf-token
+   
+   
+    
+    
+
+   
+  
     
     
     //Get Service
@@ -570,13 +586,16 @@ int counter =0 ;
    // NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"POST"];
+   // NSString *csrf_url = [self.gmaRootURL stringByAppendingString:CSRF_TOKEN_URL];
     
+    //self.csrf_token = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:csrf_url] encoding:nil error:nil];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
     [request setHTTPBody:postData];
     
     
@@ -662,14 +681,15 @@ int counter =0 ;
    // NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+
     
     NSURLResponse *response;
     NSError *err;
@@ -720,7 +740,7 @@ int counter =0 ;
 
 -(NSDictionary *)getDirectorReportAnswers: (NSNumber *) directorReportId
 {
-    if([directorReportId intValue] <0) directorReportId=[NSNumber numberWithInt: -[directorReportId integerValue]];
+    if([directorReportId intValue] <0) directorReportId=[NSNumber numberWithLong: -[directorReportId integerValue]];
     
     NSString *getDirectorReport = [self.gmaURL  stringByAppendingFormat: @"/%@/%@", GMA_DirectorReport, directorReportId ];
     
@@ -748,14 +768,15 @@ int counter =0 ;
     //NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"PUT"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-   
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+
     
     NSURLResponse *response;
     NSError *err;	
@@ -794,14 +815,15 @@ int counter =0 ;
     //NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"PUT"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+
     
     NSURLResponse *response;
     NSError *err;
@@ -843,14 +865,15 @@ int counter =0 ;
     //NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"PUT"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+
     
     NSURLResponse *response;
     NSError *err;
@@ -889,14 +912,15 @@ int counter =0 ;
     //NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"PUT"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+
     
     NSURLResponse *response;
     NSError *err;
@@ -941,14 +965,15 @@ int counter =0 ;
     //NSLog(@"%@", post);
     NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: getReportsURL ]];
     [request setHTTPMethod:@"POST"];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
-    
+    [request setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+
     
     NSURLResponse *response;
     NSError *err;

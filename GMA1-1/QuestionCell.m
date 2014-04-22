@@ -52,15 +52,15 @@
    self.oldValue= answer.text.integerValue;
     NSInteger value = [answer.text intValue ] +1;
     
-    answer.text = [NSString stringWithFormat:@"%d",value];
+    answer.text = [NSString stringWithFormat:@"%ld",(long)value];
     dispatch_queue_t fetchQ =dispatch_queue_create("UpdateNumber", nil);
     dispatch_async(fetchQ, ^{
 
         if(tvc)
-            [tvc saveAnswerForMeasurementId:measurementId measurementType: measurementType inStaffReport:staffReportId withValue:answer.text  oldValue:[NSString stringWithFormat:@"%d",self.oldValue] ];
+            [tvc saveAnswerForMeasurementId:measurementId measurementType: measurementType inStaffReport:staffReportId withValue:answer.text  oldValue:[NSString stringWithFormat:@"%ld",(long)self.oldValue] ];
         else if(tvcd)
         {
-            [tvcd saveAnswerForMeasurementId:measurementId  measurementType: measurementType  inStaffReport:staffReportId atNodeId: self.nodeId withValue:answer.text  oldValue:[NSString stringWithFormat:@"%d",self.oldValue] ];
+            [tvcd saveAnswerForMeasurementId:measurementId  measurementType: measurementType  inStaffReport:staffReportId atNodeId: self.nodeId withValue:answer.text  oldValue:[NSString stringWithFormat:@"%ld",(long)self.oldValue] ];
         }
     });
 }
@@ -88,10 +88,10 @@
         dispatch_queue_t fetchQ =dispatch_queue_create("UpdateNumber", nil);
         dispatch_async(fetchQ, ^{
             if(tvc)
-                [tvc saveAnswerForMeasurementId:measurementId  measurementType: measurementType  inStaffReport:staffReportId withValue:answer.text oldValue:[NSString stringWithFormat:@"%d",self.oldValue]];
+                [tvc saveAnswerForMeasurementId:measurementId  measurementType: measurementType  inStaffReport:staffReportId withValue:answer.text oldValue:[NSString stringWithFormat:@"%ld",(long)self.oldValue]];
             else if(tvcd)
             {
-                [tvcd saveAnswerForMeasurementId:measurementId  measurementType: measurementType  inStaffReport:staffReportId atNodeId: nodeId  withValue:answer.text  oldValue:[NSString stringWithFormat:@"%d",self.oldValue] ];
+                [tvcd saveAnswerForMeasurementId:measurementId  measurementType: measurementType  inStaffReport:staffReportId atNodeId: nodeId  withValue:answer.text  oldValue:[NSString stringWithFormat:@"%ld",(long)self.oldValue] ];
                 
             }
         });

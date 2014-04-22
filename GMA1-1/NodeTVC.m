@@ -28,8 +28,8 @@ typedef void(^saveBlock)(NSString *);
 saveBlock cacheCompletionBlock;
 
 
-//#define GMA_API_URL @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
-#define GMA_API_URL @"https://gma.agapeconnect.me/index.php?q=gmaservices"
+
+
 #define GMA_Nodes @"gma_node"
 #define GMA_StaffReport @"gma_staffReport/searchOwn"
 

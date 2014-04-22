@@ -36,7 +36,7 @@
 @synthesize bbSubmit;
 
 
-#define GMA_API_URL @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
+
 #define GMA_Nodes @"gma_node"
 #define GMA_StaffReport @"gma_staffReport"
 
@@ -299,7 +299,7 @@ BOOL refreshAfterSave = NO;
 {
     dispatch_async(dispatch_get_main_queue(), ^{
     [self.tableView reloadData];
-    NSLog(@"Sections: %d",self.tableView.numberOfSections);
+    NSLog(@"Sections: %ld",(long)self.tableView.numberOfSections);
     });
 }
 
@@ -446,7 +446,7 @@ BOOL refreshAfterSave = NO;
 
 - (IBAction)segmentAction:(id)sender {
     UISegmentedControl * control = sender;
-    int selectedIndex = [control selectedSegmentIndex];
+    long selectedIndex = [control selectedSegmentIndex];
     if(selectedIndex==0)
     {
         [self.pvc turnLeftFromSender:self];
