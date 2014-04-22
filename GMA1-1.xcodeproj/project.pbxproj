@@ -20,7 +20,6 @@
 		FC358FE916DFDA390039CB9F /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC358FE716DFDA390039CB9F /* PDKeychainBindingsController.m */; };
 		FC3CBF2416BAC45800375433 /* Users+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = FC3CBF2316BAC45800375433 /* Users+Create.m */; };
 		FC405F5B1815747200DEDD49 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC405F5A1815747200DEDD49 /* Images.xcassets */; };
-		FC406A0816B81BA00027D4B4 /* GMA_Servers.m in Sources */ = {isa = PBXBuildFile; fileRef = FC406A0716B81BA00027D4B4 /* GMA_Servers.m */; };
 		FC47547216E2426C00C3ABAD /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FC47547116E2426C00C3ABAD /* GradientButton.m */; };
 		FC47547516E2487300C3ABAD /* GMA_Button.m in Sources */ = {isa = PBXBuildFile; fileRef = FC47547416E2487300C3ABAD /* GMA_Button.m */; };
 		FCB3586D16B7FE8700337856 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = FCB3583816B7FE8700337856 /* Model.m */; };
@@ -87,8 +86,6 @@
 		FC3CBF2216BAC45800375433 /* Users+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Users+Create.h"; sourceTree = "<group>"; };
 		FC3CBF2316BAC45800375433 /* Users+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Users+Create.m"; sourceTree = "<group>"; };
 		FC405F5A1815747200DEDD49 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = GMA/Images.xcassets; sourceTree = "<group>"; };
-		FC406A0616B81BA00027D4B4 /* GMA_Servers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMA_Servers.h; sourceTree = "<group>"; };
-		FC406A0716B81BA00027D4B4 /* GMA_Servers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMA_Servers.m; sourceTree = "<group>"; };
 		FC47547016E2426C00C3ABAD /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientButton.h; path = My_Buttons/GradientButton.h; sourceTree = "<group>"; };
 		FC47547116E2426C00C3ABAD /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientButton.m; path = My_Buttons/GradientButton.m; sourceTree = "<group>"; };
 		FC47547316E2487300C3ABAD /* GMA_Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMA_Button.h; sourceTree = "<group>"; };
@@ -148,6 +145,7 @@
 		FCC0774317425FAE0013F17E /* Users.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Users.m; sourceTree = "<group>"; };
 		FCC0774517425FAE0013F17E /* Measurements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurements.h; sourceTree = "<group>"; };
 		FCC0774617425FAE0013F17E /* Measurements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurements.m; sourceTree = "<group>"; };
+		FCD0D06C18476A8C00A18396 /* GMA_Nodes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "GMA_Nodes 2.xcdatamodel"; sourceTree = "<group>"; };
 		FCD5D5A91815641000FB2477 /* AppIcon60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon60x60@2x.png"; path = "../AppIcon60x60@2x.png"; sourceTree = "<group>"; };
 		FCD5D5AA1815642F00FB2477 /* AppIcon40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon40x40@2x.png"; path = "../AppIcon40x40@2x.png"; sourceTree = "<group>"; };
 		FCD5D5AB1815644B00FB2477 /* AppIcon29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AppIcon29x29@2x.png"; path = "../AppIcon29x29@2x.png"; sourceTree = "<group>"; };
@@ -330,8 +328,6 @@
 				FCB3585316B7FE8700337856 /* StaffReports+Create.h */,
 				FC3CBF2216BAC45800375433 /* Users+Create.h */,
 				FC3CBF2316BAC45800375433 /* Users+Create.m */,
-				FC406A0616B81BA00027D4B4 /* GMA_Servers.h */,
-				FC406A0716B81BA00027D4B4 /* GMA_Servers.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -392,6 +388,11 @@
 				CLASSPREFIX = GMA;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Jon Vellacott";
+				TargetAttributes = {
+					FC227F4716B7FDD900EB7584 = {
+						DevelopmentTeam = 78H7BWCB9Z;
+					};
+				};
 			};
 			buildConfigurationList = FC227F4216B7FDD900EB7584 /* Build configuration list for PBXProject "GMA1-1" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -460,7 +461,6 @@
 				FCB3587C16B7FE8700337856 /* Answers+Create.m in Sources */,
 				FCB3587D16B7FE8700337856 /* TextQuestionCell.m in Sources */,
 				FCB3587E16B7FE8700337856 /* QuestionDetailTVC.m in Sources */,
-				FC406A0816B81BA00027D4B4 /* GMA_Servers.m in Sources */,
 				FC3CBF2416BAC45800375433 /* Users+Create.m in Sources */,
 				FC358FE816DFDA390039CB9F /* PDKeychainBindings.m in Sources */,
 				FC358FE916DFDA390039CB9F /* PDKeychainBindingsController.m in Sources */,
@@ -586,7 +586,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-1";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GMA1-1/GMA1-1-Prefix.pch";
@@ -627,9 +627,10 @@
 		FCB3584516B7FE8700337856 /* GMA_Nodes.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				FCD0D06C18476A8C00A18396 /* GMA_Nodes 2.xcdatamodel */,
 				FCB3584616B7FE8700337856 /* GMA_Nodes.xcdatamodel */,
 			);
-			currentVersion = FCB3584616B7FE8700337856 /* GMA_Nodes.xcdatamodel */;
+			currentVersion = FCD0D06C18476A8C00A18396 /* GMA_Nodes 2.xcdatamodel */;
 			path = GMA_Nodes.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

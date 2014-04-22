@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDataSource>{
+@interface SettingsViewController : UIViewController<UIPickerViewDataSource, UIPickerViewDataSource, UITextFieldDelegate>{
     
    // UIPickerView *gmaPicker;
   // NSArray *arrServers;

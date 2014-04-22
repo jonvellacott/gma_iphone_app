@@ -154,7 +154,7 @@
     NSDate *startDate = [dateFormatter dateFromString:[sr.startDate stringValue]];
     NSDate *endDate = [dateFormatter dateFromString:[sr.endDate stringValue]];
     
-    int diff = abs( [self daysBetweenDate:startDate andDate:endDate]);
+    int diff = abs( (int)[self daysBetweenDate:startDate andDate:endDate]);
   
     if(diff<10)
         return WEEKLY;

@@ -31,13 +31,13 @@
 
 @implementation NSString(NSArrayExtension)
 
-+ (id)stringWithFormat:(NSString *)format array:(NSArray*) arguments;
++ (id)stringWithFormat:(NSString *)format array:(NSArray*)arguments;
 {
-    char *argList = (char *)malloc(sizeof(NSString *) * [arguments count]);
-    [arguments getObjects:(id *)argList];
-    NSString* result = [[NSString alloc] initWithFormat:format arguments:argList];
-    free(argList);
-    return [result autorelease];
+    NSRange range = NSMakeRange(0, [arguments count]);
+    NSMutableData* data = [[NSMutableData dataWithLength:sizeof(id) * [arguments count]] retain];
+    [arguments getObjects:(__unsafe_unretained id *)data.mutableBytes range:range];
+    NSString* result = [[NSString alloc] initWithFormat:format arguments:data.mutableBytes];
+    return result;
 }
 
 @end

@@ -20,8 +20,7 @@
 
 
 
-//#define Global_Ops @"https://www.globalopsccci.org/gma41demo15/index.php?q=gmaservices"
-//#define Ensteins_Gravity @"https://www.einsteinsgravity.com/index.php?q=gmaservices"
+
 #define GetAllServers @"https://agapeconnect.me/GMA/gma_global_directory.svc/GetAllGmaServers?authKey=zRm7aQB4TLzLKH"
 
 
@@ -46,7 +45,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     //arrServers = [[NSArray alloc] initWithObjects: @"Africa", @"Australia", @"Asia",  @"Canada", @"Europe",  @"South America",@"USA",@"Custom",  nil];
-    
+    customServer.delegate=self;
     NSData *jsonData = [[NSString stringWithContentsOfURL:[NSURL URLWithString: GetAllServers]   encoding:NSUTF8StringEncoding error:nil] dataUsingEncoding:NSUTF8StringEncoding];
     
     NSError *error = nil;
@@ -103,6 +102,30 @@
    
     
     
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: YES];
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: NO];
+}
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    const int movementDistance = 80; // tweak as needed
+    const float movementDuration = 0.3f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    [UIView commitAnimations];
 }
 
 -(void)viewWillAppear:(BOOL)animated

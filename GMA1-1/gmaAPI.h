@@ -39,6 +39,7 @@
 @property (nonatomic, strong) NSString *KeyGUID;
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
+@property (nonatomic, strong) NSString *csrf_token;
 @property (nonatomic, assign) int authMode;
 @property (nonatomic, assign) int counter;
 - (id)initWithBaseURL: (NSString *)URL;

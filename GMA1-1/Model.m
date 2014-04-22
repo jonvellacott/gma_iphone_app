@@ -299,7 +299,7 @@ theKeyLoginBlock authLoginBock;
     {
         if(![fileIds objectForKey:fileKey])
         {
-          [fileIds  setObject:[NSString stringWithFormat:@"%d", fileIds.count ] forKey: fileKey];
+          [fileIds  setObject:[NSString stringWithFormat:@"%lu", (unsigned long)fileIds.count ] forKey: fileKey];
             [prefs synchronize];
             
         }
