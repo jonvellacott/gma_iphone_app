@@ -1,0 +1,56 @@
+
+// To check if a library is compiled with CocoaPods you
+// can use the `COCOAPODS` macro definition which is
+// defined in the xcconfigs so it is available in
+// headers also when they are imported in the client
+// project.
+
+
+// AFNetworking
+#define COCOAPODS_POD_AVAILABLE_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_AFNetworking 1
+#define COCOAPODS_VERSION_MINOR_AFNetworking 3
+#define COCOAPODS_VERSION_PATCH_AFNetworking 4
+
+// MMDrawerController
+#define COCOAPODS_POD_AVAILABLE_MMDrawerController
+#define COCOAPODS_VERSION_MAJOR_MMDrawerController 0
+#define COCOAPODS_VERSION_MINOR_MMDrawerController 5
+#define COCOAPODS_VERSION_PATCH_MMDrawerController 4
+
+// MMDrawerController/Core
+#define COCOAPODS_POD_AVAILABLE_MMDrawerController_Core
+#define COCOAPODS_VERSION_MAJOR_MMDrawerController_Core 0
+#define COCOAPODS_VERSION_MINOR_MMDrawerController_Core 5
+#define COCOAPODS_VERSION_PATCH_MMDrawerController_Core 4
+
+// MMDrawerController/MMDrawerBarButtonItem
+#define COCOAPODS_POD_AVAILABLE_MMDrawerController_MMDrawerBarButtonItem
+#define COCOAPODS_VERSION_MAJOR_MMDrawerController_MMDrawerBarButtonItem 0
+#define COCOAPODS_VERSION_MINOR_MMDrawerController_MMDrawerBarButtonItem 5
+#define COCOAPODS_VERSION_PATCH_MMDrawerController_MMDrawerBarButtonItem 4
+
+// MMDrawerController/MMDrawerVisualStates
+#define COCOAPODS_POD_AVAILABLE_MMDrawerController_MMDrawerVisualStates
+#define COCOAPODS_VERSION_MAJOR_MMDrawerController_MMDrawerVisualStates 0
+#define COCOAPODS_VERSION_MINOR_MMDrawerController_MMDrawerVisualStates 5
+#define COCOAPODS_VERSION_PATCH_MMDrawerController_MMDrawerVisualStates 4
+
+// MMDrawerController/Subclass
+#define COCOAPODS_POD_AVAILABLE_MMDrawerController_Subclass
+#define COCOAPODS_VERSION_MAJOR_MMDrawerController_Subclass 0
+#define COCOAPODS_VERSION_MINOR_MMDrawerController_Subclass 5
+#define COCOAPODS_VERSION_PATCH_MMDrawerController_Subclass 4
+
+// TheKey
+#define COCOAPODS_POD_AVAILABLE_TheKey
+#define COCOAPODS_VERSION_MAJOR_TheKey 0
+#define COCOAPODS_VERSION_MINOR_TheKey 0
+#define COCOAPODS_VERSION_PATCH_TheKey 2
+
+// gtm-oauth2-thekey
+#define COCOAPODS_POD_AVAILABLE_gtm_oauth2_thekey
+#define COCOAPODS_VERSION_MAJOR_gtm_oauth2_thekey 1
+#define COCOAPODS_VERSION_MINOR_gtm_oauth2_thekey 0
+#define COCOAPODS_VERSION_PATCH_gtm_oauth2_thekey 120
+
