@@ -1,0 +1,1 @@
+PODS_GTM_OAUTH__THEKEY_OTHER_LDFLAGS = -framework Security -framework SystemConfiguration
