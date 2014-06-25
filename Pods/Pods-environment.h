@@ -42,11 +42,11 @@
 #define COCOAPODS_VERSION_MINOR_MMDrawerController_Subclass 5
 #define COCOAPODS_VERSION_PATCH_MMDrawerController_Subclass 4
 
-// TheKey
-#define COCOAPODS_POD_AVAILABLE_TheKey
-#define COCOAPODS_VERSION_MAJOR_TheKey 0
-#define COCOAPODS_VERSION_MINOR_TheKey 0
-#define COCOAPODS_VERSION_PATCH_TheKey 2
+// TheKeyOAuth2
+#define COCOAPODS_POD_AVAILABLE_TheKeyOAuth2
+#define COCOAPODS_VERSION_MAJOR_TheKeyOAuth2 0
+#define COCOAPODS_VERSION_MINOR_TheKeyOAuth2 5
+#define COCOAPODS_VERSION_PATCH_TheKeyOAuth2 1
 
 // gtm-oauth2-thekey
 #define COCOAPODS_POD_AVAILABLE_gtm_oauth2_thekey

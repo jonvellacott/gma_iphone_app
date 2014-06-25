@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TheKey.h>
+
 @interface GMAAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

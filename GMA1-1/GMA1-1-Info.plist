@@ -44,5 +44,13 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>TheKeyClientID</key>
+	<string>681645646876316</string>
+	<key>TheKeyServerURL</key>
+	<string>https://thekey.me/cas/</string>
+	<key>TheKeyOAuth2ClientID</key>
+	<string>681645646876316</string>
+	<key>TheKeyOAuth2ServerURL</key>
+	<string>https://thekey.me/cas/</string>
 </dict>
 </plist>

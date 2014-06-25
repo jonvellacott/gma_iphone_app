@@ -9,7 +9,10 @@
 #import "QuestionDetailTVC.h"
 #import "QuestionCell.h"
 #import "TextQuestionCell.h"
-
+#import "GMALoginViewController.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 @interface QuestionDetailTVC ()
 
 @end
@@ -54,6 +57,22 @@
 {
     [self dismissPickerView];
     [super viewWillDisappear:animated];
+    
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // returns the same tracker you created in your app delegate
+    // defaultTracker originally declared in AppDelegate.m
+    id tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-29919940-5"];
+    
+    // This screen name value will remain set on the tracker and sent with
+    // hits until it is set to a new value or to nil.
+    [tracker set:kGAIScreenName value: self.navigationItem.title ];
+    
+    // manual screen tracking
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     
 }
 

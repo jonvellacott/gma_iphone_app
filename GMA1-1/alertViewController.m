@@ -74,15 +74,19 @@
     [self.alertBar setBackgroundColor:color];
     if(showSpinner)
     {
-        [self.spinner startAnimating];
+        [self.spinner performSelector:@selector(startAnimating) withObject:nil afterDelay:0.1 ];
     }
     else{
-        [self.spinner stopAnimating];
+        [self.spinner performSelector:@selector(stopAnimating) withObject:nil afterDelay:0.1 ];
+
     }
      });
                     
     
 }	
+
+
+
 
 -(void) hideAlertBar
 {

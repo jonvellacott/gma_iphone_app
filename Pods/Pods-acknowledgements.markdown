@@ -47,9 +47,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## TheKey
+## TheKeyOAuth2
 
-Copyright (c) 2013, Campus Crusade for Christ, Intl.
+Copyright (c) 2014, Campus Crusade for Christ, Intl.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

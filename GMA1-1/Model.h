@@ -42,7 +42,7 @@
 -(id) initWithCompletionHander: (void (^)(BOOL  success))block ;
 -(void) addItemToCacheStackForMeasurementId:(NSNumber *)measurementId measurementType: (NSString *) measurementType inStaffReport:(NSNumber *)  staffReportId withValue:(NSString *)value oldValue:(NSString *) oldValue;
 -(void) clearCacheStackWithCompletionHandler:(void (^)(NSString *))block;
--(void) authenticateUser: (NSString *)Username WithPassword:(NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock CompletionHander: (void (^)(NSDictionary *status))block;
+-(void) authenticateUserWithLoginSuccessHandler:(void (^)(BOOL))loginBlock CompletionHander: (void (^)(NSDictionary *status))block;
 -(void) fetchAllUserNodesWithCompletionHandler: (void (^)())block;
 
 -(void) fetchStaffReport:(NSNumber *) sr forNode: (NSNumber *) nodeId atDate: (NSNumber *)date completionHandler:(void (^)())block;

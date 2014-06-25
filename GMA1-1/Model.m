@@ -127,9 +127,7 @@ theKeyLoginBlock authLoginBock;
 
 - (void) receiveGmaLoginComplete:(NSNotification *) notification
 {
-    // [notification name] should always be @"TestNotification"
-    // unless you use this method for observation of other notifications
-    // as well.
+   
     
     if([notification.object isEqualToString:@"Success"]){
         NSLog(@"GMA Authentication Complete");
@@ -318,7 +316,7 @@ theKeyLoginBlock authLoginBock;
 }
 
 
--(void) authenticateUser: (NSString *)Username WithPassword:(NSString *)Password LoginSuccessHandler:(void (^)(BOOL))loginBlock CompletionHander: (void (^)(NSDictionary *status))block
+-(void) authenticateUserWithLoginSuccessHandler:(void (^)(BOOL))loginBlock CompletionHander: (void (^)(NSDictionary *status))block
 {
     [self.alertBarController showMessage:@"Authenticating..." withBackgroundColor: activityColor withSpinner: YES];
     self.api.counter = 0;
@@ -326,10 +324,10 @@ theKeyLoginBlock authLoginBock;
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
   
     NSString *gmaServer = [prefs objectForKey:@"gmaServer"];
-    self.myusername = Username;
-    self.mypassword = Password;
-    
-    self.fileName = [self getFileNameForUser:Username atGMAServer:gmaServer ];
+    self.myusername =[TheKeyOAuth2Client sharedOAuth2Client].guid;
+      
+    self.fileName = [self getFileNameForUser:self.myusername atGMAServer:gmaServer ];
+    NSLog(@"Username: %@", self.myusername);
     self.filenameChanged = NO;
     if( ![self.allNodesForUser.fileURL.absoluteString hasSuffix: [fileName stringByAppendingString:@"/"]])
     {
@@ -374,7 +372,7 @@ theKeyLoginBlock authLoginBock;
         }
 
         
-         [api AuthenticateUser:Username WithPassword:Password ];
+         [api AuthenticateUser];
        // [status setObject:[NSNumber numberWithBool:filenameChanged] forKey:@"filenameChanged"] ;
         
                

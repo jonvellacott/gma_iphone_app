@@ -7,7 +7,7 @@
 //
 
 #import "gmaAPI.h"
-
+#import <AFNetworking.h>
 @implementation gmaAPI
 
 @synthesize gmaURL;
@@ -51,6 +51,7 @@ int counter =0 ;
     NSMutableURLRequest *httpRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10];
     [httpRequest setHTTPMethod:@"HEAD"];
     [httpRequest setHTTPShouldHandleCookies:YES];
+    
    // NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self];
         
   //  if(false) urlConnection = urlConnection;  //Get rid of the unused field warning
@@ -77,10 +78,17 @@ int counter =0 ;
 //    
 //    
 //}
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"gmaLoginComplete"
+     object:@"GMA_OFFLINE"];
+    }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
 {
-  
+    
+      
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
     if(httpResponse.statusCode ==302 && (self.authMode==1))
     {
@@ -112,71 +120,26 @@ int counter =0 ;
             //    NSLog(@"%@=%@", cookie.name, cookie.value);
             //}
             
-            
-            NSMutableURLRequest *httpRequest1 = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:self.gmaURL] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
-            [httpRequest1 setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
-            NSURLResponse *resp;
-            NSError *err;
-            httpRequest1.URL=[NSURL URLWithString:[CAS_URL stringByAppendingString:@"v1/tickets"]];
-            NSString *post = [NSString stringWithFormat:@"username=%@&password=%@",self.username , self.password];
-            
-            NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-            
-            NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-            
-            [httpRequest1 setValue:postLength forHTTPHeaderField:@"Content-Length"];
-            [httpRequest1 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [httpRequest1 setHTTPBody:postData];
-            [httpRequest1 setHTTPMethod:@"POST"];
-            [NSURLConnection  sendSynchronousRequest:httpRequest1 returningResponse:&resp error:&err];
-            NSString *tgt;
-            NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)resp;
-            if ([httpResponse respondsToSelector:@selector(allHeaderFields)]) {
-                NSDictionary *dictionary = [httpResponse allHeaderFields];
-                //tgt=[[dictionary valueForKey:@"location"] stringByReplacingOccurrencesOfString:[httpRequest1.URL.absoluteString stringByAppendingString:@"/"] withString:@""];
-                tgt=[dictionary valueForKey:@"location"];
-                
-                NSLog(@"tgt: %@", tgt);
-                if(!tgt) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"gmaLoginComplete"  object:@"AuthFailed"];
-                    return nil;
-                }
-                    
-            }
-            
-            
-            //GET ST
-            httpRequest1.URL=[NSURL URLWithString:tgt];
-            post = [NSString stringWithFormat:@"service=%@", self.targetService];
-            postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-            
-            postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
-            
-            [httpRequest1 setValue:postLength forHTTPHeaderField:@"Content-Length"];
-            [httpRequest1 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-            [httpRequest1 setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
-            [httpRequest1 setHTTPBody:postData];
-            NSData *data = [NSURLConnection  sendSynchronousRequest:httpRequest1 returningResponse:&resp error:&err];
-            NSString *st= [[NSString alloc] initWithData:data
-                                                encoding:NSUTF8StringEncoding] ;
-           
-            if(!st)[[NSNotificationCenter defaultCenter]
-             postNotificationName:@"gmaLoginComplete"
-             object:@"NoServiceTicket"];
-         
-            
-            NSLog(@"%@", st);
-            NSLog(@"%@" ,service);
-            NSMutableURLRequest *httpRequest = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:[[service stringByAppendingString:@"&ticket="]stringByAppendingString:st]]  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
-            [httpRequest setHTTPMethod:@"HEAD"];
-            [httpRequest setHTTPShouldHandleCookies:YES];
-            [httpRequest setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
-            self.authMode=1;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self startImmediately:YES];
-            if(false) urlConnection = urlConnection;
-            });
+            [[TheKeyOAuth2Client sharedOAuth2Client] ticketForServiceURL:[NSURL URLWithString:service ] complete:^(NSString *ticket) {
+                                   
+                                   NSMutableURLRequest *httpRequest = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:[[service stringByAppendingString:@"&ticket="]stringByAppendingString:ticket]]  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+                                   [httpRequest setHTTPMethod:@"HEAD"];
+                                   [httpRequest setHTTPShouldHandleCookies:YES];
+                                   [httpRequest setValue: self.csrf_token forHTTPHeaderField:@"X-CSRF-Token"];
+                                   self.authMode=1;
+                                   dispatch_async(dispatch_get_main_queue(), ^{
+                                       NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest delegate:self startImmediately:YES];
+                                       if(false) urlConnection = urlConnection;
+                                   });
 
+                               }
+             ];
+                                   
+                                   
+            
+            
+            
+           
             
         }
         
@@ -216,6 +179,49 @@ int counter =0 ;
 
   
     return request;
+}
+-(void)AuthenticateUser
+{
+    
+    self.gmaRootURL = [self.gmaURL stringByReplacingOccurrencesOfString:@"index.php?q=gmaservices" withString:@""];
+    
+   
+    
+   
+    // NSLog(@"%@", self.gmaURL);
+    //  NSMutableDictionary *rtn= [NSMutableDictionary dictionaryWithObjectsAndKeys:@"ERROR", @"Status", @"Unknown", @"Reason", nil];
+    self.targetService=nil;
+    ///Delete existing cookie session:
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [cookieStorage cookies];
+    for (NSHTTPCookie *cookie in cookies) {
+        [cookieStorage deleteCookie:cookie];
+        NSLog(@"deleted cookie");
+    }
+    //Try to get csrf-token
+    //Get Service
+    
+    NSMutableURLRequest *httpRequest1 = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:self.gmaURL] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:30];
+    [httpRequest1 setHTTPMethod:@"HEAD"];
+    [httpRequest1 setHTTPShouldHandleCookies:YES];
+    
+    
+    
+    
+    self.authMode=1;
+    //  [NSURLConnection  sendSynchronousRequest:httpRequest1 returningResponse:&resp error:&err];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSURLConnection *urlConnection = [[NSURLConnection alloc] initWithRequest:httpRequest1 delegate:self startImmediately:YES];
+        if(false) urlConnection = urlConnection;
+        
+    });
+  
+    
+    return  ;
+    
+
+    
+    
 }
 
 
