@@ -17,7 +17,9 @@
 #import "QuestionDetailTVC.h"
 #import "gmaAPI.h"
 #import "LoginViewController.h"
-
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAIDictionaryBuilder.h"
 @interface QuestionTVC ()
 
 @end
@@ -141,7 +143,22 @@ BOOL refreshAfterSave = NO;
 {
     [super awakeFromNib];     
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    // returns the same tracker you created in your app delegate
+    // defaultTracker originally declared in AppDelegate.m
+    id tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-29919940-5"];
+    
+    // This screen name value will remain set on the tracker and sent with
+    // hits until it is set to a new value or to nil.
+    [tracker set:kGAIScreenName value: self.navigationItem.title ];
+    
+    // manual screen tracking
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    
+}
 
 - (void)viewDidLoad
 {
@@ -152,6 +169,7 @@ BOOL refreshAfterSave = NO;
     self.refreshControl = refreshControl;
   
   
+
        
         // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -388,6 +406,13 @@ BOOL refreshAfterSave = NO;
 - (void) saveAnswerForMeasurementId:(NSNumber *)measurementId measurementType: (NSString *) measurementType inStaffReport:(NSNumber *)  staffReportId withValue:(NSString *)value oldValue:(NSString *) oldValue
 {
   // [self  performFetch];
+    id tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-29919940-5"];
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action"     // Event category (required)
+                                                          action:@"measurement changed"  // Event action (required)
+                                                           label:staffReportId.stringValue         // Event label
+                                                           value:measurementId ] build]];    // Event value
+
     self.suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     [self.dataModel saveModelAnswerForMeasurementId:measurementId measurementType:measurementType inStaffReport:staffReportId atNodeId:self.nodeId  withValue:value oldValue:oldValue completionHandler: saveValueBlock];
         

@@ -7,40 +7,25 @@
 //
 
 #import "GMAAppDelegate.h"
-#import <AFNetworking.h>
+#import "GAI.h"
 @implementation GMAAppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Activate Network Activity handling in AFNetworking
-    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
     
-    TheKey *theKey = [TheKey theKey];
-    if([theKey canAuthenticate] && [theKey getGuid]) {
-       // [[CourseManager sharedManager] syncAllCoursesFromHub];
-    }
-    else {
-        [self performSelector:@selector(showLoginDialog) withObject:nil afterDelay:0.1];
-    }
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
+    // Initialize tracker. Replace with your tracking ID.
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-29919940-5"];
     return YES;
 }
 
--(void)showLoginDialog {
-    UIViewController *loginDialog = [[TheKey theKey] showDialog:self];
-    [loginDialog setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self.window.rootViewController presentViewController:loginDialog animated:YES completion:^{}];
-}
-
--(void)loginSuccess {
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-    //[[CourseManager sharedManager] syncAllCoursesFromHub];
-}
-
--(void)loginFailure {
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-}
 
 
 							

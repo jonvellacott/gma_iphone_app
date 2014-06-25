@@ -8,6 +8,7 @@
 
 #import "TextQuestionCell.h"
 
+
 @implementation TextQuestionCell
 @synthesize title;
 
@@ -57,6 +58,9 @@
     if(hasChanged)
     {
         hasChanged = NO;
+        
+       
+        
         //NSLog(@"Text changed");
         if(tvc)
             [tvc saveAnswerForMeasurementId:measurementId measurementType:@"Text" inStaffReport:staffReportId withValue:answer.text oldValue:nil];

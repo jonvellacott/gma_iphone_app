@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <TheKeyOAuth2Client.h>
 @interface gmaAPI : NSObject<NSURLConnectionDelegate>
 
 
@@ -58,7 +58,7 @@
 -(NSArray *)getUsers: (BOOL) active;
 - (void) targetServerForGmaServer: (NSString *)gmaServer ;
 
-
+-(void)AuthenticateUser;
 
 @end
 ;

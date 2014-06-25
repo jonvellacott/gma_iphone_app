@@ -149,7 +149,7 @@ int count =0 ;
         [prefs synchronize];
     
     self.nodesTVC.dataModel = nil;
-    [self.nodesTVC loginUser:userName.text WithPassword:password.text ];
+    //[self.nodesTVC loginUser:userName.text WithPassword:password.text ];
     [self.view endEditing:YES];
     
     

@@ -10,13 +10,15 @@
 #import "CoreDataTableViewController.h"
 #import "Model.h"
 #import "alertViewController.h"
-@interface NodeTVC : CoreDataTableViewController <UIAlertViewDelegate>
+#import <TheKeyOAuth2Client.h>
+@interface NodeTVC : CoreDataTableViewController <UIAlertViewDelegate,TheKeyOAuth2ClientLoginDelegate>
 
 @property (nonatomic, strong) UIManagedDocument *allNodesForUser;
 @property (nonatomic, strong)  Model *dataModel;
 @property (nonatomic, strong) UIActivityIndicatorView *activity;
 @property (nonatomic, strong) UIBarButtonItem *loginButton;
+@property (nonatomic, strong) NSString *uri;
 
--(void) loginUser: (NSString *)username WithPassword: (NSString *)password;
+//-(void) loginUser: (NSString *)username WithPassword: (NSString *)password;
 - (void)doReconnect;
 @end
