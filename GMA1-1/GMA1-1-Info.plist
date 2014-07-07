@@ -28,14 +28,6 @@
 	<string>1.5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>TheKeyClientID</key>
-	<string>681645646876316</string>
-	<key>TheKeyOAuth2ClientID</key>
-	<string>681645646876316</string>
-	<key>TheKeyOAuth2ServerURL</key>
-	<string>https://thekey.me/cas/</string>
-	<key>TheKeyServerURL</key>
-	<string>https://thekey.me/cas/</string>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard_iPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>
