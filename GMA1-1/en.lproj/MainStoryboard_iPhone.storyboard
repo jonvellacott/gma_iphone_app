@@ -620,7 +620,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="GMA" id="s1z-Yh-3tC"/>
                     <connections>
-                        <segue destination="A8b-1V-af6" kind="push" id="XLJ-Zb-Yeh"/>
+                        <segue destination="A8b-1V-af6" kind="push" identifier="Nodes" id="XLJ-Zb-Yeh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heT-qs-O3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
