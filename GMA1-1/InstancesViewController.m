@@ -18,7 +18,8 @@
 #import "GAIDictionaryBuilder.h"
 
 #define GMA_SERVICE_URL  @"https://services.gcx.org/gma/auth/service"
-#define GMA_SERVICE_LOGIN  @"https://services.gcx.org/gma/auth/login?ticket="
+//#define GMA_SERVICE_LOGIN  @"https://services.gcx.org/gma/auth/login?ticket="
+#define GMA_SERVICE_LOGIN  @"https://services.gcx.org/gma/auth/login"
 #define GMA_SERVICE_GET  @"https://services.gcx.org/gma/{session_id}/servers"
 
 @interface InstancesViewController ()
@@ -51,7 +52,8 @@
     // This screen name value will remain set on the tracker and sent with
     // hits until it is set to a new value or to nil.
     [tracker set:kGAIScreenName
-           value:@"Home Screen (Instances)"];
+           value:@"Servers"];
+    [tracker set:[GAIFields customDimensionForIndex:3] value: [TheKeyOAuth2Client sharedOAuth2Client].guid];
     
     // manual screen tracking
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
@@ -134,22 +136,24 @@
     if(gma_service){
     [[TheKeyOAuth2Client sharedOAuth2Client] ticketForServiceURL:[NSURL URLWithString:gma_service] complete:^(NSString *ticket) {
         
-        NSString *url = [GMA_SERVICE_LOGIN stringByAppendingString:ticket ];
+        //NSString *url = [GMA_SERVICE_LOGIN stringByAppendingString:ticket ];
+        NSString *url = GMA_SERVICE_LOGIN ;
         
         NSLog(@"%@", url);
         NSLog(@"%@", ticket);
+        if(ticket)
+        {
+         NSData *postData = [[@"ticket=" stringByAppendingString:ticket] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
         
-        // NSData *postData = [post dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        
-        //NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
+        NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString: url]];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:@"*/*" forHTTPHeaderField:@"Accept"];
-        
-        //[request setHTTPBody:postData];
-        
+        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:postData];
+     
         
         
         NSURLResponse *response;
@@ -160,7 +164,7 @@
         NSString *session =[results1 valueForKey:@"id"];
         NSLog(@"%@", session);
         if(session){
-        NSString *url2 =[GMA_SERVICE_GET stringByReplacingOccurrencesOfString:@"{session_id}" withString:session];
+            NSString *url2 =[GMA_SERVICE_GET stringByReplacingOccurrencesOfString:@"{session_id}" withString:session];
         
         
         
@@ -186,13 +190,14 @@
             ntvc.navigationItem.title=[inst objectForKey:@"name"];
             [self.instances addObject:ntvc];
         }
+            [self.tableView reloadData];
         if(self.instances.count==1){
             [self.navigationController pushViewController:self.instances.firstObject  animated:YES];
         }
         }
         if(block) block();
         // NSLog(@"%d" ,results.count);
-            
+        }
         
     }];
     }
@@ -303,6 +308,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSDictionary *inst = [((NSArray *)[prefs objectForKey:@"gma_instances"]) objectAtIndex:indexPath.row];
     [prefs setObject:[[inst objectForKey:@"uri"] stringByAppendingString:@"index.php?q=gmaservices"] forKey:@"gmaServer"];
+     [prefs setObject:[inst objectForKey:@"name"] forKey:@"gmaServerName"];
     [prefs synchronize];
     
   

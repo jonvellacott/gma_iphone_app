@@ -153,8 +153,14 @@ BOOL refreshAfterSave = NO;
     
     // This screen name value will remain set on the tracker and sent with
     // hits until it is set to a new value or to nil.
-    [tracker set:kGAIScreenName value: self.navigationItem.title ];
+    [tracker set:kGAIScreenName value: @"Report"];
+
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [tracker set:[GAIFields customDimensionForIndex:3] value: [TheKeyOAuth2Client sharedOAuth2Client].guid];
+    [tracker set:[GAIFields customDimensionForIndex:2] value: self.nodeId.stringValue];
+    [tracker set:[GAIFields customDimensionForIndex:1] value:  [prefs objectForKey:@"gmaServerName"]];
     // manual screen tracking
     [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     

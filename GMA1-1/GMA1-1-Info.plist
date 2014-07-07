@@ -21,13 +21,21 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4</string>
+	<string>1.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.4</string>
+	<string>1.5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>TheKeyClientID</key>
+	<string>681645646876316</string>
+	<key>TheKeyOAuth2ClientID</key>
+	<string>681645646876316</string>
+	<key>TheKeyOAuth2ServerURL</key>
+	<string>https://thekey.me/cas/</string>
+	<key>TheKeyServerURL</key>
+	<string>https://thekey.me/cas/</string>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard_iPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -44,13 +52,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>TheKeyClientID</key>
-	<string>681645646876316</string>
-	<key>TheKeyServerURL</key>
-	<string>https://thekey.me/cas/</string>
-	<key>TheKeyOAuth2ClientID</key>
-	<string>681645646876316</string>
-	<key>TheKeyOAuth2ServerURL</key>
-	<string>https://thekey.me/cas/</string>
 </dict>
 </plist>
