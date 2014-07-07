@@ -16,6 +16,7 @@
 		FC227F5D16B7FDD900EB7584 /* GMAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC227F5C16B7FDD900EB7584 /* GMAAppDelegate.m */; };
 		FC227F6616B7FDD900EB7584 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6416B7FDD900EB7584 /* MainStoryboard_iPhone.storyboard */; };
 		FC227F6916B7FDD900EB7584 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC227F6716B7FDD900EB7584 /* MainStoryboard_iPad.storyboard */; };
+		FC29A10E196AF7B100A7BD51 /* GMA.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC29A10D196AF7B100A7BD51 /* GMA.plist */; };
 		FC358FE216DFD78F0039CB9F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC358FE116DFD78E0039CB9F /* Security.framework */; };
 		FC358FE816DFDA390039CB9F /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = FC358FE516DFDA390039CB9F /* PDKeychainBindings.m */; };
 		FC358FE916DFDA390039CB9F /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC358FE716DFDA390039CB9F /* PDKeychainBindingsController.m */; };
@@ -85,6 +86,7 @@
 		FC227F6216B7FDD900EB7584 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FC227F6516B7FDD900EB7584 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		FC227F6816B7FDD900EB7584 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		FC29A10D196AF7B100A7BD51 /* GMA.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GMA.plist; sourceTree = "<group>"; };
 		FC358FE116DFD78E0039CB9F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FC358FE416DFDA390039CB9F /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
 		FC358FE516DFDA390039CB9F /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		FC227F5316B7FDD900EB7584 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FC29A10D196AF7B100A7BD51 /* GMA.plist */,
 				FCFA03B916E8EA2400B3DA8A /* Icons */,
 				FCB3586716B7FE8700337856 /* DoneDown3.png */,
 				FCB3586816B7FE8700337856 /* DoneUp3.png */,
@@ -468,6 +471,7 @@
 				FCB3588116B7FE8700337856 /* 1333636140_DrawingPin1_Blue.png in Resources */,
 				FCD5D5AE1815728B00FB2477 /* Default-568h@2x.png in Resources */,
 				FC405F5B1815747200DEDD49 /* Images.xcassets in Resources */,
+				FC29A10E196AF7B100A7BD51 /* GMA.plist in Resources */,
 				FCB3588216B7FE8700337856 /* Settings.png in Resources */,
 				FCB3588316B7FE8700337856 /* logo_thekey.png in Resources */,
 				FCB3588416B7FE8700337856 /* 32.png in Resources */,
@@ -633,7 +637,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "67DE6A50-325E-4751-81F2-30EFB3988440";
+				PROVISIONING_PROFILE = "619461EE-C89D-4675-89B1-6CAF06208ED1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

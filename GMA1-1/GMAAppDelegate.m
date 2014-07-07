@@ -7,6 +7,7 @@
 //
 
 #import "GMAAppDelegate.h"
+#import <TheKeyOAuth2Client.h>
 #import "GAI.h"
 @implementation GMAAppDelegate
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -23,6 +24,11 @@
     
     // Initialize tracker. Replace with your tracking ID.
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-29919940-5"];
+    NSURL *file =[[NSBundle mainBundle] URLForResource:@"GMA" withExtension:@"plist"];
+    NSDictionary *plistContent = [NSDictionary dictionaryWithContentsOfURL:file];
+    
+    
+    [[TheKeyOAuth2Client sharedOAuth2Client]  setServerURL:[NSURL URLWithString: [plistContent objectForKey:@"TheKeyServerURL"]] clientId:[plistContent objectForKey:@"TheKeyClientId"]];
     return YES;
 }
 
